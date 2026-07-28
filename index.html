@@ -1,16 +1,15 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-profile="work">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title data-en="PAGER — Private communication begins with boundaries">PAGER — Приватное общение начинается с границ</title>
-<meta name="description" content="PAGER — мессенджер с профилями общения, мультипрофилем и временными контактами. Инвестиционная страница раннего раунда.">
+<meta name="description" content="PAGER — мессенджер, где профиль общения решает, что человеку доступно. Инвестиционная страница раннего раунда.">
 <meta name="theme-color" content="#EDE9E2">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Crect width='60' height='60' rx='13' fill='%230B0B0C'/%3E%3Cg transform='translate(4 6) scale(.87)'%3E%3Cpath d='M8 2h44a6 6 0 0 1 6 6v26a6 6 0 0 1-6 6H24l-14 12V40H8a6 6 0 0 1-6-6V8a6 6 0 0 1 6-6z' fill='none' stroke='%23EDE9E2' stroke-width='5'/%3E%3Crect x='13' y='16' width='9' height='9' rx='2.6' fill='%23EDE9E2'/%3E%3Crect x='25.5' y='16' width='9' height='9' rx='2.6' fill='%23EDE9E2'/%3E%3Crect x='38' y='16' width='11' height='9' rx='2.6' fill='%23009DFF'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Crect width='60' height='60' rx='13' fill='%230A0A0B'/%3E%3Cg transform='translate(4 6) scale(.87)'%3E%3Cpath d='M8 2h44a6 6 0 0 1 6 6v26a6 6 0 0 1-6 6H24l-14 12V40H8a6 6 0 0 1-6-6V8a6 6 0 0 1 6-6z' fill='none' stroke='%23EDE9E2' stroke-width='5'/%3E%3Crect x='13' y='16' width='9' height='9' rx='2.6' fill='%23EDE9E2'/%3E%3Crect x='25.5' y='16' width='9' height='9' rx='2.6' fill='%23EDE9E2'/%3E%3Crect x='38' y='16' width='11' height='9' rx='2.6' fill='%2338BDF8'/%3E%3C/g%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="PAGER — Приватное общение начинается с границ">
-<meta property="og:description" content="Профили общения, мультипрофиль и временные контакты. Инвестиционная страница раннего раунда.">
-<meta property="og:image" content="assets/img/hero-d.jpg">
+<meta property="og:description" content="Профиль общения решает, что человеку доступно. Инвестиционная страница раннего раунда.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -18,51 +17,68 @@
 </head>
 <body>
 
-<!-- ══════════════════ PRELOADER ══════════════════ -->
-<div id="preloader" aria-hidden="true">
-  <div class="pl-inner">
-    <div class="pl-mark">
-      <svg viewBox="0 0 60 54" fill="none"><use href="#logomark"/></svg>
-    </div>
-    <div class="pl-word"><span data-en="BOUNDARIES">ГРАНИЦЫ</span></div>
-  </div>
-  <div class="pl-count"><span id="plNum">000</span></div>
-  <div class="pl-curtain"></div>
-</div>
-
 <svg style="position:absolute;width:0;height:0" aria-hidden="true">
   <symbol id="logomark" viewBox="0 0 60 54">
     <path d="M8 2h44a6 6 0 0 1 6 6v26a6 6 0 0 1-6 6H24l-14 12V40H8a6 6 0 0 1-6-6V8a6 6 0 0 1 6-6z"
           fill="none" stroke="currentColor" stroke-width="4.5" stroke-linejoin="round"/>
     <rect x="13" y="16" width="9" height="9" rx="2.6" fill="currentColor"/>
     <rect x="25.5" y="16" width="9" height="9" rx="2.6" fill="currentColor"/>
-    <rect x="38" y="16" width="11" height="9" rx="2.6" fill="#009DFF"/>
+    <rect x="38" y="16" width="11" height="9" rx="2.6" fill="var(--lens)"/>
   </symbol>
 </svg>
 
 <div class="grain" aria-hidden="true"></div>
 <div class="cursor" aria-hidden="true"><i class="c-dot"></i><i class="c-ring"></i></div>
-<div class="scroll-progress" aria-hidden="true"><i></i></div>
+<div class="wipe" id="wipe" aria-hidden="true"></div>
 
-<!-- ══════════════════ NAV ══════════════════ -->
+<!-- ═══════════ ПОРОГ ═══════════ -->
+<div class="thr" id="threshold" hidden>
+  <div class="thr-head">
+    <span class="mono thr-step">00 <i></i> <span data-en="Threshold">Порог</span></span>
+    <h1 class="thr-q d-2" data-en="WHO ARE YOU<br>ARRIVING AS?">КЕМ ВЫ<br>ПРИХОДИТЕ?</h1>
+    <p class="thr-sub" data-en="PAGER shows different things to different people. Pick a profile — the page will open through it.">PAGER показывает разное разным людям. Выберите профиль — страница откроется через него.</p>
+  </div>
+
+  <ul class="thr-list" id="thrList">
+    <li><button type="button" data-set="personal" aria-label="Личное — близкий круг">
+      <em class="mono">01</em>
+      <span class="thr-n" data-en="Personal">Личное</span>
+      <span class="thr-d" data-en="The inner circle. Everything open.">Близкий круг. Открыто всё.</span>
+      <i class="arr"></i></button></li>
+    <li><button type="button" data-set="work" aria-label="Работа — профессиональное общение">
+      <em class="mono">02</em>
+      <span class="thr-n" data-en="Work">Работа</span>
+      <span class="thr-d" data-en="Professional communication. Text and audio.">Профессиональное общение. Текст и аудио.</span>
+      <i class="arr"></i></button></li>
+    <li><button type="button" data-set="guest" aria-label="Гость — временный доступ">
+      <em class="mono">03</em>
+      <span class="thr-n" data-en="Guest">Гость</span>
+      <span class="thr-d" data-en="Temporary access. Text only, 24 hours.">Временный доступ. Только текст, 24 часа.</span>
+      <i class="arr"></i></button></li>
+    <li><button type="button" data-set="alter" aria-label="Альтер эго — отдельный круг">
+      <em class="mono">04</em>
+      <span class="thr-n" data-en="Alter ego">Альтер эго</span>
+      <span class="thr-d" data-en="A separate circle. Does not overlap the rest.">Отдельный круг. Не пересекается с остальными.</span>
+      <i class="arr"></i></button></li>
+  </ul>
+
+  <div class="thr-foot">
+    <span class="mono" data-en="You can change it at any moment">Профиль можно сменить в любой момент</span>
+    <button type="button" class="mono thr-skip" id="thrSkip" data-en="Just scroll">Просто листать</button>
+  </div>
+</div>
+
+<!-- ═══════════ NAV ═══════════ -->
 <header class="nav" id="nav">
-  <a class="nav-logo" href="#top" aria-label="PAGER">
-    <svg class="nav-mark" viewBox="0 0 60 54" aria-hidden="true"><use href="#logomark"/></svg>
-    <span class="nav-word">PAGER</span>
+  <a class="brand" href="#top" aria-label="PAGER">
+    <svg class="brand-mark" viewBox="0 0 60 54" aria-hidden="true"><use href="#logomark"/></svg>
+    <span class="brand-word">PAGER</span>
   </a>
-  <nav class="nav-links" aria-label="Разделы">
-    <a href="#id" data-en="PAGER ID">PAGER ID</a>
-    <a href="#multi" data-en="Multiprofile">Мультипрофиль</a>
-    <a href="#status" data-en="Status">Статус</a>
-    <a href="#roadmap" data-en="Roadmap">Roadmap</a>
-  </nav>
   <div class="nav-right">
     <div class="lang" role="group" aria-label="Язык">
-      <button type="button" class="lang-btn is-on" data-lang="ru">RU</button>
-      <span class="lang-sep">/</span>
-      <button type="button" class="lang-btn" data-lang="en">EN</button>
+      <button type="button" class="lang-btn is-on" data-lang="ru">RU</button><span>/</span><button type="button" class="lang-btn" data-lang="en">EN</button>
     </div>
-    <a href="#invest" class="nav-cta" data-en="Request the deck">Запросить презентацию</a>
+    <a href="#round" class="nav-cta" data-en="The round">Раунд</a>
     <button type="button" class="burger" id="burger" aria-label="Меню"><i></i><i></i></button>
   </div>
 </header>
@@ -70,509 +86,373 @@
 <div class="menu" id="menu" aria-hidden="true">
   <div class="menu-list">
     <a href="#id"><em>01</em><span data-en="PAGER ID">PAGER ID</span></a>
-    <a href="#profiles"><em>02</em><span data-en="Communication profiles">Профили общения</span></a>
+    <a href="#profiles"><em>02</em><span data-en="Profiles">Профили общения</span></a>
     <a href="#multi"><em>03</em><span data-en="Multiprofile">Мультипрофиль</span></a>
-    <a href="#temp"><em>04</em><span data-en="Temporary contacts">Временные контакты</span></a>
-    <a href="#status"><em>05</em><span data-en="Product status">Статус продукта</span></a>
-    <a href="#business"><em>06</em><span data-en="Business model">Бизнес-модель</span></a>
+    <a href="#temp"><em>04</em><span data-en="24 hours">Временные контакты</span></a>
+    <a href="#status"><em>05</em><span data-en="Status">Статус продукта</span></a>
+    <a href="#business"><em>06</em><span data-en="Model">Бизнес-модель</span></a>
     <a href="#roadmap"><em>07</em><span data-en="Roadmap">Roadmap</span></a>
-    <a href="#invest"><em>08</em><span data-en="The round">Инвестиционный запрос</span></a>
-  </div>
-  <div class="menu-foot">
-    <span class="mono" data-en="Private beta · Q3 2026">Private beta · Q3 2026</span>
-    <span class="mono">A147 0865</span>
+    <a href="#round"><em>08</em><span data-en="The round">Раунд</span></a>
   </div>
 </div>
+
+<!-- ═══════════ HUD ═══════════ -->
+<div class="hud" id="hud">
+  <span class="hud-label mono" data-en="You are viewing as">Вы смотрите как</span>
+  <span class="hud-now mono" id="hudNow">Работа</span>
+  <ul class="hud-dots" id="hudDots">
+    <li><button type="button" data-set="personal" data-p="personal" aria-label="Личное"></button></li>
+    <li><button type="button" data-set="work" data-p="work" aria-label="Работа"></button></li>
+    <li><button type="button" data-set="guest" data-p="guest" aria-label="Гость"></button></li>
+    <li><button type="button" data-set="alter" data-p="alter" aria-label="Альтер эго"></button></li>
+  </ul>
+  <span class="hud-ttl mono" id="hudTtl"></span>
+</div>
+
+<nav class="rail" id="rail" aria-hidden="true">
+  <a href="#hero" class="is-on"><i></i><span>00</span></a>
+  <a href="#id"><i></i><span>01</span></a>
+  <a href="#profiles"><i></i><span>02</span></a>
+  <a href="#multi"><i></i><span>03</span></a>
+  <a href="#temp"><i></i><span>04</span></a>
+  <a href="#status"><i></i><span>05</span></a>
+  <a href="#business"><i></i><span>06</span></a>
+  <a href="#roadmap"><i></i><span>07</span></a>
+  <a href="#round"><i></i><span>08</span></a>
+</nav>
 
 <main id="top">
 
-<!-- ══════════════════ 01 · HERO ══════════════════ -->
+<!-- ═══════════ HERO ═══════════ -->
 <section class="hero" id="hero">
-  <div class="hero-media" aria-hidden="true"><div class="hero-plate"></div></div>
-  <canvas class="hero-swarm" id="swarm" aria-hidden="true"></canvas>
-  <div class="hero-streams" aria-hidden="true">
-    <i style="--c:#20C997;--y:34%;--d:0s"></i>
-    <i style="--c:#38BDF8;--y:48%;--d:1.1s"></i>
-    <i style="--c:#D4C4B7;--y:60%;--d:2.2s"></i>
-    <i style="--c:#FFCE7A;--y:72%;--d:3.1s"></i>
+  <div class="hero-word" aria-hidden="true">
+    <span class="hw base">PAGER</span>
+    <span class="hw lens" id="hwLens">PAGER</span>
   </div>
+  <i class="hero-bound" aria-hidden="true"></i>
+
+  <figure class="hero-phone" aria-hidden="true">
+    <img class="hp-frame" src="assets/img/hand-phone.png" alt="" fetchpriority="high">
+    <span class="hp-screen"><img src="assets/img/scr-3.jpg" alt=""></span>
+  </figure>
 
   <div class="hero-copy">
-    <p class="overline reveal" data-en="A new model of private communication">Новая модель приватного общения</p>
-
-    <h1 class="d-1 split reveal" data-split data-en="PRIVATE COMMUNICATION<br>BEGINS WITH BOUNDARIES">ПРИВАТНОЕ ОБЩЕНИЕ<br>НАЧИНАЕТСЯ С ГРАНИЦ</h1>
-    <h2 class="d-2 split reveal" data-split data-en="PAGER IS BUILT<br>TO KEEP THEM">PAGER СОЗДАН<br>ЧТОБЫ ИХ СОХРАНЯТЬ</h2>
-
-    <p class="hero-sub reveal" data-en="I stay myself — I just open up differently.">Я остаюсь собой, но открываюсь по-разному.</p>
-
-    <div class="hero-cta reveal">
-      <a href="#invest" class="btn btn-solid" data-en="Request the deck">Запросить презентацию<i class="arr"></i></a>
-      <a href="#id" class="btn btn-line" data-en="See the product">Посмотреть продукт<i class="arr"></i></a>
-    </div>
-
-    <div class="hero-meta reveal">
-      <span class="mono">Private beta<i class="dot"></i>Q3 2026</span>
-      <span class="mono">App Store / Google Play<i class="dot"></i>Q1 2027</span>
+    <p class="overline" data-en="A new model of private communication">Новая модель приватного общения</p>
+    <h2 class="d-1 split" data-split data-en="PRIVATE COMMUNICATION<br>BEGINS WITH BOUNDARIES">Приватное общение<br>начинается с границ</h2>
+    <p class="hero-sub" data-en="PAGER is built to keep them. I stay myself — I just open up differently.">PAGER создан чтобы их сохранять. Я остаюсь собой, но открываюсь по-разному.</p>
+    <div class="row-cta">
+      <a href="#round" class="btn btn-solid" data-en="Request the deck">Запросить презентацию<i class="arr"></i></a>
+      <a href="#profiles" class="btn btn-ghost" data-en="Try the mechanic">Попробовать механику<i class="arr"></i></a>
     </div>
   </div>
 
-  <div class="hero-scroll mono" aria-hidden="true"><span data-en="Scroll">Листайте</span><i></i></div>
-</section>
-
-<!-- ══════════════════ 02 · PAGER ID ══════════════════ -->
-<section class="sec s-bone" id="id">
-  <div class="wrap">
-    <header class="sec-head">
-      <span class="idx mono">01</span>
-      <p class="overline reveal" data-en="Identity without a number">Идентичность без номера</p>
-      <h2 class="d-3 split reveal" data-split data-en="Contact without exposing<br>your personal number">Связь без раскрытия<br>личного номера</h2>
-      <p class="lead reveal" data-en="One PAGER ID becomes your public point of contact — for search, for conversation, for profiles.">Один PAGER ID становится вашей публичной точкой контакта — для поиска, общения и профилей.</p>
-    </header>
-
-    <div class="id-stage reveal">
-      <div class="id-card">
-        <span class="mono id-label">PAGER ID</span>
-        <div class="id-num" id="idNum" aria-label="A147 0865">A147 0865</div>
-        <span class="id-cap" data-en="One ID for every context of communication.">Один ID для всех контекстов общения.</span>
-      </div>
-      <figure class="id-shot">
-        <img src="assets/img/id-shot.jpg" alt="Экран PAGER: входящий запрос, выбор профиля общения и доступов" loading="lazy" decoding="async">
-      </figure>
-    </div>
-
-    <div class="cols">
-      <p class="body reveal" data-en="It is enough for someone to know your PAGER ID to find you in the app. Your personal phone number is never exposed and never becomes a permanent channel to you.">Человеку достаточно знать ваш PAGER ID, чтобы найти вас в приложении. Личный номер телефона при этом не раскрывается и не становится постоянным каналом связи.</p>
-      <p class="body reveal" data-en="Unlike an ordinary username, a PAGER ID is tied to communication profiles, openness settings and the lifespan of the contact.">В отличие от обычного ника, PAGER ID связан с профилями общения, настройками открытости и сроком контакта.</p>
-    </div>
-
-    <aside class="premium reveal">
-      <span class="mono tag">Premium ID</span>
-      <p class="d-5 split" data-split data-en="Short. Memorable.<br>Yours.">Короткий. Запоминающийся.<br>Ваш.</p>
-      <p class="body" data-en="A premium PAGER ID can become part of a personal or professional identity.">Premium PAGER ID может стать частью личной или профессиональной идентичности.</p>
-    </aside>
+  <div class="hero-meta mono">
+    <span>Private beta <i>·</i> Q3 2026</span>
+    <span>App Store / Google Play <i>·</i> Q1 2027</span>
   </div>
 </section>
 
-<!-- ══════════════════ 03 · ПРОФИЛИ ОБЩЕНИЯ ══════════════════ -->
-<section class="sec s-ink" id="profiles">
-  <div class="wrap">
-    <header class="sec-head">
-      <span class="idx mono">02</span>
-      <p class="overline reveal" data-en="Terms of communication">Условия общения</p>
-      <h2 class="d-3 split reveal" data-split data-en="Different people —<br>different ways to reach you">Разным людям —<br>разные возможности общения</h2>
-      <p class="lead reveal" data-en="You pick a profile for every new contact: Personal, Work, Guest or Alter ego.">Вы выбираете профиль для каждого нового контакта: Личное, Работа, Гость или Альтер эго.</p>
-    </header>
+<!-- ═══════════ 01 · PAGER ID ═══════════ -->
+<section class="sec ink id" id="id">
+  <div class="sec-tag mono"><span>01</span><i></i><span data-en="Identity without a number">Идентичность без номера</span></div>
 
-    <div class="cols">
-      <p class="body reveal" data-en="A profile defines which ways of reaching you are available to a person, and how long the contact stays alive.">Профиль определяет, какие способы связи доступны человеку и сколько действует контакт.</p>
-      <p class="body reveal" data-en="Close people can get text, audio and video. Colleagues — text and audio. A temporary contact — text only, for 24 hours.">Близким можно открыть текст, аудио и видео. Коллегам — текст и аудио. Временному контакту — только текст на 24 часа.</p>
-    </div>
+  <div class="id-stage">
+    <p class="id-kick d-4 split" data-split data-en="CONTACT WITHOUT<br>EXPOSING YOUR NUMBER">Связь без раскрытия<br>личного номера</p>
+    <div class="id-mega" id="idMega" aria-label="A147 0865">A147 0865</div>
+    <p class="id-cap mono" data-en="One ID for every context of communication">Один ID для всех контекстов общения</p>
+  </div>
 
-    <ul class="pcards">
-      <li class="pcard reveal" style="--c:#20C997">
-        <span class="pc-bar"></span>
-        <span class="mono pc-n">01</span>
-        <h3 class="d-4" data-en="Personal">Личное</h3>
-        <p class="pc-for" data-en="For the inner circle">Для близкого круга</p>
-        <ul class="pc-caps">
-          <li data-on data-en="Text">Текст</li>
-          <li data-on data-en="Audio">Аудио</li>
-          <li data-on data-en="Video">Видео</li>
-        </ul>
-      </li>
-      <li class="pcard reveal" style="--c:#38BDF8">
-        <span class="pc-bar"></span>
-        <span class="mono pc-n">02</span>
-        <h3 class="d-4" data-en="Work">Работа</h3>
-        <p class="pc-for" data-en="For professional communication">Для профессионального общения</p>
-        <ul class="pc-caps">
-          <li data-on data-en="Text">Текст</li>
-          <li data-on data-en="Audio">Аудио</li>
-          <li data-en="Video">Видео</li>
-        </ul>
-      </li>
-      <li class="pcard reveal" style="--c:#D4C4B7">
-        <span class="pc-bar"></span>
-        <span class="mono pc-n">03</span>
-        <h3 class="d-4" data-en="Guest">Гость</h3>
-        <p class="pc-for" data-en="For temporary contacts">Для временных контактов</p>
-        <ul class="pc-caps">
-          <li data-on data-en="Text only">Только текст</li>
-          <li data-clock data-en="24 hours">24 часа</li>
-          <li data-en="Video">Видео</li>
-        </ul>
-      </li>
-      <li class="pcard reveal" style="--c:#FFCE7A">
-        <span class="pc-bar"></span>
-        <span class="mono pc-n">04</span>
-        <h3 class="d-4" data-en="Alter ego">Альтер эго</h3>
-        <p class="pc-for" data-en="For a separate circle">Для отдельного круга</p>
-        <ul class="pc-caps">
-          <li data-on data-en="Text">Текст</li>
-          <li data-on data-en="Audio">Аудио</li>
-          <li data-en="Video">Видео</li>
-        </ul>
-      </li>
+  <ul class="facts">
+    <li><em class="mono">01</em><span data-en="The personal phone number is never exposed and never becomes a permanent channel.">Личный номер не раскрывается и не становится постоянным каналом связи.</span></li>
+    <li><em class="mono">02</em><span data-en="One public point of contact — for search, for conversation, for profiles.">Одна публичная точка контакта — для поиска, общения и профилей.</span></li>
+    <li><em class="mono">03</em><span data-en="Unlike a username, it is tied to the terms of communication and the lifespan of the contact.">В отличие от ника, связан с условиями общения и сроком контакта.</span></li>
+  </ul>
+
+  <aside class="premium">
+    <span class="mono">Premium ID</span>
+    <p data-en="Short. Memorable. Part of a personal or professional identity — and a future monetisation layer.">Короткий, запоминающийся — часть личной или профессиональной идентичности. И будущий слой монетизации.</p>
+  </aside>
+</section>
+
+<!-- ═══════════ 02 · ПРОФИЛИ (интерактив) ═══════════ -->
+<section class="sec profiles" id="profiles">
+  <div class="sec-tag mono"><span>02</span><i></i><span data-en="Terms of communication">Условия общения</span></div>
+
+  <div class="pf-head">
+    <h2 class="d-3 split" data-split data-en="DIFFERENT PEOPLE —<br>DIFFERENT WAYS TO REACH YOU">Разным людям —<br>разные возможности общения</h2>
+    <p class="lede" data-en="The profile decides what a person can do and how long the contact lives. Switch it — the whole page switches with you.">Профиль решает, что доступно человеку и сколько живёт контакт. Переключите — вместе с вами переключится вся страница.</p>
+  </div>
+
+  <div class="pf-body">
+    <ul class="pf-pick" id="pfPick">
+      <li><button type="button" data-set="personal" data-p="personal">
+        <i class="pf-bar"></i><em class="mono">01</em>
+        <span class="pf-n" data-en="Personal">Личное</span>
+        <span class="pf-d" data-en="The inner circle">Близкий круг</span></button></li>
+      <li><button type="button" data-set="work" data-p="work">
+        <i class="pf-bar"></i><em class="mono">02</em>
+        <span class="pf-n" data-en="Work">Работа</span>
+        <span class="pf-d" data-en="Professional communication">Профессиональное общение</span></button></li>
+      <li><button type="button" data-set="guest" data-p="guest">
+        <i class="pf-bar"></i><em class="mono">03</em>
+        <span class="pf-n" data-en="Guest">Гость</span>
+        <span class="pf-d" data-en="Temporary contact">Временный контакт</span></button></li>
+      <li><button type="button" data-set="alter" data-p="alter">
+        <i class="pf-bar"></i><em class="mono">04</em>
+        <span class="pf-n" data-en="Alter ego">Альтер эго</span>
+        <span class="pf-d" data-en="A separate circle">Отдельный круг</span></button></li>
     </ul>
 
-    <div class="ui-pair">
-      <figure class="ui-shot reveal">
-        <img src="assets/img/ui-profiles.png" alt="Интерфейс PAGER: выбор профиля общения с человеком" loading="lazy" decoding="async">
-        <figcaption class="mono" data-en="Choosing a profile for a new contact">Выбор профиля для нового контакта</figcaption>
-      </figure>
-      <figure class="ui-shot reveal">
-        <img src="assets/img/ui-permissions.png" alt="Интерфейс PAGER: что разрешить — текст, аудио, видео, файлы, звонки" loading="lazy" decoding="async">
-        <figcaption class="mono" data-en="Per-contact communication settings">Настройка возможностей для контакта</figcaption>
-      </figure>
-    </div>
+    <figure class="card" id="card">
+      <figcaption class="card-top mono">
+        <span data-en="This is how they see you">Так вас видит этот человек</span>
+        <i class="card-live"></i>
+      </figcaption>
 
-    <p class="closer d-5 split reveal" data-split data-en="One contact —<br>one clear set of possibilities.">Один контакт —<br>один понятный набор возможностей.</p>
+      <div class="card-id">
+        <span class="card-face"><img id="cardFace" src="assets/img/face-2.jpg" alt=""></span>
+        <span class="card-nm">
+          <b id="cardName">Марк Д.</b>
+          <em id="cardRole" class="mono">Работа</em>
+        </span>
+      </div>
+      <p class="card-bio" id="cardBio">Продукт и партнёрства. Отвечаю в рабочее время.</p>
+
+      <dl class="card-caps" id="cardCaps">
+        <div data-k="text"><dt data-en="Text">Текст</dt><dd><i></i></dd></div>
+        <div data-k="audio"><dt data-en="Audio">Аудио</dt><dd><i></i></dd></div>
+        <div data-k="video"><dt data-en="Video">Видео</dt><dd><i></i></dd></div>
+        <div data-k="files"><dt data-en="Files">Файлы</dt><dd><i></i></dd></div>
+        <div data-k="call"><dt data-en="Audio calls">Аудиозвонки</dt><dd><i></i></dd></div>
+        <div data-k="vcall"><dt data-en="Video calls">Видеозвонки</dt><dd><i></i></dd></div>
+      </dl>
+
+      <div class="card-foot">
+        <span class="mono" data-en="Lifespan">Срок связи</span>
+        <span class="card-ttl mono" id="cardTtl">Бессрочно</span>
+      </div>
+      <div class="card-lock" id="cardLock">
+        <p data-en="The 24 hours are over. The connection is closed.">24 часа прошли. Связь закрыта.</p>
+        <button type="button" class="btn btn-ghost btn-sm" id="cardExtend" data-en="Extend">Продлить<i class="arr"></i></button>
+      </div>
+    </figure>
   </div>
+
+  <p class="pf-closer d-4 split" data-split data-en="ONE CONTACT —<br>ONE CLEAR SET OF POSSIBILITIES">Один контакт —<br>один понятный набор возможностей</p>
 </section>
 
-<!-- ══════════════════ 04 · МУЛЬТИПРОФИЛЬ (storyscroll) ══════════════════ -->
-<section class="sec s-ink mp-intro" id="multi">
-  <div class="wrap">
-    <header class="sec-head">
-      <span class="idx mono">03</span>
-      <p class="overline reveal" data-en="Contexts of identity">Контексты идентичности</p>
-      <h2 class="d-3 split reveal" data-split data-en="One account.<br>Many ways to be open.">Один аккаунт.<br>Несколько способов быть открытым.</h2>
-      <p class="lead reveal" data-en="Close people, colleagues and temporary contacts should not be seeing one and the same profile.">Близкие, коллеги и временные контакты не должны видеть один и тот же профиль.</p>
-    </header>
-    <div class="cols">
-      <p class="body reveal" data-en="In an ordinary messenger every part of life converges on a single point: one name, one photo, one description — for everyone.">В обычном мессенджере разные части жизни сходятся в одной точке: одно имя, одна фотография, одно описание — для всех.</p>
-      <p class="body reveal" data-en="PAGER lets you build a separate presentation of yourself for every context of communication. A profile can have its own name, photo, description, audience and degree of openness.">PAGER позволяет создать отдельное представление себя для каждого контекста общения. У профиля могут быть свои имя, фотография, описание, аудитория и степень открытости.</p>
-    </div>
-  </div>
-</section>
-
-<section class="mp" id="mpScroll" aria-label="Мультипрофиль">
+<!-- ═══════════ 03 · МУЛЬТИПРОФИЛЬ ═══════════ -->
+<section class="mp" id="multi" aria-label="Мультипрофиль">
   <div class="mp-pin">
     <div class="mp-frames">
-      <figure class="mp-frame is-on" data-f="1"><picture>
+      <figure class="mp-frame is-on"><picture>
         <source media="(min-width:900px)" srcset="assets/img/mpf-d-1.jpg">
         <img src="assets/img/mpf-1.jpg" alt="Человек в световом кубе — один аккаунт"></picture></figure>
-      <figure class="mp-frame" data-f="2"><picture>
+      <figure class="mp-frame"><picture>
         <source media="(min-width:900px)" srcset="assets/img/mpf-d-2.jpg">
         <img src="assets/img/mpf-2.jpg" alt="Четыре профиля вокруг человека" loading="lazy"></picture></figure>
-      <figure class="mp-frame" data-f="3"><picture>
+      <figure class="mp-frame"><picture>
         <source media="(min-width:900px)" srcset="assets/img/mpf-d-3.jpg">
         <img src="assets/img/mpf-3.jpg" alt="Четыре контекстных куба разного цвета" loading="lazy"></picture></figure>
-      <figure class="mp-frame" data-f="4"><picture>
+      <figure class="mp-frame"><picture>
         <source media="(min-width:900px)" srcset="assets/img/mpf-d-4.jpg">
         <img src="assets/img/mpf-4.jpg" alt="Управление границами контекстов" loading="lazy"></picture></figure>
     </div>
-    <div class="mp-vignette" aria-hidden="true"></div>
+    <div class="mp-veil" aria-hidden="true"></div>
 
-    <div class="mp-ui">
-      <ol class="mp-ticks" aria-hidden="true">
-        <li class="is-on"><em>01</em><i></i></li>
-        <li><em>02</em><i></i></li>
-        <li><em>03</em><i></i></li>
-        <li><em>04</em><i></i></li>
-      </ol>
+    <div class="sec-tag mono mp-tag"><span>03</span><i></i><span data-en="Contexts of identity">Контексты идентичности</span></div>
 
-      <div class="mp-texts">
-        <article class="mp-text is-on" data-f="1">
-          <h3 class="d-4 split" data-split data-en="I STAY<br>MYSELF">Я ОСТАЮСЬ<br>СОБОЙ</h3>
-          <p data-en="One account. One PAGER ID.">Один аккаунт. Один PAGER ID.</p>
-        </article>
-        <article class="mp-text" data-f="2">
-          <h3 class="d-4 split" data-split data-en="BUT I OPEN UP<br>DIFFERENTLY">НО ОТКРЫВАЮСЬ<br>ПО-РАЗНОМУ</h3>
-          <p data-en="For close people, for work, for temporary contacts and for a separate circle.">Для близких, для работы, для временных контактов и для отдельного круга.</p>
-        </article>
-        <article class="mp-text" data-f="3">
-          <h3 class="d-4 split" data-split data-en="EVERY PROFILE —<br>ITS OWN OPENNESS">У КАЖДОГО ПРОФИЛЯ —<br>СВОЯ ОТКРЫТОСТЬ</h3>
-          <p data-en="Name, photo, description, audience and visibility are set separately.">Имя, фотография, описание, аудитория и видимость настраиваются отдельно.</p>
-        </article>
-        <article class="mp-text" data-f="4">
-          <h3 class="d-4 split" data-split data-en="MANAGING<br>BOUNDARIES">УПРАВЛЕНИЕ<br>ГРАНИЦАМИ</h3>
-          <p data-en="For every contact — its own distance, visibility and level of access.">Для каждого контакта — своя дистанция, видимость и уровень доступа.</p>
-        </article>
-      </div>
+    <div class="mp-texts">
+      <article class="mp-text is-on">
+        <h3 class="d-3 split" data-split data-en="I STAY<br>MYSELF">Я остаюсь<br>собой</h3>
+        <p data-en="One account. One PAGER ID.">Один аккаунт. Один PAGER ID.</p>
+      </article>
+      <article class="mp-text">
+        <h3 class="d-3 split" data-split data-en="BUT I OPEN UP<br>DIFFERENTLY">Но открываюсь<br>по-разному</h3>
+        <p data-en="For close people, for work, for temporary contacts, for a separate circle.">Для близких, для работы, для временных контактов, для отдельного круга.</p>
+      </article>
+      <article class="mp-text">
+        <h3 class="d-3 split" data-split data-en="EVERY PROFILE —<br>ITS OWN OPENNESS">У каждого профиля —<br>своя открытость</h3>
+        <p data-en="Name, photo, description, audience and visibility are set separately.">Имя, фотография, описание, аудитория и видимость настраиваются отдельно.</p>
+      </article>
+      <article class="mp-text">
+        <h3 class="d-3 split" data-split data-en="MANAGING<br>BOUNDARIES">Управление<br>границами</h3>
+        <p data-en="For every contact — its own distance, visibility and level of access.">Для каждого контакта — своя дистанция, видимость и уровень доступа.</p>
+      </article>
     </div>
+
+    <ol class="mp-ticks" aria-hidden="true"><li class="is-on"></li><li></li><li></li><li></li></ol>
   </div>
 </section>
 
-<section class="sec s-ink mp-out">
-  <div class="wrap">
-    <p class="note reveal" data-en="This helps to avoid context collapse — the situation where personal, work and incidental contacts all end up inside one public image.">Это помогает избежать коллапса контекста — ситуации, когда личные, рабочие и случайные контакты оказываются внутри одного публичного образа.</p>
-    <div class="formula reveal">
-      <p class="d-5 split" data-split data-en="A communication profile defines<br>what a person can do.">Профиль общения определяет,<br>что человеку доступно.</p>
-      <span class="fx-rule"></span>
-      <p class="d-5 split" data-split data-en="A multiprofile defines<br>who they see.">Мультипрофиль определяет,<br>каким он видит вас.</p>
-    </div>
+<section class="sec ink mp-out">
+  <p class="note" data-en="In an ordinary messenger every part of life converges on one point: one name, one photo, one description — for everyone. This is what context collapse looks like.">В обычном мессенджере разные части жизни сходятся в одной точке: одно имя, одна фотография, одно описание — для всех. Так выглядит коллапс контекста.</p>
+  <div class="formula">
+    <p class="d-4 split" data-split data-en="A profile decides<br>what a person can do.">Профиль общения решает,<br>что человеку доступно.</p>
+    <i></i>
+    <p class="d-4 split" data-split data-en="A multiprofile decides<br>who they see.">Мультипрофиль решает,<br>каким он видит вас.</p>
   </div>
 </section>
 
-<!-- ══════════════════ 05 · ВРЕМЕННЫЕ КОНТАКТЫ ══════════════════ -->
-<section class="sec s-bone" id="temp">
-  <div class="wrap">
-    <header class="sec-head">
-      <span class="idx mono">04</span>
-      <p class="overline reveal" data-en="Temporary communication">Временное общение</p>
-      <h2 class="d-3 split reveal" data-split data-en="Not every contact<br>has to stay forever">Не каждый контакт<br>должен оставаться навсегда</h2>
-      <p class="lead reveal" data-en="Many conversations are needed for a few hours or days — yet ordinary messengers keep the channel open permanently.">Многие коммуникации нужны на несколько часов или дней — но обычные мессенджеры оставляют канал открытым постоянно.</p>
-    </header>
+<!-- ═══════════ 04 · 24 ЧАСА ═══════════ -->
+<section class="sec temp" id="temp">
+  <div class="sec-tag mono"><span>04</span><i></i><span data-en="Temporary communication">Временное общение</span></div>
 
-    <div class="cols">
-      <p class="body reveal" data-en="A courier, a landlord, a buyer from a listing, a repairman or a support agent must be able to reach you. That does not mean the contact has to last forever.">Курьер, арендодатель, покупатель по объявлению, мастер или служба поддержки должны иметь возможность связаться с вами. Но это не означает, что контакт должен сохраняться навсегда.</p>
-      <p class="body reveal" data-en="The guest profile opens only the necessary ways of communication and closes the connection automatically once the set period is over.">Гостевой профиль открывает только необходимые способы общения и автоматически завершает связь после установленного срока.</p>
+  <div class="temp-stage">
+    <div class="temp-mega" aria-hidden="true"><span id="tempNum">24</span></div>
+    <h2 class="temp-h d-3 split" data-split data-en="NOT EVERY CONTACT<br>HAS TO STAY FOREVER">Не каждый контакт<br>должен оставаться навсегда</h2>
+    <p class="lede" data-en="A courier, a landlord, a buyer, a support agent must be able to reach you. That does not mean the contact has to last forever.">Курьер, арендодатель, покупатель, служба поддержки должны иметь возможность связаться. Это не значит, что контакт должен сохраняться навсегда.</p>
+  </div>
+
+  <ol class="steps">
+    <li><em class="mono">01</em><span data-en="Open for 24 hours">Открыть на 24 часа</span></li>
+    <li><em class="mono">02</em><span data-en="Extend if needed">Продлить при необходимости</span></li>
+    <li><em class="mono">03</em><span data-en="Convert to a permanent contact">Перевести в постоянный</span></li>
+    <li><em class="mono">04</em><span data-en="Close automatically">Завершить связь автоматически</span></li>
+  </ol>
+
+  <p class="scen mono" data-en="Delivery · Rentals · Listings · Support · One-off services">Доставка · Аренда · Объявления · Поддержка · Разовые услуги</p>
+</section>
+
+<!-- ═══════════ 05 · СТАТУС ═══════════ -->
+<section class="sec ink status" id="status">
+  <div class="sec-tag mono"><span>05</span><i></i><span data-en="Already working">Уже работает</span></div>
+
+  <h2 class="d-2 split status-h" data-split data-en="THE KEY MECHANICS<br>ARE ALREADY BUILT">Ключевые механики<br>уже реализованы</h2>
+
+  <div class="st-cols">
+    <div class="st-done">
+      <span class="mono st-lbl" data-en="Shipped · 13">Реализовано · 13</span>
+      <ul>
+        <li data-en="registration and PAGER ID">регистрация и PAGER ID</li>
+        <li data-en="user search">поиск пользователей</li>
+        <li data-en="requests from new contacts">запросы от новых контактов</li>
+        <li data-en="personal chats">личные чаты</li>
+        <li data-en="group chats">групповые чаты</li>
+        <li data-en="communication profiles">профили общения</li>
+        <li data-en="multiprofile">мультипрофиль</li>
+        <li data-en="per-contact capabilities">настройки возможностей</li>
+        <li data-en="temporary contacts">временные контакты</li>
+        <li data-en="temporary dialogs">временные диалоги</li>
+        <li data-en="lifespan control">управление сроком связи</li>
+        <li data-en="realtime messaging">realtime-обмен сообщениями</li>
+        <li data-en="Flutter client and backend">Flutter-клиент и backend</li>
+      </ul>
     </div>
-
-    <div class="clock reveal" id="clock">
-      <svg class="clock-ring" viewBox="0 0 200 200" aria-hidden="true">
-        <g class="cr-ticks" id="crTicks"></g>
-        <circle class="cr-bg" cx="100" cy="100" r="92"/>
-        <circle class="cr-fg" cx="100" cy="100" r="92"/>
-      </svg>
-      <div class="clock-mid">
-        <span class="clock-num d-big">24</span>
-        <span class="clock-unit d-4" data-en="HOURS">ЧАСА</span>
-      </div>
-      <p class="clock-cap mono" data-en="Base lifespan of a guest contact.">Базовый срок гостевого контакта.</p>
+    <div class="st-wip">
+      <span class="mono st-lbl" data-en="In progress · 5">В разработке · 5</span>
+      <ul>
+        <li data-en="audio calls">аудиозвонки</li>
+        <li data-en="video calls">видеозвонки</li>
+        <li data-en="public channels">публичные каналы</li>
+        <li data-en="UI/UX polish">полировка UI/UX</li>
+        <li data-en="encryption">шифрование</li>
+      </ul>
+      <p class="st-next" data-en="Next milestone — a stable private beta with a finished user experience, validated on the first cohorts.">Следующий milestone — стабильная private beta с завершённым пользовательским опытом, проверенная на первых когортах.</p>
     </div>
-
-    <ol class="mech">
-      <li class="reveal"><em class="mono">01</em><span data-en="Open for 24 hours">Открыть на 24 часа</span></li>
-      <li class="reveal"><em class="mono">02</em><span data-en="Extend if needed">Продлить при необходимости</span></li>
-      <li class="reveal"><em class="mono">03</em><span data-en="Convert to a permanent contact">Перевести в постоянный контакт</span></li>
-      <li class="reveal"><em class="mono">04</em><span data-en="Close the connection automatically">Завершить связь автоматически</span></li>
-    </ol>
-
-    <div class="scenarios reveal">
-      <span class="mono lbl" data-en="Scenarios">Сценарии</span>
-      <p class="d-5" data-en="Delivery · Rentals · Listings · Support · One-off services">Доставка · Аренда · Объявления · Поддержка · Разовые услуги</p>
-    </div>
+    <figure class="st-shots" aria-hidden="true">
+      <img src="assets/img/scr-2.jpg" alt="" loading="lazy">
+      <img src="assets/img/scr-3.jpg" alt="" loading="lazy">
+    </figure>
   </div>
 </section>
 
-<!-- ══════════════════ 06 · СТАТУС ПРОДУКТА ══════════════════ -->
-<section class="sec s-stone" id="status">
-  <div class="wrap">
-    <header class="sec-head">
-      <span class="idx mono">05</span>
-      <p class="overline reveal" data-en="Already working">Уже работает</p>
-      <h2 class="d-3 split reveal" data-split data-en="The key mechanics of PAGER<br>are already built">Ключевые механики PAGER<br>уже реализованы</h2>
-      <p class="lead reveal" data-en="PAGER works as a full messenger: from personal and group chats to multiprofile, temporary access and control over the terms of communication.">PAGER работает как полноценный мессенджер: от личных и групповых чатов до мультипрофиля, временного доступа и управления условиями общения.</p>
-    </header>
+<!-- ═══════════ 06 · БИЗНЕС-МОДЕЛЬ ═══════════ -->
+<section class="sec biz" id="business">
+  <div class="sec-tag mono"><span>06</span><i></i><span data-en="Monetisation">Монетизация</span></div>
+  <h2 class="d-3 split" data-split data-en="REVENUE IS BUILT AROUND IDENTITY<br>AND PROFESSIONAL COMMUNICATION">Доход строится вокруг идентичности<br>и профессионального общения</h2>
 
-    <div class="status-grid">
-      <div class="st-col reveal">
-        <span class="mono lbl lbl-done" data-en="Shipped">Реализовано</span>
-        <ul class="ticks">
-          <li data-en="registration and PAGER ID">регистрация и PAGER ID</li>
-          <li data-en="user search">поиск пользователей</li>
-          <li data-en="requests from new contacts">запросы от новых контактов</li>
-          <li data-en="personal chats">личные чаты</li>
-          <li data-en="group chats">групповые чаты</li>
-          <li data-en="communication profiles">профили общения</li>
-          <li data-en="multiprofile">мультипрофиль</li>
-          <li data-en="per-contact capability settings">настройки возможностей для контактов</li>
-          <li data-en="temporary contacts">временные контакты</li>
-          <li data-en="temporary dialogs">временные диалоги</li>
-          <li data-en="connection lifespan control">управление сроком связи</li>
-          <li data-en="realtime messaging">realtime-обмен сообщениями</li>
-          <li data-en="Flutter client and backend">Flutter-клиент и backend</li>
-        </ul>
-      </div>
-
-      <div class="st-col reveal">
-        <span class="mono lbl lbl-wip" data-en="In progress">В разработке</span>
-        <dl class="wip">
-          <div><dt data-en="Audio calls">Аудиозвонки</dt><dd data-en="Voice inside the existing system of profiles and communication settings.">Голосовая связь внутри существующей системы профилей и настроек общения.</dd></div>
-          <div><dt data-en="Video calls">Видеозвонки</dt><dd data-en="Video communication respecting what is open to a particular contact.">Видеообщение с учётом возможностей, открытых конкретному контакту.</dd></div>
-          <div><dt data-en="Public channels">Публичные каналы</dt><dd data-en="Public communication integrated with multiprofile and separated identity contexts.">Публичная коммуникация с интеграцией мультипрофиля и разделением контекстов идентичности.</dd></div>
-          <div><dt data-en="UI/UX polish">Полировка UI/UX</dt><dd data-en="Refining navigation, first-contact scenarios, profiles, permissions and the overall visual system.">Доработка навигации, сценариев первого контакта, профилей, разрешений и общей визуальной системы.</dd></div>
-          <div><dt data-en="Encryption">Шифрование</dt><dd data-en="Developing the protected messaging architecture and preparing the product for private beta requirements.">Развитие архитектуры защищённого обмена сообщениями и подготовки продукта к требованиям private beta.</dd></div>
-        </dl>
-      </div>
-
-      <div class="st-shots reveal" aria-hidden="true">
-        <figure class="shot shot-a"><img src="assets/img/scr-2.jpg" alt="" loading="lazy" decoding="async"></figure>
-        <figure class="shot shot-b"><img src="assets/img/scr-3.jpg" alt="" loading="lazy" decoding="async"></figure>
-      </div>
-    </div>
-
-    <div class="milestone reveal">
-      <span class="mono lbl" data-en="Next milestone">Следующий milestone</span>
-      <p class="d-5 split" data-split data-en="A stable private beta with a finished<br>user experience and key scenarios<br>validated on the first cohorts.">Стабильная private beta с завершённым<br>пользовательским опытом и проверкой<br>ключевых сценариев на первых когортах.</p>
-    </div>
+  <div class="biz-flow">
+    <section class="ph ph-now">
+      <header><span class="mono" data-en="First stage">Первый этап</span><b class="d-4">B2C</b></header>
+      <ul>
+        <li><b data-en="Premium PAGER ID">Premium PAGER ID</b><span data-en="Short, memorable identifiers.">Короткие, запоминающиеся идентификаторы.</span></li>
+        <li><b data-en="Professional profiles">Профессиональные профили</b><span data-en="For freelancers, specialists and public users.">Для фрилансеров, специалистов и публичных пользователей.</span></li>
+        <li><b data-en="Extended settings">Расширенные настройки</b><span data-en="More profiles, identity and privacy controls.">Больше профилей, контроль идентичности и приватности.</span></li>
+      </ul>
+    </section>
+    <i class="ph-arrow" aria-hidden="true"></i>
+    <section class="ph ph-next">
+      <header><span class="mono" data-en="Next stage">Следующий этап</span><b class="d-4">B2B</b></header>
+      <ul>
+        <li><b data-en="Business access pages">Бизнес-страницы доступа</b><span data-en="A single point of contact for companies.">Единая точка контакта для компаний и сервисов.</span></li>
+        <li><b data-en="Service profiles">Сервисные профили</b><span data-en="Client communication without exposing employees’ numbers.">Общение с клиентами без раскрытия личных номеров сотрудников.</span></li>
+        <li><b data-en="B2B / API">B2B / API</b><span data-en="Delivery, rentals, support and other services.">Доставка, аренда, поддержка и другие сервисы.</span></li>
+      </ul>
+    </section>
   </div>
+  <p class="biz-seq mono" data-en="User value and B2C monetisation first → corporate infrastructure next">Сначала пользовательская ценность и B2C → затем корпоративная инфраструктура</p>
 </section>
 
-<!-- ══════════════════ 07 · БИЗНЕС-МОДЕЛЬ ══════════════════ -->
-<section class="sec s-bone" id="business">
-  <div class="wrap">
-    <header class="sec-head">
-      <span class="idx mono">06</span>
-      <p class="overline reveal" data-en="Monetisation">Монетизация</p>
-      <h2 class="d-3 split reveal" data-split data-en="Revenue is built around identity<br>and professional communication">Доход строится вокруг идентичности<br>и профессионального общения</h2>
-      <p class="lead reveal" data-en="First — paid capabilities for users and professionals. After the core scenarios are validated — B2B tools and API.">Сначала — платные возможности для пользователей и профессионалов. После проверки основных сценариев — B2B-инструменты и API.</p>
-    </header>
-
-    <div class="phases">
-      <section class="phase phase-now reveal">
-        <header>
-          <span class="mono ph-when" data-en="First stage">Первый этап</span>
-          <h3 class="d-4">B2C</h3>
-        </header>
-        <ul>
-          <li><h4 data-en="Premium PAGER ID">Premium PAGER ID</h4><p data-en="Short and memorable identifiers.">Короткие и запоминающиеся идентификаторы.</p></li>
-          <li><h4 data-en="Professional profiles">Профессиональные профили</h4><p data-en="An extended presentation for freelancers, specialists and public users.">Расширенное представление для фрилансеров, специалистов и публичных пользователей.</p></li>
-          <li><h4 data-en="Extended settings">Расширенные настройки</h4><p data-en="Additional profiles, identity and privacy capabilities.">Дополнительные профили, возможности идентичности и приватности.</p></li>
-        </ul>
-      </section>
-
-      <div class="phase-arrow" aria-hidden="true"><i></i></div>
-
-      <section class="phase phase-next reveal">
-        <header>
-          <span class="mono ph-when" data-en="Next stage">Следующий этап</span>
-          <h3 class="d-4">B2B</h3>
-        </header>
-        <ul>
-          <li><h4 data-en="Business access pages">Бизнес-страницы доступа</h4><p data-en="A single point of contact for companies and services.">Единая точка контакта для компаний и сервисов.</p></li>
-          <li><h4 data-en="Service profiles">Сервисные профили</h4><p data-en="Managed communication with clients without exposing employees’ personal numbers.">Управляемое общение с клиентами без раскрытия личных номеров сотрудников.</p></li>
-          <li><h4 data-en="B2B / API">B2B / API</h4><p data-en="Integrations with delivery, rentals, support and other services.">Интеграции с доставкой, арендой, поддержкой и другими сервисами.</p></li>
-        </ul>
-      </section>
-    </div>
-
-    <p class="seq mono reveal" data-en="User value and B2C monetisation first → corporate infrastructure next.">Сначала пользовательская ценность и B2C-монетизация → затем корпоративная инфраструктура.</p>
-  </div>
-</section>
-
-<!-- ══════════════════ MARQUEE ══════════════════ -->
-<div class="marquee" aria-hidden="true">
-  <div class="mq-track">
-    <span>Приватное общение начинается с границ</span><i>✦</i>
-    <span>PAGER создан чтобы их сохранять</span><i>✦</i>
-    <span>Приватное общение начинается с границ</span><i>✦</i>
-    <span>PAGER создан чтобы их сохранять</span><i>✦</i>
-  </div>
-</div>
-
-<!-- ══════════════════ 08 · ROADMAP ══════════════════ -->
-<section class="sec s-ink rm" id="roadmap">
-  <div class="wrap">
-    <header class="sec-head">
-      <span class="idx mono">07</span>
-      <p class="overline reveal" data-en="Roadmap">Roadmap</p>
-      <h2 class="d-3 split reveal" data-split data-en="From a working MVP<br>to the first user cohorts">От работающего MVP<br>к первым пользовательским когортам</h2>
-      <p class="lead reveal" data-en="Every stage ends with a measurable product result, not just a release of new functions.">Каждый этап завершается измеримым продуктовым результатом, а не только выпуском новых функций.</p>
-    </header>
-  </div>
-
+<!-- ═══════════ 07 · ROADMAP ═══════════ -->
+<section class="rm" id="roadmap">
   <div class="rm-scroll" id="rmScroll">
     <div class="rm-pin">
-      <span class="rm-tag mono" aria-hidden="true">Roadmap<i class="dot"></i><span data-en="From MVP to the first cohorts">От MVP к первым когортам</span></span>
+      <div class="sec-tag mono rm-tag"><span>07</span><i></i><span>Roadmap</span></div>
       <div class="rm-track" id="rmTrack">
-        <span class="rm-line" aria-hidden="true"><i id="rmLine"></i></span>
+        <i class="rm-line"><b id="rmLine"></b></i>
         <ol class="rm-list">
-          <li class="rm-item is-now">
-            <span class="rm-node" aria-hidden="true"></span>
-            <span class="mono rm-when" data-en="Now">Сейчас</span>
-            <h3 class="d-4" data-en="MVP and key mechanics">MVP и ключевые механики</h3>
-            <p data-en="Communication profiles, multiprofile, requests and temporary contacts.">Профили общения, мультипрофиль, запросы и временные контакты.</p>
-          </li>
-          <li class="rm-item">
-            <span class="rm-node" aria-hidden="true"></span>
-            <span class="mono rm-when">Q3 2026</span>
-            <h3 class="d-4" data-en="Private beta">Private beta</h3>
-            <p data-en="Closed testing of the core user scenarios.">Закрытое тестирование основных пользовательских сценариев.</p>
-          </li>
-          <li class="rm-item">
-            <span class="rm-node" aria-hidden="true"></span>
-            <span class="mono rm-when">Q4 2026</span>
-            <h3 class="d-4" data-en="First cohorts">Первые когорты</h3>
-            <p data-en="Retention checks, temporary-communication scenarios and profile usage.">Проверка удержания, сценариев временного общения и использования профилей.</p>
-          </li>
-          <li class="rm-item">
-            <span class="rm-node" aria-hidden="true"></span>
-            <span class="mono rm-when">Q1 2027</span>
-            <h3 class="d-4">App Store / Google Play</h3>
-            <p data-en="Preparing the app for public distribution.">Подготовка к публичному распространению приложения.</p>
-          </li>
-          <li class="rm-item">
-            <span class="rm-node" aria-hidden="true"></span>
-            <span class="mono rm-when" data-en="Later">Далее</span>
-            <h3 class="d-4" data-en="Expanding communication">Расширение коммуникаций</h3>
-            <p data-en="Audio, video, calls, business access and API.">Аудио, видео, звонки, бизнес-доступ и API.</p>
-          </li>
+          <li class="rm-i is-now"><i class="rm-dot"></i><span class="mono" data-en="Now">Сейчас</span><b class="d-4" data-en="MVP and key mechanics">MVP и ключевые механики</b><p data-en="Profiles, multiprofile, requests, temporary contacts.">Профили, мультипрофиль, запросы, временные контакты.</p></li>
+          <li class="rm-i"><i class="rm-dot"></i><span class="mono">Q3 2026</span><b class="d-4">Private beta</b><p data-en="Closed testing of the core scenarios.">Закрытое тестирование основных сценариев.</p></li>
+          <li class="rm-i"><i class="rm-dot"></i><span class="mono">Q4 2026</span><b class="d-4" data-en="First cohorts">Первые когорты</b><p data-en="Retention, temporary communication, profile usage.">Удержание, временное общение, использование профилей.</p></li>
+          <li class="rm-i"><i class="rm-dot"></i><span class="mono">Q1 2027</span><b class="d-4">App Store / Google Play</b><p data-en="Preparing for public distribution.">Подготовка к публичному распространению.</p></li>
+          <li class="rm-i"><i class="rm-dot"></i><span class="mono" data-en="Later">Далее</span><b class="d-4" data-en="Expanding communication">Расширение коммуникаций</b><p data-en="Audio, video, calls, business access, API.">Аудио, видео, звонки, бизнес-доступ, API.</p></li>
         </ol>
       </div>
-      <div class="rm-hud" aria-hidden="true">
-        <span class="mono" id="rmStep">01 / 05</span>
-        <span class="rm-rail"><i id="rmRail"></i></span>
-        <span class="mono" data-en="Scroll">Скролл</span>
+      <div class="rm-hud mono" aria-hidden="true">
+        <span id="rmStep">01 / 05</span><i class="rm-rail"><b id="rmRail"></b></i><span data-en="Scroll">Скролл</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════ 09 · ИНВЕСТИЦИОННЫЙ ЗАПРОС ══════════════════ -->
-<section class="sec s-bone invest" id="invest">
-  <div class="wrap">
-    <header class="sec-head">
-      <span class="idx mono">08</span>
-      <p class="overline reveal" data-en="Early round">Ранний раунд</p>
-      <h2 class="d-2 split reveal" data-split data-en="We are looking for an investor<br>to launch the private beta">Мы ищем инвестора<br>для запуска private beta</h2>
-      <p class="lead reveal" data-en="The round will let us finish the key mechanics, stabilise the app and validate PAGER on the first user cohorts.">Раунд позволит завершить ключевые механики, стабилизировать приложение и проверить PAGER на первых пользовательских когортах.</p>
-    </header>
+<!-- ═══════════ 08 · РАУНД ═══════════ -->
+<section class="sec ink round" id="round">
+  <div class="sec-tag mono"><span>08</span><i></i><span data-en="Early round">Ранний раунд</span></div>
 
-    <div class="use">
-      <span class="mono lbl reveal" data-en="Use of funds">Средства будут направлены на</span>
-      <ol class="use-list">
-        <li class="reveal"><em class="mono">01</em><span data-en="communication profiles and multiprofile">профили общения и мультипрофиль</span></li>
-        <li class="reveal"><em class="mono">02</em><span data-en="control over capabilities and connection lifespan">управление возможностями и сроком связи</span></li>
-        <li class="reveal"><em class="mono">03</em><span data-en="stability of the Flutter client and backend">стабильность Flutter-клиента и backend</span></li>
-        <li class="reveal"><em class="mono">04</em><span data-en="testing and quality control">тестирование и контроль качества</span></li>
-        <li class="reveal"><em class="mono">05</em><span data-en="analytics of product scenarios">аналитику продуктовых сценариев</span></li>
-        <li class="reveal"><em class="mono">06</em><span data-en="launch of the first user cohorts">запуск первых пользовательских когорт</span></li>
-        <li class="reveal"><em class="mono">07</em><span data-en="preparation for public distribution">подготовку к распространению приложения</span></li>
-      </ol>
-    </div>
+  <h2 class="d-1 split round-h" data-split data-en="WE ARE LOOKING FOR AN INVESTOR<br>TO LAUNCH THE PRIVATE BETA">Мы ищем инвестора<br>для запуска private beta</h2>
+  <p class="lede" data-en="The round will let us finish the key mechanics, stabilise the app and validate PAGER on the first user cohorts.">Раунд позволит завершить ключевые механики, стабилизировать приложение и проверить PAGER на первых пользовательских когортах.</p>
 
-    <div class="round-ms reveal">
-      <span class="mono lbl" data-en="Milestone of the round">Milestone раунда</span>
-      <p class="d-4 split" data-split data-en="A working private beta with confirmed<br>usage of PAGER’s key mechanics.">Работающая private beta с подтверждённым<br>использованием ключевых механик PAGER.</p>
-    </div>
+  <ol class="use">
+    <li><em class="mono">01</em><span data-en="communication profiles and multiprofile">профили общения и мультипрофиль</span></li>
+    <li><em class="mono">02</em><span data-en="capabilities and lifespan control">управление возможностями и сроком связи</span></li>
+    <li><em class="mono">03</em><span data-en="stability of the Flutter client and backend">стабильность Flutter-клиента и backend</span></li>
+    <li><em class="mono">04</em><span data-en="testing and quality control">тестирование и контроль качества</span></li>
+    <li><em class="mono">05</em><span data-en="analytics of product scenarios">аналитику продуктовых сценариев</span></li>
+    <li><em class="mono">06</em><span data-en="launch of the first cohorts">запуск первых пользовательских когорт</span></li>
+    <li><em class="mono">07</em><span data-en="preparation for distribution">подготовку к распространению</span></li>
+  </ol>
 
-    <div class="cta-final reveal">
-      <a href="mailto:hello@pager.app?subject=PAGER%20—%20early%20round" class="btn btn-solid btn-lg" data-en="Discuss the round">Обсудить раунд<i class="arr"></i></a>
-      <a href="mailto:hello@pager.app?subject=PAGER%20—%20full%20deck" class="btn btn-line btn-lg" data-en="Request the full deck">Запросить полный deck<i class="arr"></i></a>
-    </div>
+  <div class="ms">
+    <span class="mono" data-en="Milestone of the round">Milestone раунда</span>
+    <p class="d-4 split" data-split data-en="A working private beta with confirmed<br>usage of PAGER’s key mechanics.">Работающая private beta с подтверждённым<br>использованием ключевых механик PAGER.</p>
+  </div>
+
+  <div class="row-cta">
+    <a href="mailto:hello@pager.app?subject=PAGER%20—%20early%20round" class="btn btn-solid btn-lg" data-en="Discuss the round">Обсудить раунд<i class="arr"></i></a>
+    <a href="mailto:hello@pager.app?subject=PAGER%20—%20full%20deck" class="btn btn-ghost btn-lg" data-en="Request the full deck">Запросить полный deck<i class="arr"></i></a>
   </div>
 </section>
 
-<!-- ══════════════════ ОСНОВАТЕЛЬ ══════════════════ -->
-<section class="sec s-ink founder" id="founder">
+<!-- ═══════════ ОСНОВАТЕЛЬ ═══════════ -->
+<section class="founder" id="founder">
   <div class="founder-bg" aria-hidden="true"></div>
-  <div class="wrap">
-    <span class="mono lbl reveal" data-en="Founder">Основатель</span>
-    <p class="d-5 split reveal" data-split data-en="PAGER is being built by a founder with a background<br>in entrepreneurship, digital products and scenario design.">PAGER создаётся основателем с опытом в предпринимательстве,<br>цифровых продуктах и сценарных механиках.</p>
-    <p class="body reveal" data-en="The project is developing not as an abstract idea, but as a working MVP with a defined product system and a plan to reach beta.">Проект развивается не как абстрактная идея, а как работающий MVP с определённой продуктовой системой и планом выхода в beta.</p>
+  <div class="founder-in">
+    <span class="mono" data-en="Founder">Основатель</span>
+    <p class="d-4 split" data-split data-en="A founder with a background in entrepreneurship,<br>digital products and scenario design.">Основатель с опытом в предпринимательстве,<br>цифровых продуктах и сценарных механиках.</p>
+    <p class="founder-p" data-en="The project is developing not as an abstract idea, but as a working MVP with a defined product system and a plan to reach beta.">Проект развивается не как абстрактная идея, а как работающий MVP с определённой продуктовой системой и планом выхода в beta.</p>
   </div>
 </section>
 
 </main>
 
 <footer class="foot">
-  <div class="wrap">
-    <div class="foot-top">
-      <a class="nav-logo" href="#top" aria-label="PAGER">
-        <svg class="nav-mark" viewBox="0 0 60 54" aria-hidden="true"><use href="#logomark"/></svg>
-        <span class="nav-word">PAGER</span>
-      </a>
-      <p class="d-4 split" data-split data-en="PRIVATE COMMUNICATION<br>BEGINS WITH BOUNDARIES">ПРИВАТНОЕ ОБЩЕНИЕ<br>НАЧИНАЕТСЯ С ГРАНИЦ</p>
-    </div>
-    <div class="foot-bot mono">
-      <span>Private beta · Q3 2026</span>
-      <span>App Store / Google Play · Q1 2027</span>
-      <a href="mailto:hello@pager.app">hello@pager.app</a>
-      <span>© 2026 PAGER</span>
-    </div>
+  <div class="foot-word" aria-hidden="true">PAGER</div>
+  <div class="foot-rows mono">
+    <span>Private beta · Q3 2026</span>
+    <span>App Store / Google Play · Q1 2027</span>
+    <a href="mailto:hello@pager.app">hello@pager.app</a>
+    <span>© 2026 PAGER</span>
   </div>
 </footer>
 
