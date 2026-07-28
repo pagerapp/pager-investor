@@ -12,7 +12,7 @@
 <meta property="og:description" content="Мультипрофиль, профили общения и временные контакты. Инвестиционная страница раннего раунда.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=Roboto+Condensed:wght@700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -59,42 +59,40 @@
 <main id="top">
 
 <!-- ══════════════ HERO ══════════════ -->
-<section class="wrap hero-wrap" id="hero">
-  <div class="bento">
+<section class="hero" id="hero">
+  <div class="hero-grid">
 
-    <article class="b b-hero paper" style="--d:8;--t:8">
-      <span class="ghost" aria-hidden="true">PAGER</span>
-      <span class="tag" data-en="A new model of private communication">Новая модель приватного общения</span>
-      <h1 class="mnf" data-split data-en="<i>Private communication</i><br>begins with boundaries"><i>Приватное общение</i><br>начинается с границ</h1>
-      <p class="mnf-sub" data-en="PAGER is built to keep them.<br>I stay myself — I just open up differently.">PAGER создан чтобы их сохранять.<br>Я остаюсь собой, но открываюсь по-разному.</p>
-      <div class="cta-row">
-        <a href="#round" class="btn btn-fill" data-en="Request the deck">Запросить презентацию<i class="arr"></i></a>
-        <a href="#id" class="btn btn-line" data-en="See the product">Посмотреть продукт<i class="arr"></i></a>
+    <article class="hero-main">
+      <picture class="hero-bg" aria-hidden="true">
+        <source media="(min-width:900px)" srcset="assets/img/hero-d.jpg">
+        <img src="assets/img/hero-m.jpg" alt="" fetchpriority="high">
+      </picture>
+      <div class="hero-in">
+        <span class="tag" data-en="A new model of private communication">Новая модель приватного общения</span>
+        <h1 class="mnf" data-en="PRIVATE COMMUNICATION<br>BEGINS WITH BOUNDARIES<br><span>PAGER IS BUILT</span><br><span>TO KEEP THEM</span>">Приватное общение<br>начинается с границ<br><span>PAGER создан</span><br><span>чтобы их сохранять</span></h1>
+        <p class="mnf-sub" data-en="I stay myself — I just open up differently.">Я остаюсь собой, но открываюсь по-разному.</p>
+        <div class="cta-row">
+          <a href="#round" class="btn btn-fill" data-en="Request the deck">Запросить презентацию<i class="arr"></i></a>
+          <a href="#id" class="btn btn-line" data-en="See the product">Посмотреть продукт<i class="arr"></i></a>
+        </div>
       </div>
     </article>
 
-    <article class="b b-phone ink" style="--d:4;--t:8">
-      <figure class="phone">
-        <img class="ph-frame" src="assets/img/hand-phone.png" alt="Экран PAGER: входящий запрос и выбор профиля общения" fetchpriority="high">
-        <span class="ph-screen"><img src="assets/img/scr-3.jpg" alt=""></span>
-      </figure>
-    </article>
-
-    <article class="b mist" style="--d:3;--t:4">
-      <span class="tag">Private beta</span>
-      <b class="stat">Q3 2026</b>
-    </article>
-
-    <article class="b paper" style="--d:3;--t:4">
-      <span class="tag">App Store / Google Play</span>
-      <b class="stat">Q1 2027</b>
-    </article>
-
-    <article class="b ink b-id" style="--d:6;--t:8">
-      <span class="tag" data-en="Public point of contact">Публичная точка контакта</span>
-      <b class="stat mono-num" id="heroId">A147 0865</b>
-      <span class="cap" data-en="Personal number stays hidden">Личный номер остаётся скрытым</span>
-    </article>
+    <aside class="hero-side">
+      <article class="b ink b-id">
+        <span class="tag" data-en="Public point of contact">Публичная точка контакта</span>
+        <b class="stat mono-num" id="heroId">A147 0865</b>
+        <span class="cap" data-en="The personal number stays hidden">Личный номер остаётся скрытым</span>
+      </article>
+      <article class="b mist">
+        <span class="tag">Private beta</span>
+        <b class="stat">Q3 2026</b>
+      </article>
+      <article class="b paper">
+        <span class="tag">App Store / Google Play</span>
+        <b class="stat">Q1 2027</b>
+      </article>
+    </aside>
 
   </div>
 </section>
@@ -104,7 +102,7 @@
   <div class="bento">
 
     <header class="b head" style="--d:12;--t:8">
-      <span class="tag"><em>01</em><i></i><span data-en="Identity without a number">Идентичность без номера</span></span>
+      <b class="head-n" aria-hidden="true">01</b><span class="tag"><em>01</em><i></i><span data-en="Identity without a number">Идентичность без номера</span></span>
       <h2 class="h-sec" data-split data-en="<i>Contact</i> without exposing<br>your personal number"><i>Связь</i> без раскрытия<br>личного номера</h2>
     </header>
 
@@ -141,7 +139,7 @@
   <div class="bento">
 
     <header class="b head" style="--d:12;--t:8">
-      <span class="tag"><em>02</em><i></i><span data-en="Contexts of identity">Контексты идентичности</span></span>
+      <b class="head-n" aria-hidden="true">02</b><span class="tag"><em>02</em><i></i><span data-en="Contexts of identity">Контексты идентичности</span></span>
       <h2 class="h-sec" data-split data-en="<i>One account.</i><br>Four presentations."><i>Один аккаунт.</i><br>Четыре представления.</h2>
     </header>
 
@@ -187,7 +185,7 @@
   <div class="bento">
 
     <header class="b head" style="--d:12;--t:8">
-      <span class="tag"><em>03</em><i></i><span data-en="Terms of communication">Условия общения</span></span>
+      <b class="head-n" aria-hidden="true">03</b><span class="tag"><em>03</em><i></i><span data-en="Terms of communication">Условия общения</span></span>
       <h2 class="h-sec" data-split data-en="<i>The profile decides</i><br>what a person can do"><i>Профиль решает,</i><br>что человеку доступно</h2>
       <p class="lede" data-en="Communication profiles continue the multiprofile: contacts are sorted into filters, and every filter is configured individually.">Профили общения продолжают мультипрофиль: контакты сортируются по фильтрам, и каждый фильтр настраивается индивидуально.</p>
     </header>
@@ -252,7 +250,7 @@
   <div class="bento">
 
     <header class="b head" style="--d:12;--t:8">
-      <span class="tag"><em>04</em><i></i><span data-en="Temporary communication">Временное общение</span></span>
+      <b class="head-n" aria-hidden="true">04</b><span class="tag"><em>04</em><i></i><span data-en="Temporary communication">Временное общение</span></span>
       <h2 class="h-sec" data-split data-en="<i>Not every contact</i><br>has to stay forever"><i>Не каждый контакт</i><br>должен оставаться навсегда</h2>
     </header>
 
@@ -286,7 +284,7 @@
   <div class="bento">
 
     <header class="b head" style="--d:12;--t:8">
-      <span class="tag"><em>05</em><i></i><span data-en="Already working">Уже работает</span></span>
+      <b class="head-n" aria-hidden="true">05</b><span class="tag"><em>05</em><i></i><span data-en="Already working">Уже работает</span></span>
       <h2 class="h-sec" data-split data-en="<i>Not a concept.</i><br>A working MVP."><i>Не концепция.</i><br>Работающий MVP.</h2>
     </header>
 
@@ -343,7 +341,7 @@
   <div class="bento">
 
     <header class="b head" style="--d:12;--t:8">
-      <span class="tag"><em>06</em><i></i><span data-en="Monetisation">Монетизация</span></span>
+      <b class="head-n" aria-hidden="true">06</b><span class="tag"><em>06</em><i></i><span data-en="Monetisation">Монетизация</span></span>
       <h2 class="h-sec" data-split data-en="<i>Revenue around identity</i><br>and professional communication"><i>Доход вокруг идентичности</i><br>и профессионального общения</h2>
     </header>
 
@@ -377,7 +375,7 @@
   <div class="bento">
 
     <header class="b head" style="--d:12;--t:8">
-      <span class="tag"><em>07</em><i></i><span>Roadmap</span></span>
+      <b class="head-n" aria-hidden="true">07</b><span class="tag"><em>07</em><i></i><span>Roadmap</span></span>
       <h2 class="h-sec" data-split data-en="<i>From a working MVP</i><br>to the first cohorts"><i>От работающего MVP</i><br>к первым когортам</h2>
     </header>
 
@@ -416,7 +414,7 @@
   <div class="bento">
 
     <article class="b ink b-ask" style="--d:7;--t:8">
-      <span class="tag"><em>08</em><i></i><span data-en="Early round">Ранний раунд</span></span>
+      <b class="head-n" aria-hidden="true">08</b><span class="tag"><em>08</em><i></i><span data-en="Early round">Ранний раунд</span></span>
       <h2 class="h-ask" data-split data-en="<i>We are looking for an investor</i><br>to launch the private beta"><i>Мы ищем инвестора</i><br>для запуска private beta</h2>
       <p class="cp" data-en="The round will let us finish the key mechanics, stabilise the app and validate PAGER on the first user cohorts.">Раунд позволит завершить ключевые механики, стабилизировать приложение и проверить PAGER на первых пользовательских когортах.</p>
       <div class="cta-row">

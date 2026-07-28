@@ -40,7 +40,7 @@
       io.unobserve(e.target);
     });
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
-  $$('.bento').forEach(function (g) { io.observe(g); });
+  $$('.bento, .hero-side').forEach(function (g) { io.observe(g); });
 
   /* ── счётчики ───────────────────────────────────────────── */
   var numIo = new IntersectionObserver(function (entries) {
