@@ -1,322 +1,473 @@
 <!doctype html>
 <html lang="ru">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title data-en="PAGER — Private communication begins with boundaries">PAGER — Приватное общение начинается с границ</title>
-    <meta name="description" content="PAGER — мессенджер с мультипрофилем, профилями общения и временными контактами. Инвестиционная страница раннего раунда.">
-    <meta name="theme-color" content="#030407">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700;800&family=Geist:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <style>
-        /* === БАЗОВЫЕ ПЕРЕМЕННЫЕ === */
-        :root {
-            --bg-dark: #030407;
-            --surface-card: rgba(12, 12, 16, 0.7);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --text-main: #ffffff;
-            --text-muted: #888891;
-            --accent-ice: #00e5ff;
-            
-            --font-sans: 'Geist', -apple-system, sans-serif;
-            --font-mono: 'Geist Mono', monospace;
-        }
-
-        body, html {
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: var(--font-sans);
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-            line-height: 1.5;
-        }
-
-        ::selection { background: var(--accent-ice); color: #000; }
-
-        /* Кинематографичный шум поверх фона */
-        body::before {
-            content: ""; position: fixed; inset: 0; z-index: -1; opacity: 0.03; pointer-events: none;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-        }
-
-        /* === КАРКАС И СЕТКА BENTO === */
-        .wrap {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 80px 20px;
-        }
-
-        .bento {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 20px;
-        }
-
-        /* === КАРТОЧКИ BENTO === */
-        .b {
-            background: var(--surface-card);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 40px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            backdrop-filter: blur(20px);
-            
-            /* Настройка колонок через inline-стили (--d) */
-            grid-column: span var(--d, 12);
-            
-            /* Анимация появления */
-            opacity: 0;
-            transform: translateY(30px) scale(0.98);
-            transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), 
-                        transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
-                        border-color 0.3s ease;
-        }
-
-        .b.is-revealed {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        /* === ЭФФЕКТ ПРОЖЕКТОРА (SPOTLIGHT) === */
-        .b::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(
-                600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-                rgba(0, 229, 255, 0.06), 
-                transparent 40%
-            );
-            z-index: 0;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-        }
-
-        .bento:hover .b::before { opacity: 1; }
-        
-        .b.is-revealed:hover {
-            border-color: rgba(0, 229, 255, 0.3);
-            transform: translateY(-2px);
-            transition-delay: 0ms !important;
-        }
-
-        /* Поднимаем контент над свечением */
-        .b > * { position: relative; z-index: 2; }
-
-        /* === ТИПОГРАФИКА === */
-        .tag {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--accent-ice);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            margin-bottom: 24px;
-            font-weight: 600;
-            display: inline-block;
-        }
-
-        .h1 {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            font-weight: 800;
-            line-height: 1.05;
-            letter-spacing: -0.04em;
-            margin-bottom: 20px;
-        }
-
-        .h2 {
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
-            font-weight: 700;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            margin-bottom: 16px;
-        }
-
-        .lead {
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            max-width: 80%;
-        }
-
-        p {
-            font-size: 1rem;
-            color: rgba(255,255,255,0.7);
-            line-height: 1.6;
-        }
-
-        .mono {
-            font-family: var(--font-mono);
-            letter-spacing: 0.05em;
-        }
-
-        /* === ИНДИВИДУАЛЬНЫЕ КАРТОЧКИ === */
-        .b-hero {
-            padding: 60px 40px;
-            justify-content: center;
-        }
-
-        /* Картинка на фоне карточки (Основатель/Дверь) */
-        .b-founder { padding: 0; min-height: 400px; }
-        .fd-bg {
-            position: absolute; inset: 0; width: 100%; height: 100%;
-            object-fit: cover; opacity: 0.4; z-index: 1;
-            transition: transform 0.6s ease, opacity 0.6s ease;
-        }
-        .b-founder:hover .fd-bg { transform: scale(1.05); opacity: 0.3; }
-        .fd-in {
-            position: absolute; inset: 0; z-index: 2;
-            padding: 40px; display: flex; flex-direction: column; justify-content: flex-end;
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
-        }
-
-        /* Footer */
-        .foot { padding-top: 0; }
-        .b-logo {
-            background: #ffffff; color: #000000;
-            display: flex; flex-direction: row; justify-content: space-between; align-items: center;
-        }
-        .b-logo .foot-word { font-size: 2rem; font-weight: 900; letter-spacing: -0.05em; }
-        .b-logo .foot-rows { display: flex; flex-direction: column; gap: 4px; font-size: 0.8rem; font-weight: 600; text-align: right; }
-        .b-logo:hover { border-color: #fff; }
-
-        /* === АДАПТИВ === */
-        @media (max-width: 1024px) {
-            .b { grid-column: span var(--t, 12); }
-            .lead { max-width: 100%; }
-        }
-
-        @media (max-width: 768px) {
-            .wrap { padding: 40px 16px; }
-            .bento { gap: 16px; }
-            /* На мобильных всё в одну колонку */
-            .b { grid-column: span 12 !important; padding: 30px 24px; }
-            .b-logo { flex-direction: column; align-items: flex-start; gap: 20px; }
-            .b-logo .foot-rows { text-align: left; }
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-en="PAGER — Private communication begins with boundaries">PAGER — Приватное общение начинается с границ</title>
+<meta name="description" content="PAGER — мессенджер с мультипрофилем, профилями общения и временными контактами. Инвестиционная страница раннего раунда.">
+<meta name="theme-color" content="#E9E5DE">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Crect width='60' height='60' rx='14' fill='%230A0A0B'/%3E%3Cg transform='translate(4 6) scale(.87)'%3E%3Cpath d='M8 2h44a6 6 0 0 1 6 6v26a6 6 0 0 1-6 6H24l-14 12V40H8a6 6 0 0 1-6-6V8a6 6 0 0 1 6-6z' fill='none' stroke='%23EDE9E2' stroke-width='5'/%3E%3Crect x='13' y='16' width='9' height='9' rx='2.6' fill='%23EDE9E2'/%3E%3Crect x='25.5' y='16' width='9' height='9' rx='2.6' fill='%23EDE9E2'/%3E%3Crect x='38' y='16' width='11' height='9' rx='2.6' fill='%2338BDF8'/%3E%3C/g%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="PAGER — Приватное общение начинается с границ">
+<meta property="og:description" content="Мультипрофиль, профили общения и временные контакты. Инвестиционная страница раннего раунда.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=Roboto+Condensed:wght@700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<main class="wrap">
-    
-    <section class="bento">
-        <article class="b b-hero" style="--d:12;--t:12">
-            <span class="tag" data-en="Investment Deck">Pitch Deck</span>
-            <h1 class="h1" data-en="Private communication begins with boundaries">Приватное общение начинается с границ.</h1>
-            <p class="lead" data-en="PAGER — a messenger with multi-profiles, communication scopes, and temporary contacts. We solve the problem of digital fatigue and boundaries blurring in a hyper-connected world.">
-                PAGER — мессенджер с мультипрофилем, профилями общения и временными контактами. Мы решаем проблему цифровой усталости и стирания личных границ в гиперконнективном мире.
-            </p>
-        </article>
+<svg class="defs" aria-hidden="true">
+  <symbol id="logomark" viewBox="0 0 60 54">
+    <path d="M8 2h44a6 6 0 0 1 6 6v26a6 6 0 0 1-6 6H24l-14 12V40H8a6 6 0 0 1-6-6V8a6 6 0 0 1 6-6z"
+          fill="none" stroke="currentColor" stroke-width="4.5" stroke-linejoin="round"/>
+    <rect x="13" y="16" width="9" height="9" rx="2.6" fill="currentColor"/>
+    <rect x="25.5" y="16" width="9" height="9" rx="2.6" fill="currentColor"/>
+    <rect x="38" y="16" width="11" height="9" rx="2.6" fill="#38BDF8"/>
+  </symbol>
+</svg>
 
-        <article class="b" style="--d:6;--t:12">
-            <span class="tag" data-en="Problem">Проблема</span>
-            <h2 class="h2" data-en="Numbers are compromised">Номера скомпрометированы</h2>
-            <p data-en="Phone numbers are tied to banks, delivery services, and government databases. You are forced to give out a sensitive identifier to communicate with a courier or a new acquaintance.">Телефонные номера привязаны к банкам, доставкам и базам данных. Вы вынуждены отдавать чувствительный идентификатор для связи с курьером или новым знакомым.</p>
-        </article>
+<div class="grain" aria-hidden="true"></div>
 
-        <article class="b" style="--d:6;--t:12">
-            <span class="tag" data-en="Solution">Решение</span>
-            <h2 class="h2" data-en="PAGER ID">Сетевой PAGER ID</h2>
-            <p data-en="Instead of a phone number — a network ID. Before starting a chat, the user explicitly confirms the level of access: text, audio, or video stream. Full control over the channel.">Вместо номера телефона — сетевой ID. Перед началом общения пользователь явно подтверждает уровень доступа: текст, аудио или видеопоток. Полный контроль над каналом.</p>
-        </article>
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="PAGER">
+    <svg class="brand-mark" viewBox="0 0 60 54" aria-hidden="true"><use href="#logomark"/></svg>
+    <span class="brand-word">PAGER</span>
+  </a>
+  <div class="nav-right">
+    <div class="lang" role="group" aria-label="Язык">
+      <button type="button" class="lang-btn is-on" data-lang="ru">RU</button><span>/</span><button type="button" class="lang-btn" data-lang="en">EN</button>
+    </div>
+    <a href="#round" class="nav-cta" data-en="The round">Раунд</a>
+    <button type="button" class="burger" id="burger" aria-label="Меню"><i></i><i></i></button>
+  </div>
+</header>
 
-        <article class="b" style="--d:4;--t:12">
-            <span class="tag" data-en="Product">Мультипрофиль</span>
-            <h2 class="h2" data-en="Masks">Изоляция контекста</h2>
-            <p data-en="Work, Personal, Guest. Different avatars, statuses, and auto-delete settings within one app.">Work, Personal, Guest. Разные аватары, статусы и настройки автоудаления в рамках одного приложения без смены аккаунта.</p>
-        </article>
+<div class="menu" id="menu" aria-hidden="true">
+  <nav class="menu-list">
+    <a href="#id"><em>01</em><span data-en="PAGER ID">PAGER ID</span></a>
+    <a href="#multi"><em>02</em><span data-en="Multiprofile">Мультипрофиль</span></a>
+    <a href="#profiles"><em>03</em><span data-en="Communication profiles">Профили общения</span></a>
+    <a href="#temp"><em>04</em><span data-en="Temporary contacts">Временные контакты</span></a>
+    <a href="#status"><em>05</em><span data-en="Product status">Статус продукта</span></a>
+    <a href="#business"><em>06</em><span data-en="Business model">Бизнес-модель</span></a>
+    <a href="#roadmap"><em>07</em><span data-en="Roadmap">Roadmap</span></a>
+    <a href="#round"><em>08</em><span data-en="The round">Раунд</span></a>
+  </nav>
+</div>
 
-        <article class="b" style="--d:4;--t:6">
-            <span class="tag" data-en="Feature">Радар</span>
-            <h2 class="h2" data-en="Offline Mesh">Mesh-сети</h2>
-            <p data-en="Autonomous communication via Bluetooth between nearby nodes even without internet access.">Автономная связь по Bluetooth между ближайшими узлами PAGER даже при отсутствии интернета.</p>
-        </article>
+<main id="top">
 
-        <article class="b" style="--d:4;--t:6">
-            <span class="tag" data-en="Feature">След</span>
-            <h2 class="h2" data-en="Zero Trace">Сжигание истории</h2>
-            <p data-en="Cryptographic destruction of the session on both sides. No backups. No recovery keys.">Криптографическое уничтожение сеанса с двух сторон по истечению таймера. Без бэкапов.</p>
-        </article>
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-grid">
 
-        <article class="b" style="--d:4;--t:12">
-            <span class="tag" data-en="Milestone">Roadmap</span>
-            <h2 class="h2" data-en="Target: Private Beta">Цель: Private Beta</h2>
-            <p data-en="A working private beta with confirmed usage of PAGER’s key mechanics.">Работающая private beta с подтверждённым использованием ключевых механик PAGER и закрытым тестированием.</p>
-        </article>
+    <article class="hero-main">
+      <picture class="hero-bg" aria-hidden="true">
+        <source media="(min-width:900px)" srcset="assets/img/hero-d.jpg">
+        <img src="assets/img/hero-m.jpg" alt="" fetchpriority="high">
+      </picture>
+      <div class="hero-in">
+        <span class="tag" data-en="A new model of private communication">Новая модель приватного общения</span>
+        <h1 class="mnf" data-en="PRIVATE COMMUNICATION<br>BEGINS WITH BOUNDARIES<br><span>PAGER IS BUILT</span><br><span>TO KEEP THEM</span>">Приватное общение<br>начинается с границ<br><span>PAGER создан</span><br><span>чтобы их сохранять</span></h1>
+        <p class="mnf-sub" data-en="I stay myself — I just open up differently.">Я остаюсь собой, но открываюсь по-разному.</p>
+        <div class="cta-row">
+          <a href="#round" class="btn btn-fill" data-en="Request the deck">Запросить презентацию<i class="arr"></i></a>
+          <a href="#id" class="btn btn-line" data-en="See the product">Посмотреть продукт<i class="arr"></i></a>
+        </div>
+      </div>
+    </article>
 
-        <article class="b b-founder" style="--d:8;--t:12">
-            <img class="fd-bg" src="https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=1200&auto=format&fit=crop" alt="Founder background" loading="lazy">
-            <div class="fd-in">
-                <span class="tag" data-en="Founder" style="color: #fff;">Основатель</span>
-                <p style="color: #fff; max-width: 600px;" data-en="A founder with a background in entrepreneurship, digital products and scenario design. The project is developing not as an abstract idea, but as a working MVP.">Основатель с опытом в предпринимательстве, цифровых продуктах и сценарных механиках. Проект развивается не как абстрактная идея, а как работающий MVP с планом выхода в beta.</p>
-            </div>
-        </article>
-    </section>
+    <aside class="hero-side">
+      <article class="b ink b-id">
+        <span class="tag" data-en="Public point of contact">Публичная точка контакта</span>
+        <b class="stat mono-num" id="heroId">A147 0865</b>
+        <span class="cap" data-en="The personal number stays hidden">Личный номер остаётся скрытым</span>
+      </article>
+      <article class="b mist">
+        <span class="tag">Private beta</span>
+        <b class="stat">Q3 2026</b>
+      </article>
+      <article class="b paper">
+        <span class="tag">App Store / Google Play</span>
+        <b class="stat">Q1 2027</b>
+      </article>
+    </aside>
+
+  </div>
+</section>
+
+<!-- ══════════════ 01 · PAGER ID ══════════════ -->
+<section class="wrap" id="id">
+  <div class="bento">
+
+    <header class="b head" style="--d:12;--t:8">
+      <b class="head-n" aria-hidden="true">01</b><span class="tag"><em>01</em><i></i><span data-en="Identity without a number">Идентичность без номера</span></span>
+      <h2 class="h-sec" data-split data-en="<i>Contact</i> without exposing<br>your personal number"><i>Связь</i> без раскрытия<br>личного номера</h2>
+    </header>
+
+    <article class="b ink b-mega" style="--d:7;--t:8">
+      <span class="tag" data-en="Your PAGER ID">Ваш PAGER ID</span>
+      <div class="mega mono-num" id="idMega">A147 0865</div>
+      <p class="cp" data-en="A short identifier instead of a phone number or a complicated username. It is enough to find you in the app.">Короткий идентификатор вместо номера телефона или сложного ника. Его достаточно, чтобы найти вас в приложении.</p>
+    </article>
+
+    <article class="b paper" style="--d:5;--t:4">
+      <span class="tag" data-en="Why it matters">Почему это важно</span>
+      <ul class="rows">
+        <li data-en="The phone number is never exposed">Номер телефона не раскрывается</li>
+        <li data-en="Safer than giving out your number">Безопаснее, чем давать свой номер</li>
+        <li data-en="Simpler than a complicated username">Проще, чем сложный ник</li>
+        <li data-en="One entry point for new contacts">Одна точка входа для новых контактов</li>
+      </ul>
+    </article>
+
+    <article class="b b-img" style="--d:5;--t:4">
+      <img src="assets/img/id-shot.jpg" alt="Экран PAGER с PAGER ID и выбором профиля" loading="lazy">
+    </article>
+
+    <article class="b steel b-prem" style="--d:7;--t:8">
+      <span class="tag">Premium ID</span>
+      <p class="prem-p" data-en="Short. Memorable. Yours. A premium PAGER ID can become part of a personal or professional identity — and a future monetisation layer.">Короткий. Запоминающийся. Ваш. Premium PAGER ID может стать частью личной или профессиональной идентичности — и будущим слоем монетизации.</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- ══════════════ 02 · МУЛЬТИПРОФИЛЬ ══════════════ -->
+<section class="wrap" id="multi">
+  <div class="bento">
+
+    <header class="b head" style="--d:12;--t:8">
+      <b class="head-n" aria-hidden="true">02</b><span class="tag"><em>02</em><i></i><span data-en="Contexts of identity">Контексты идентичности</span></span>
+      <h2 class="h-sec" data-split data-en="<i>One account.</i><br>Four presentations."><i>Один аккаунт.</i><br>Четыре представления.</h2>
+    </header>
+
+    <article class="b ink b-faces" style="--d:5;--t:8">
+      <span class="tag" data-en="Name · Photo · Description">Имя · Фото · Описание</span>
+      <ul class="faces">
+        <li style="--c:#20C997"><img src="assets/img/face-1.jpg" alt=""><span data-en="Personal">Личное</span></li>
+        <li style="--c:#38BDF8"><img src="assets/img/face-2.jpg" alt=""><span data-en="Work">Работа</span></li>
+        <li style="--c:#D4C4B7"><img src="assets/img/face-3.jpg" alt=""><span data-en="Guest">Гость</span></li>
+        <li style="--c:#FFCE7A"><img src="assets/img/face-4.jpg" alt=""><span data-en="Alter ego">Альтер эго</span></li>
+      </ul>
+      <p class="cp" data-en="Inside one account you create up to four profiles. Every incoming contact is assigned a profile and sees exactly its name, photo and description.">Внутри одного аккаунта создаётся до четырёх профилей. Входящему контакту назначается профиль — и человек видит именно его имя, фотографию и описание.</p>
+    </article>
+
+    <article class="b paper b-note" style="--d:7;--t:8">
+      <span class="tag" data-en="The problem">Проблема</span>
+      <p class="note-p" data-en="In an ordinary messenger every part of life converges on one point: one name, one photo, one description — for everyone.">В обычном мессенджере разные части жизни сходятся в одной точке: одно имя, одна фотография, одно описание — для всех.</p>
+      <p class="cp" data-en="This is context collapse: personal, work and incidental contacts all end up inside one public image.">Это коллапс контекста: личные, рабочие и случайные контакты оказываются внутри одного публичного образа.</p>
+    </article>
+
+    <article class="b b-frame" style="--d:3;--t:4">
+      <img src="assets/img/mpf-1.jpg" alt="Один аккаунт" loading="lazy">
+      <span class="fr-cap"><em class="mono">01</em><b data-en="I stay myself">Я остаюсь собой</b></span>
+    </article>
+    <article class="b b-frame" style="--d:3;--t:4">
+      <img src="assets/img/mpf-2.jpg" alt="Четыре профиля" loading="lazy">
+      <span class="fr-cap"><em class="mono">02</em><b data-en="But I open up differently">Но открываюсь по-разному</b></span>
+    </article>
+    <article class="b b-frame" style="--d:3;--t:4">
+      <img src="assets/img/mpf-3.jpg" alt="Четыре контекста" loading="lazy">
+      <span class="fr-cap"><em class="mono">03</em><b data-en="Each profile — its own openness">У каждого своя открытость</b></span>
+    </article>
+    <article class="b b-frame" style="--d:3;--t:4">
+      <img src="assets/img/mpf-4.jpg" alt="Управление границами" loading="lazy">
+      <span class="fr-cap"><em class="mono">04</em><b data-en="Managing boundaries">Управление границами</b></span>
+    </article>
+
+  </div>
+</section>
+
+<!-- ══════════════ 03 · ПРОФИЛИ ОБЩЕНИЯ ══════════════ -->
+<section class="wrap" id="profiles">
+  <div class="bento">
+
+    <header class="b head" style="--d:12;--t:8">
+      <b class="head-n" aria-hidden="true">03</b><span class="tag"><em>03</em><i></i><span data-en="Terms of communication">Условия общения</span></span>
+      <h2 class="h-sec" data-split data-en="<i>The profile decides</i><br>what a person can do"><i>Профиль решает,</i><br>что человеку доступно</h2>
+      <p class="lede" data-en="Communication profiles continue the multiprofile: contacts are sorted into filters, and every filter is configured individually.">Профили общения продолжают мультипрофиль: контакты сортируются по фильтрам, и каждый фильтр настраивается индивидуально.</p>
+    </header>
+
+    <article class="b chip" style="--d:3;--t:2;--c:#20C997">
+      <i class="chip-bar"></i>
+      <em class="mono">01</em>
+      <b data-en="Personal">Личное</b>
+      <span data-en="The inner circle">Близкий круг</span>
+    </article>
+    <article class="b chip" style="--d:3;--t:2;--c:#38BDF8">
+      <i class="chip-bar"></i>
+      <em class="mono">02</em>
+      <b data-en="Work">Работа</b>
+      <span data-en="Professional communication">Профессиональное общение</span>
+    </article>
+    <article class="b chip" style="--d:3;--t:2;--c:#D4C4B7">
+      <i class="chip-bar"></i>
+      <em class="mono">03</em>
+      <b data-en="Guest">Гость</b>
+      <span data-en="Temporary contact">Временный контакт</span>
+    </article>
+    <article class="b chip" style="--d:3;--t:2;--c:#FFCE7A">
+      <i class="chip-bar"></i>
+      <em class="mono">04</em>
+      <b data-en="Alter ego">Альтер эго</b>
+      <span data-en="A separate circle">Отдельный круг</span>
+    </article>
+
+    <article class="b ink b-matrix" style="--d:8;--t:8">
+      <span class="tag" data-en="What each profile allows">Что разрешает каждый профиль</span>
+      <div class="mx" role="table" aria-label="Матрица возможностей по профилям">
+        <div class="mx-head" role="row">
+          <span role="columnheader"></span>
+          <span role="columnheader" style="--c:#20C997" data-en="Pers.">Личн.</span>
+          <span role="columnheader" style="--c:#38BDF8" data-en="Work">Раб.</span>
+          <span role="columnheader" style="--c:#D4C4B7" data-en="Guest">Гость</span>
+          <span role="columnheader" style="--c:#FFCE7A" data-en="Alter">Альт.</span>
+        </div>
+        <div class="mx-row" role="row"><span role="rowheader" data-en="Text messages">Текстовые сообщения</span><i class="on" style="--c:#20C997"></i><i class="on" style="--c:#38BDF8"></i><i class="on" style="--c:#D4C4B7"></i><i class="on" style="--c:#FFCE7A"></i></div>
+        <div class="mx-row" role="row"><span role="rowheader" data-en="Audio messages">Аудиосообщения</span><i class="on" style="--c:#20C997"></i><i class="on" style="--c:#38BDF8"></i><i></i><i class="on" style="--c:#FFCE7A"></i></div>
+        <div class="mx-row" role="row"><span role="rowheader" data-en="Video messages">Видеосообщения</span><i class="on" style="--c:#20C997"></i><i></i><i></i><i></i></div>
+        <div class="mx-row" role="row"><span role="rowheader" data-en="Audio calls">Аудиозвонки</span><i class="on" style="--c:#20C997"></i><i class="on" style="--c:#38BDF8"></i><i></i><i></i></div>
+        <div class="mx-row" role="row"><span role="rowheader" data-en="Video calls">Видеозвонки</span><i class="on" style="--c:#20C997"></i><i></i><i></i><i></i></div>
+        <div class="mx-row" role="row"><span role="rowheader" data-en="Adding to groups">Добавление в группы</span><i class="on" style="--c:#20C997"></i><i class="on" style="--c:#38BDF8"></i><i></i><i></i></div>
+        <div class="mx-row" role="row"><span role="rowheader" data-en="Forwarding">Пересылка сообщений</span><i class="on" style="--c:#20C997"></i><i class="on" style="--c:#38BDF8"></i><i></i><i></i></div>
+        <div class="mx-row" role="row"><span role="rowheader" data-en="Status visibility">Видимость статуса</span><i class="on" style="--c:#20C997"></i><i></i><i></i><i></i></div>
+        <div class="mx-row mx-last" role="row"><span role="rowheader" data-en="Lifespan">Срок связи</span><b>∞</b><b>∞</b><b class="hl">24ч</b><b>∞</b></div>
+      </div>
+    </article>
+
+    <article class="b b-img b-ui" style="--d:4;--t:8">
+      <img src="assets/img/ui-permissions.png" alt="Экран настройки возможностей контакта в PAGER" loading="lazy">
+      <span class="img-cap mono" data-en="Live in the app">Уже в приложении</span>
+    </article>
+
+  </div>
+</section>
+
+<!-- ══════════════ 04 · ВРЕМЕННЫЕ КОНТАКТЫ ══════════════ -->
+<section class="wrap" id="temp">
+  <div class="bento">
+
+    <header class="b head" style="--d:12;--t:8">
+      <b class="head-n" aria-hidden="true">04</b><span class="tag"><em>04</em><i></i><span data-en="Temporary communication">Временное общение</span></span>
+      <h2 class="h-sec" data-split data-en="<i>Not every contact</i><br>has to stay forever"><i>Не каждый контакт</i><br>должен оставаться навсегда</h2>
+    </header>
+
+    <article class="b ink b-24" style="--d:4;--t:4">
+      <b class="mega-num" data-count="24">24</b>
+      <span class="mega-unit" data-en="hours">часа</span>
+      <span class="cap" data-en="Base lifespan of a guest contact">Базовый срок гостевого контакта</span>
+    </article>
+
+    <article class="b paper" style="--d:8;--t:4">
+      <span class="tag" data-en="The scenario">Сценарий</span>
+      <p class="note-p" data-en="A courier, a landlord, a buyer, a support agent must be able to reach you. That does not mean the contact has to last forever.">Курьер, арендодатель, покупатель, служба поддержки должны иметь возможность связаться. Это не значит, что контакт должен сохраняться навсегда.</p>
+      <p class="cp" data-en="The guest profile opens only what is necessary and closes the connection automatically once the period is over.">Гостевой профиль открывает только необходимое и автоматически завершает связь после установленного срока.</p>
+    </article>
+
+    <article class="b paper step" style="--d:3;--t:2"><em class="mono">01</em><b data-en="Open for 24 hours">Открыть на 24 часа</b></article>
+    <article class="b paper step" style="--d:3;--t:2"><em class="mono">02</em><b data-en="Extend if needed">Продлить при необходимости</b></article>
+    <article class="b paper step" style="--d:3;--t:2"><em class="mono">03</em><b data-en="Convert to permanent">Перевести в постоянный</b></article>
+    <article class="b paper step" style="--d:3;--t:2"><em class="mono">04</em><b data-en="Close automatically">Завершить автоматически</b></article>
+
+    <article class="b mist b-scen" style="--d:12;--t:8">
+      <span class="tag" data-en="Scenarios">Сценарии</span>
+      <p class="scen" data-en="Delivery · Rentals · Listings · Support · One-off services">Доставка · Аренда · Объявления · Поддержка · Разовые услуги</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- ══════════════ 05 · СТАТУС ══════════════ -->
+<section class="wrap" id="status">
+  <div class="bento">
+
+    <header class="b head" style="--d:12;--t:8">
+      <b class="head-n" aria-hidden="true">05</b><span class="tag"><em>05</em><i></i><span data-en="Already working">Уже работает</span></span>
+      <h2 class="h-sec" data-split data-en="<i>Not a concept.</i><br>A working MVP."><i>Не концепция.</i><br>Работающий MVP.</h2>
+    </header>
+
+    <article class="b ink b-done" style="--d:5;--t:8">
+      <div class="num-row">
+        <b class="mega-num" data-count="13">13</b>
+        <span class="tag" data-en="mechanics shipped">механик реализовано</span>
+      </div>
+      <ul class="ticks">
+        <li data-en="registration and PAGER ID">регистрация и PAGER ID</li>
+        <li data-en="user search">поиск пользователей</li>
+        <li data-en="requests from new contacts">запросы от новых контактов</li>
+        <li data-en="personal chats">личные чаты</li>
+        <li data-en="group chats">групповые чаты</li>
+        <li data-en="communication profiles">профили общения</li>
+        <li data-en="multiprofile">мультипрофиль</li>
+        <li data-en="per-contact capabilities">настройки возможностей</li>
+        <li data-en="temporary contacts">временные контакты</li>
+        <li data-en="temporary dialogs">временные диалоги</li>
+        <li data-en="lifespan control">управление сроком связи</li>
+        <li data-en="realtime messaging">realtime-обмен сообщениями</li>
+        <li data-en="Flutter client and backend">Flutter-клиент и backend</li>
+      </ul>
+    </article>
+
+    <article class="b paper b-wip" style="--d:4;--t:4">
+      <div class="num-row">
+        <b class="mega-num" data-count="5">5</b>
+        <span class="tag" data-en="in progress">в разработке</span>
+      </div>
+      <ul class="rows">
+        <li data-en="audio calls">аудиозвонки</li>
+        <li data-en="video calls">видеозвонки</li>
+        <li data-en="public channels">публичные каналы</li>
+        <li data-en="UI/UX polish">полировка UI/UX</li>
+        <li data-en="encryption">шифрование</li>
+      </ul>
+    </article>
+
+    <article class="b b-img" style="--d:3;--t:4">
+      <img src="assets/img/scr-2.jpg" alt="Экран профиля в PAGER" loading="lazy">
+    </article>
+
+    <article class="b steel" style="--d:12;--t:8">
+      <span class="tag" data-en="Next milestone">Следующий milestone</span>
+      <p class="prem-p" data-en="A stable private beta with a finished user experience, validated on the first cohorts.">Стабильная private beta с завершённым пользовательским опытом, проверенная на первых когортах.</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- ══════════════ 06 · БИЗНЕС-МОДЕЛЬ ══════════════ -->
+<section class="wrap" id="business">
+  <div class="bento">
+
+    <header class="b head" style="--d:12;--t:8">
+      <b class="head-n" aria-hidden="true">06</b><span class="tag"><em>06</em><i></i><span data-en="Monetisation">Монетизация</span></span>
+      <h2 class="h-sec" data-split data-en="<i>Revenue around identity</i><br>and professional communication"><i>Доход вокруг идентичности</i><br>и профессионального общения</h2>
+    </header>
+
+    <article class="b ink b-phase" style="--d:6;--t:4">
+      <header><span class="tag" data-en="First stage">Первый этап</span><b class="ph-n">B2C</b></header>
+      <ul class="rows">
+        <li><b data-en="Premium PAGER ID">Premium PAGER ID</b><span data-en="Short and memorable identifiers">Короткие и запоминающиеся идентификаторы</span></li>
+        <li><b data-en="Professional profiles">Профессиональные профили</b><span data-en="For freelancers, specialists, public users">Для фрилансеров, специалистов, публичных пользователей</span></li>
+        <li><b data-en="Extended settings">Расширенные настройки</b><span data-en="More profiles, identity and privacy controls">Больше профилей, контроль идентичности и приватности</span></li>
+      </ul>
+    </article>
+
+    <article class="b b-phase b-next" style="--d:6;--t:4">
+      <header><span class="tag" data-en="Next stage">Следующий этап</span><b class="ph-n">B2B</b></header>
+      <ul class="rows">
+        <li><b data-en="Business access pages">Бизнес-страницы доступа</b><span data-en="A single point of contact for companies">Единая точка контакта для компаний и сервисов</span></li>
+        <li><b data-en="Service profiles">Сервисные профили</b><span data-en="Client communication without exposing employees’ numbers">Общение с клиентами без раскрытия личных номеров сотрудников</span></li>
+        <li><b data-en="B2B / API">B2B / API</b><span data-en="Delivery, rentals, support and other services">Доставка, аренда, поддержка и другие сервисы</span></li>
+      </ul>
+    </article>
+
+    <article class="b paper b-seq" style="--d:12;--t:8">
+      <p class="seq" data-en="User value and B2C monetisation first <i>→</i> corporate infrastructure next">Сначала пользовательская ценность и B2C <i>→</i> затем корпоративная инфраструктура</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- ══════════════ 07 · ROADMAP ══════════════ -->
+<section class="wrap" id="roadmap">
+  <div class="bento">
+
+    <header class="b head" style="--d:12;--t:8">
+      <b class="head-n" aria-hidden="true">07</b><span class="tag"><em>07</em><i></i><span>Roadmap</span></span>
+      <h2 class="h-sec" data-split data-en="<i>From a working MVP</i><br>to the first cohorts"><i>От работающего MVP</i><br>к первым когортам</h2>
+    </header>
+
+    <article class="b ink b-now" style="--d:12;--t:8">
+      <span class="tag now" data-en="Now">Сейчас</span>
+      <b class="now-t" data-en="MVP and key mechanics">MVP и ключевые механики</b>
+      <p class="cp" data-en="Multiprofile, communication profiles, requests and temporary contacts — built and working.">Мультипрофиль, профили общения, запросы и временные контакты — построены и работают.</p>
+    </article>
+
+    <article class="b paper rm" style="--d:3;--t:4">
+      <span class="rm-q mono">Q3 2026</span>
+      <b data-en="Private beta">Private beta</b>
+      <span class="cp" data-en="Closed testing of the core scenarios">Закрытое тестирование основных сценариев</span>
+    </article>
+    <article class="b paper rm" style="--d:3;--t:4">
+      <span class="rm-q mono">Q4 2026</span>
+      <b data-en="First cohorts">Первые когорты</b>
+      <span class="cp" data-en="Retention, temporary communication, profile usage">Удержание, временное общение, использование профилей</span>
+    </article>
+    <article class="b paper rm" style="--d:3;--t:4">
+      <span class="rm-q mono">Q1 2027</span>
+      <b>App Store / Google Play</b>
+      <span class="cp" data-en="Preparing for public distribution">Подготовка к публичному распространению</span>
+    </article>
+    <article class="b paper rm" style="--d:3;--t:4">
+      <span class="rm-q mono" data-en="Later">Далее</span>
+      <b data-en="Expanding communication">Расширение коммуникаций</b>
+      <span class="cp" data-en="Audio, video, calls, business access, API">Аудио, видео, звонки, бизнес-доступ, API</span>
+    </article>
+
+  </div>
+</section>
+
+<!-- ══════════════ 08 · РАУНД ══════════════ -->
+<section class="wrap" id="round">
+  <div class="bento">
+
+    <article class="b ink b-ask" style="--d:7;--t:8">
+      <b class="head-n" aria-hidden="true">08</b><span class="tag"><em>08</em><i></i><span data-en="Early round">Ранний раунд</span></span>
+      <h2 class="h-ask" data-split data-en="<i>We are looking for an investor</i><br>to launch the private beta"><i>Мы ищем инвестора</i><br>для запуска private beta</h2>
+      <p class="cp" data-en="The round will let us finish the key mechanics, stabilise the app and validate PAGER on the first user cohorts.">Раунд позволит завершить ключевые механики, стабилизировать приложение и проверить PAGER на первых пользовательских когортах.</p>
+      <div class="cta-row">
+        <a href="mailto:hello@pager.app?subject=PAGER%20—%20early%20round" class="btn btn-fill" data-en="Discuss the round">Обсудить раунд<i class="arr"></i></a>
+        <a href="mailto:hello@pager.app?subject=PAGER%20—%20full%20deck" class="btn btn-line" data-en="Full deck">Полный deck<i class="arr"></i></a>
+      </div>
+    </article>
+
+    <article class="b mist b-use" style="--d:5;--t:8">
+      <span class="tag" data-en="Use of funds">Средства будут направлены на</span>
+      <ol class="use">
+        <li><em class="mono">01</em><span data-en="profiles and multiprofile">профили общения и мультипрофиль</span></li>
+        <li><em class="mono">02</em><span data-en="capabilities and lifespan control">управление возможностями и сроком связи</span></li>
+        <li><em class="mono">03</em><span data-en="Flutter client and backend stability">стабильность Flutter-клиента и backend</span></li>
+        <li><em class="mono">04</em><span data-en="testing and quality control">тестирование и контроль качества</span></li>
+        <li><em class="mono">05</em><span data-en="product analytics">аналитику продуктовых сценариев</span></li>
+        <li><em class="mono">06</em><span data-en="launch of the first cohorts">запуск первых пользовательских когорт</span></li>
+        <li><em class="mono">07</em><span data-en="preparation for distribution">подготовку к распространению</span></li>
+      </ol>
+    </article>
+
+    <article class="b paper b-ms" style="--d:12;--t:8">
+      <span class="tag" data-en="Milestone of the round">Milestone раунда</span>
+      <p class="prem-p" data-en="A working private beta with confirmed usage of PAGER’s key mechanics.">Работающая private beta с подтверждённым использованием ключевых механик PAGER.</p>
+    </article>
+
+    <article class="b b-founder" style="--d:12;--t:8">
+      <img class="fd-bg" src="assets/img/door.jpg" alt="" loading="lazy">
+      <div class="fd-in">
+        <span class="tag" data-en="Founder">Основатель</span>
+        <p class="fd-p" data-en="A founder with a background in entrepreneurship, digital products and scenario design. The project is developing not as an abstract idea, but as a working MVP with a defined product system and a plan to reach beta.">Основатель с опытом в предпринимательстве, цифровых продуктах и сценарных механиках. Проект развивается не как абстрактная идея, а как работающий MVP с определённой продуктовой системой и планом выхода в beta.</p>
+      </div>
+    </article>
+
+  </div>
+</section>
 
 </main>
 
 <footer class="wrap foot">
-    <div class="bento">
-        <article class="b b-logo" style="--d:12;--t:12">
-            <span class="foot-word" aria-hidden="true">PAGER</span>
-            <div class="foot-rows mono">
-                <span>Private beta · Q3 2026</span>
-                <span>App Store / Google Play · Q1 2027</span>
-            </div>
-        </article>
-    </div>
+  <div class="bento">
+    <article class="b ink b-logo" style="--d:12;--t:8">
+      <span class="foot-word" aria-hidden="true">PAGER</span>
+      <div class="foot-rows mono">
+        <span>Private beta · Q3 2026</span>
+        <span>App Store / Google Play · Q1 2027</span>
+        <a href="mailto:hello@pager.app">hello@pager.app</a>
+        <span>© 2026 PAGER</span>
+      </div>
+    </article>
+  </div>
 </footer>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    
-    // 1. АНИМАЦИЯ SPOTLIGHT (Свечение за курсором)
-    document.querySelectorAll('.bento').forEach(grid => {
-        grid.addEventListener('mousemove', e => {
-            const cards = grid.querySelectorAll('.b');
-            cards.forEach(card => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
-            });
-        });
-    });
-
-    // 2. УМНОЕ ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ (Staggered Reveal)
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-revealed');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    document.querySelectorAll('.b').forEach((card, index) => {
-        // Микро-задержка для эффекта "Волны" (каскада)
-        card.style.transitionDelay = `${(index % 8) * 60}ms`;
-        observer.observe(card);
-    });
-
-});
-</script>
-
+<script src="js/app.js"></script>
 </body>
 </html>
