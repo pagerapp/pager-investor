@@ -7,7 +7,7 @@
 - GitHub Pages: https://pagerapp.github.io/pager-investor/
 - Production preview: https://pager-investor-bento-2026.megeny.chatgpt.site/
 
-Репозиторий содержит статическую GitHub Pages-сборку версии 10. Все пути к стилям, шрифтам и медиа настроены для публикации из подпути `/pager-investor/`.
+Репозиторий содержит статическую GitHub Pages-сборку версии 11. Все пути к стилям, шрифтам и медиа настроены для публикации из подпути `/pager-investor/`.
 
 ## Локальный просмотр
 
