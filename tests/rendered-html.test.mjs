@@ -48,6 +48,10 @@ test("server-renders the complete PAGER investor story", async () => {
   assert.match(html, /Интерактивная модель отношения PAGER/);
   assert.match(html, /class="investor-status"/);
   assert.match(visibleText, /Работающий пользовательский сценарий/);
+  assert.match(html, /class="beta-theses"/);
+  assert.match(visibleText, /Что должна подтвердить первая версия/);
+  assert.match(visibleText, /Это вопросы проверки, а не заявленные результаты/);
+  assert.match(html, /profile-architecture\.png/);
   assert.match(html, /Private beta/i);
   assert.match(html, /Q1 2027/);
   assert.match(html, /App Store \/ Google Play/i);
@@ -75,5 +79,6 @@ test("includes navigation, responsive media, and accessible controls", async () 
   assert.match(html, /mailto:martynov\.usa@gmail\.com/);
   assert.match(html, /aria-label="Интерактивная модель отношения PAGER"/);
   assert.match(html, /role="switch"/);
+  assert.match(html, /class="access-lab__mobile-result"/);
   assert.match(html, /\/ 10/);
 });

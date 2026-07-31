@@ -99,6 +99,24 @@ const roadmap = [
   ],
 ];
 
+const betaHypotheses = [
+  {
+    number: "01",
+    title: "PAGER ID вместо номера",
+    copy: "Проверить, готовы ли люди начинать новое общение без раскрытия номера телефона.",
+  },
+  {
+    number: "02",
+    title: "Профиль выбирается для отношения",
+    copy: "Проверить, помогает ли контекстная версия личности точнее задавать границы общения.",
+  },
+  {
+    number: "03",
+    title: "Правила становятся ценностью",
+    copy: "Проверить, воспринимают ли пользователи управление способами и сроком связи как отдельную ценность.",
+  },
+];
+
 const acts = [
   ["01", "Манифест PAGER", "#top"],
   ["02", "Эволюция цифрового общения", "#evolution"],
@@ -112,8 +130,11 @@ const acts = [
   ["10", "Путь развития", "#roadmap"],
 ];
 
-const deckHref =
-  "mailto:martynov.usa@gmail.com?subject=PAGER%20%E2%80%94%20%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%20pitch%20deck&body=%D0%98%D0%BC%D1%8F%3A%0A%D0%A4%D0%BE%D0%BD%D0%B4%20%2F%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%B0%D0%BD%D0%B8%D1%8F%3A%0A%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D1%8E%D1%89%D0%B8%D0%B9%20%D1%87%D0%B5%D0%BA%3A%0A";
+const deckHref = `mailto:martynov.usa@gmail.com?subject=${encodeURIComponent(
+  "PAGER — запрос pitch deck и product demo",
+)}&body=${encodeURIComponent(
+  "Имя:\nФонд / компания:\nИнтересует: pitch deck / product demo\nИнтересующий чек:\n",
+)}`;
 
 function SectionLabel({
   number,
@@ -204,6 +225,13 @@ function AccessSimulator() {
       <div className="access-lab__heading">
         <span>LIVE / МОДЕЛЬ ОТНОШЕНИЯ</span>
         <p>Измените профиль, правила и срок — получатель увидит только разрешённое.</p>
+      </div>
+
+      <div className="access-lab__mobile-result" aria-live="polite">
+        <span>Получатель видит</span>
+        <b>{activeProfile[0]}</b>
+        <i>{capabilities.filter(Boolean).length} из 3 способов</i>
+        <i>{duration}</i>
       </div>
 
       <div className="access-lab__controls">
@@ -381,7 +409,8 @@ export default function Home() {
       </a>
 
       <div className="utility-bar">
-        <span>PRIVATE COMMUNICATION / 2026</span>
+        <span className="utility-bar__desktop">PRIVATE COMMUNICATION / 2026</span>
+        <span className="utility-bar__mobile">PAGER / 2026</span>
         <span>ИНВЕСТИЦИОННАЯ ПРЕЗЕНТАЦИЯ</span>
       </div>
 
@@ -893,7 +922,7 @@ export default function Home() {
           />
           <div className="multiprofile__media">
             <img
-              src="/ledger/profile-contexts.png"
+              src="/ledger/profile-architecture.png"
               alt="Контекстные профили внутри одного аккаунта PAGER"
               width="1672"
               height="941"
@@ -1109,6 +1138,10 @@ export default function Home() {
                 loading="lazy"
                 decoding="async"
               />
+              <div className="screen-grid__proof">
+                <small>Продуктовый контур</small>
+                <b>Единая точка входа в приватное общение</b>
+              </div>
             </article>
             <article>
               <span>02 / Профиль</span>
@@ -1120,6 +1153,10 @@ export default function Home() {
                 loading="lazy"
                 decoding="async"
               />
+              <div className="screen-grid__proof">
+                <small>Контекстная личность</small>
+                <b>Профиль и PAGER ID находятся в одном сценарии</b>
+              </div>
             </article>
             <article>
               <span>03 / Доступ</span>
@@ -1131,7 +1168,30 @@ export default function Home() {
                 loading="lazy"
                 decoding="async"
               />
+              <div className="screen-grid__proof">
+                <small>Управляемое отношение</small>
+                <b>Способы связи открываются выборочно</b>
+              </div>
             </article>
+          </div>
+          <div className="beta-theses" aria-label="Гипотезы private beta">
+            <div className="beta-theses__intro">
+              <span>PRIVATE BETA / Q3 2026</span>
+              <h3>Что должна подтвердить первая версия</h3>
+              <p>
+                Это вопросы проверки, а не заявленные результаты. Метрики будут
+                зафиксированы после запуска private beta.
+              </p>
+            </div>
+            <div className="beta-theses__list">
+              {betaHypotheses.map((hypothesis) => (
+                <article key={hypothesis.number}>
+                  <span>{hypothesis.number}</span>
+                  <h4>{hypothesis.title}</h4>
+                  <p>{hypothesis.copy}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -1146,8 +1206,13 @@ export default function Home() {
               Бизнес-модель
             </SectionLabel>
             <h2>
-              <BrandWord /> монетизирует расширенное управление цифровыми
-              отношениями
+              <BrandWord />
+              <br />
+              монетизирует
+              <br />
+              расширенное управление
+              <br />
+              цифровыми отношениями
             </h2>
           </div>
           <div className="business__model">
@@ -1155,6 +1220,7 @@ export default function Home() {
               <span>FREE</span>
               <h3>Базовое общение</h3>
               <p>Создает сеть и привычку использовать PAGER ID.</p>
+              <small>PAGER ID · запросы · базовые способы связи</small>
             </article>
             <div aria-hidden="true">→</div>
             <article>
@@ -1163,6 +1229,7 @@ export default function Home() {
               <p>
                 Контекстами, правилами и сроками создает платную ценность.
               </p>
+              <small>Контексты · персональные правила · временный доступ</small>
             </article>
           </div>
           <p className="business__note">
@@ -1184,7 +1251,7 @@ export default function Home() {
             </article>
             <article>
               <span>ИНВЕСТИЦИОННЫЕ МАТЕРИАЛЫ</span>
-              <a href={deckHref}>Получить pitch deck <Arrow /></a>
+              <a href={deckHref}>Pitch deck + product demo <Arrow /></a>
             </article>
           </div>
         </section>
@@ -1253,8 +1320,11 @@ export default function Home() {
             <strong>
               Контакт больше не означает автоматический доступ.
             </strong>
+            <span className="final__status">
+              Private beta · Q3 2026 · product demo по запросу
+            </span>
             <a className="button button--white" href={deckHref}>
-              Получить pitch deck <Arrow />
+              Запросить deck и product demo <Arrow />
             </a>
           </div>
           <footer>
