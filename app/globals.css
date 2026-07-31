@@ -2883,6 +2883,296 @@ p {
   }
 }
 
+/* V14 story pass: vertical narrative, stable anchors and contained mobile gestures. */
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  overscroll-behavior-x: none;
+}
+
+main {
+  width: 100%;
+  max-width: 100%;
+  overflow: clip;
+}
+
+section[id] {
+  scroll-margin-top: 2rem;
+}
+
+.brand-word {
+  font-family: inherit;
+  font-weight: inherit;
+  font-kerning: auto;
+  font-feature-settings: normal;
+  letter-spacing: inherit;
+  transform: none;
+}
+
+.profiles__architecture {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(19rem, 0.65fr);
+  margin-top: clamp(2.5rem, 5vw, 5rem);
+  color: white;
+  background: var(--ink);
+}
+
+.profiles__architecture > img {
+  width: 100%;
+  height: 100%;
+  min-height: 30rem;
+  object-fit: cover;
+  object-position: center;
+}
+
+.profiles__architecture > div {
+  align-self: center;
+  padding: clamp(2rem, 4vw, 4rem);
+}
+
+.profiles__architecture > div > span,
+.rules__temporary-copy > span {
+  color: var(--blue);
+  font-family: "Pager Mono", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.profiles__architecture h3,
+.rules__temporary h3 {
+  margin-top: 1.3rem;
+  font-family: "Pager Condensed", "Arial Narrow", sans-serif;
+  font-size: clamp(2.8rem, 4.3vw, 5rem);
+  font-weight: 620;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.profiles__architecture p,
+.rules__temporary p {
+  margin-top: 1.4rem;
+  color: #b5b5b5;
+  line-height: 1.5;
+}
+
+.rules__temporary {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(19rem, 0.85fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  margin-top: clamp(2.5rem, 5vw, 5rem);
+  padding-top: clamp(2.5rem, 4vw, 4rem);
+  border-top: 1px solid var(--line-light);
+}
+
+.rules__temporary-visual {
+  position: relative;
+  align-self: center;
+  padding: clamp(2rem, 4vw, 4rem);
+  overflow: hidden;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.rules__temporary-visual img {
+  width: 100%;
+}
+
+.rules__temporary-visual .timer {
+  margin-bottom: 2rem;
+}
+
+.rules__temporary-copy {
+  align-self: center;
+}
+
+.potential {
+  min-height: 520px;
+}
+
+.potential__image {
+  min-height: 520px;
+}
+
+.final__content {
+  width: min(52rem, 56vw);
+}
+
+.final__content h2 {
+  font-size: clamp(3.8rem, 6.1vw, 7.2rem);
+  line-height: 0.86;
+}
+
+.final__content .button {
+  margin-top: 1rem;
+}
+
+.principles,
+.profile-grid,
+.screen-grid,
+.roadmap-list,
+.access-lab__profiles {
+  max-width: 100%;
+  overscroll-behavior-inline: contain;
+  touch-action: pan-x;
+}
+
+@media (max-width: 760px) {
+  section[id] {
+    scroll-margin-top: 2rem;
+  }
+
+  .mechanics-story {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    overflow: visible;
+  }
+
+  .mechanics-story .relationship-console {
+    position: sticky;
+    z-index: 6;
+    top: 4.75rem;
+    min-height: 17rem;
+    max-height: calc(100svh - 6rem);
+    order: 1;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.32);
+  }
+
+  .mechanics-story .mechanics-list {
+    display: block;
+    order: 2;
+    overflow: visible;
+    padding: 0;
+    touch-action: pan-y;
+  }
+
+  .mechanics-story .mechanics-list article,
+  .mechanics-story .mechanics-list article.is-active {
+    min-height: 48svh;
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr) auto;
+    align-content: center;
+    gap: 0.8rem;
+    padding: 2rem 0;
+    border: 0;
+    border-bottom: 1px solid var(--line-light);
+    scroll-snap-align: none;
+  }
+
+  .mechanics-story .mechanics-list article.is-active {
+    padding-left: 0.8rem;
+    border-left: 3px solid var(--blue);
+    background: linear-gradient(90deg, rgba(21, 151, 229, 0.12), transparent 72%);
+  }
+
+  .mechanics-story .mechanics-list h3 {
+    font-size: clamp(2rem, 9vw, 3rem);
+  }
+
+  .mechanics-story .mechanics-list p {
+    grid-column: 2 / -1;
+    max-width: 18rem;
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .profiles__architecture {
+    grid-template-columns: 1fr;
+    margin-right: calc(var(--pad) * -1);
+    margin-left: calc(var(--pad) * -1);
+  }
+
+  .profiles__architecture > img {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+
+  .profiles__architecture > div {
+    padding: 2rem var(--pad);
+  }
+
+  .profiles__architecture h3,
+  .rules__temporary h3 {
+    font-size: clamp(2.7rem, 12vw, 4rem);
+  }
+
+  .profile-grid,
+  .screen-grid,
+  .roadmap-list,
+  .principles,
+  .access-lab__profiles {
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .profile-grid::-webkit-scrollbar,
+  .screen-grid::-webkit-scrollbar,
+  .roadmap-list::-webkit-scrollbar,
+  .principles::-webkit-scrollbar,
+  .access-lab__profiles::-webkit-scrollbar {
+    display: none;
+  }
+
+  .rules__temporary {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 2.5rem;
+    padding-top: 2.5rem;
+  }
+
+  .rules__temporary-visual {
+    padding: 1.5rem 1rem;
+  }
+
+  .rules__temporary-visual .timer {
+    font-size: clamp(3rem, 17vw, 5rem);
+  }
+
+  .potential,
+  .potential__image {
+    min-height: 420px;
+  }
+
+  .final {
+    min-height: 900px;
+  }
+
+  .final__content {
+    width: 100%;
+    padding: 2.6rem var(--pad) 11rem;
+  }
+
+  .final__content h2 {
+    font-size: clamp(3.15rem, 12.7vw, 4.45rem);
+    line-height: 0.88;
+  }
+
+  .final__content p {
+    margin-top: 1.4rem;
+    font-size: 0.98rem;
+  }
+
+  .final__content strong {
+    margin: 1.35rem 0;
+  }
+
+  .final__status,
+  .final__content .button {
+    margin-top: 1rem;
+  }
+
+  .final__content .button {
+    width: 100%;
+  }
+}
+
 /* V12 completion pass: tighter investor rhythm and collision-safe product proof. */
 :root {
   --section-y: clamp(3.6rem, 5vw, 5rem);
@@ -4099,5 +4389,116 @@ p {
 
   .final__status {
     font-size: 0.65rem;
+  }
+}
+
+/* V14 precedence: keep the new story behavior above legacy completion layers. */
+.final__content {
+  width: min(52rem, 56vw);
+}
+
+.final__content h2 {
+  font-size: clamp(3.8rem, 6.1vw, 7.2rem);
+  line-height: 0.86;
+}
+
+@media (max-width: 760px) {
+  .section__head h2,
+  .model__headline h2,
+  .id-showcase h2,
+  .rules h2,
+  .potential h2,
+  .business h2 {
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+  }
+
+  .mechanics-story {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    overflow: visible;
+  }
+
+  .mechanics-story .relationship-console {
+    position: sticky;
+    z-index: 6;
+    top: 4.75rem;
+    min-height: 17rem;
+    max-height: calc(100svh - 6rem);
+    order: 1;
+  }
+
+  .mechanics-story .mechanics-list {
+    display: block;
+    order: 2;
+    overflow: visible;
+    padding: 0;
+    touch-action: pan-y;
+  }
+
+  .mechanics-story .mechanics-list article,
+  .mechanics-story .mechanics-list article.is-active {
+    min-height: 48svh;
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr) auto;
+    align-content: center;
+    gap: 0.8rem;
+    padding: 2rem 0;
+    border: 0;
+    border-bottom: 1px solid var(--line-light);
+    scroll-snap-align: none;
+  }
+
+  .mechanics-story .mechanics-list article.is-active {
+    padding-left: 0.8rem;
+    border-left: 3px solid var(--blue);
+    background: linear-gradient(90deg, rgba(21, 151, 229, 0.12), transparent 72%);
+  }
+
+  .mechanics-story .mechanics-list h3 {
+    font-size: clamp(2rem, 9vw, 3rem);
+  }
+
+  .mechanics-story .mechanics-list p {
+    grid-column: 2 / -1;
+    max-width: 18rem;
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .final {
+    min-height: 900px;
+  }
+
+  .final__content {
+    width: 100%;
+    padding: 2.6rem var(--pad) 11rem;
+  }
+
+  .final__content h2 {
+    font-size: clamp(3.15rem, 12.7vw, 4.45rem);
+    line-height: 0.88;
+  }
+
+  .final__content p {
+    margin-top: 1.4rem;
+    font-size: 0.98rem;
+  }
+
+  .final__content strong {
+    margin: 1.35rem 0;
+  }
+
+  .final__status,
+  .final__content .button {
+    margin-top: 1rem;
+  }
+
+  .final__content .button {
+    width: 100%;
+    white-space: normal;
   }
 }

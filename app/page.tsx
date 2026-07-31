@@ -1,6 +1,7 @@
-"use client";
-
-import { useEffect, useState } from "react";
+import { AccessSimulator } from "./components/AccessSimulator";
+import { InvestorNavigation } from "./components/InvestorNavigation";
+import { RelationshipStory } from "./components/RelationshipStory";
+import { deckHref, profiles } from "./site-data";
 
 const generations = [
   {
@@ -21,53 +22,6 @@ const generations = [
     question: "Как определить правила этого общения?",
     answer: "Главная задача: вернуть человеку контроль над доступностью.",
   },
-];
-
-const mechanics = [
-  ["01", "Найти человека", "по PAGER ID, без раскрытия номера телефона."],
-  ["02", "Отправить запрос", "общение начинается только после подтверждения."],
-  [
-    "03",
-    "Выбрать профиль",
-    "определить, какое имя, фотографию и описание увидит контакт.",
-  ],
-  ["04", "Настроить правила", "выбрать доступные способы взаимодействия."],
-  ["05", "Начать общение", "у отношения появляются собственные условия."],
-];
-
-const relationshipStates = [
-  {
-    label: "PAGER ID",
-    title: "Найти человека",
-    copy: "по PAGER ID, без раскрытия номера телефона.",
-  },
-  {
-    label: "Запрос",
-    title: "Отправить запрос",
-    copy: "общение начинается только после подтверждения.",
-  },
-  {
-    label: "Профиль",
-    title: "Выбрать профиль",
-    copy: "определить, какое имя, фотографию и описание увидит контакт.",
-  },
-  {
-    label: "Правила",
-    title: "Настроить правила",
-    copy: "выбрать доступные способы взаимодействия.",
-  },
-  {
-    label: "Отношение",
-    title: "Начать общение",
-    copy: "у отношения появляются собственные условия.",
-  },
-];
-
-const profiles = [
-  ["Личное", "/ledger/profile-1.png", "Близкий круг"],
-  ["Работа", "/ledger/profile-2.png", "Профессиональный контекст"],
-  ["Гостевое", "/ledger/profile-3.png", "Временное общение"],
-  ["Другое", "/ledger/profile-4.png", "Отдельный круг"],
 ];
 
 const permissions = [
@@ -116,25 +70,6 @@ const betaHypotheses = [
     copy: "Проверить, воспринимают ли пользователи управление способами и сроком связи как отдельную ценность.",
   },
 ];
-
-const acts = [
-  ["01", "Манифест PAGER", "#top"],
-  ["02", "Эволюция цифрового общения", "#evolution"],
-  ["03", "Новая единица продукта", "#model"],
-  ["04", "Механика отношения", "#mechanics"],
-  ["05", "PAGER ID", "#identity"],
-  ["06", "Контекстная видимость", "#profiles"],
-  ["07", "Персональные правила", "#rules"],
-  ["08", "Продукт сегодня", "#product"],
-  ["09", "Бизнес-модель", "#business"],
-  ["10", "Путь развития", "#roadmap"],
-];
-
-const deckHref = `mailto:martynov.usa@gmail.com?subject=${encodeURIComponent(
-  "PAGER — запрос pitch deck и product demo",
-)}&body=${encodeURIComponent(
-  "Имя:\nФонд / компания:\nИнтересует: pitch deck / product demo\nИнтересующий чек:\n",
-)}`;
 
 function SectionLabel({
   number,
@@ -203,295 +138,14 @@ function RelationshipThread({
   );
 }
 
-function AccessSimulator() {
-  const [profileIndex, setProfileIndex] = useState(1);
-  const [capabilities, setCapabilities] = useState([true, false, false]);
-  const [duration, setDuration] = useState("24 часа");
-  const activeProfile = profiles[profileIndex];
-  const capabilityLabels = [
-    "Текстовые сообщения",
-    "Аудиозвонки",
-    "Добавление в группы",
-  ];
-
-  const toggleCapability = (index: number) => {
-    setCapabilities((current) =>
-      current.map((item, itemIndex) => (itemIndex === index ? !item : item)),
-    );
-  };
-
-  return (
-    <div className="access-lab" aria-label="Интерактивная модель отношения PAGER">
-      <div className="access-lab__heading">
-        <span>LIVE / МОДЕЛЬ ОТНОШЕНИЯ</span>
-        <p>Измените профиль, правила и срок — получатель увидит только разрешённое.</p>
-      </div>
-
-      <div className="access-lab__mobile-result" aria-live="polite">
-        <span>Получатель видит</span>
-        <b>{activeProfile[0]}</b>
-        <i>{capabilities.filter(Boolean).length} из 3 способов</i>
-        <i>{duration}</i>
-      </div>
-
-      <div className="access-lab__controls">
-        <fieldset>
-          <legend>01 / Профиль</legend>
-          <div className="access-lab__profiles">
-            {profiles.map(([title, image], index) => (
-              <button
-                type="button"
-                className={index === profileIndex ? "is-active" : ""}
-                aria-pressed={index === profileIndex}
-                onClick={() => setProfileIndex(index)}
-                key={title}
-              >
-                <img src={image} alt="" width="543" height="724" />
-                <span>{title}</span>
-              </button>
-            ))}
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>02 / Правила</legend>
-          <div className="access-lab__toggles">
-            {capabilityLabels.map((label, index) => (
-              <button
-                type="button"
-                role="switch"
-                aria-checked={capabilities[index]}
-                onClick={() => toggleCapability(index)}
-                key={label}
-              >
-                <span>{label}</span>
-                <i aria-hidden="true" />
-              </button>
-            ))}
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>03 / Срок</legend>
-          <div className="access-lab__duration">
-            {["24 часа", "7 дней", "Постоянно"].map((item) => (
-              <button
-                type="button"
-                className={duration === item ? "is-active" : ""}
-                aria-pressed={duration === item}
-                onClick={() => setDuration(item)}
-                key={item}
-              >
-                {item}
-              </button>
-            ))}
-          </div>
-        </fieldset>
-      </div>
-
-      <div className="access-lab__preview" aria-live="polite">
-        <div className="access-lab__preview-top">
-          <span>ПОЛУЧАТЕЛЬ ВИДИТ</span>
-          <b>@PAGER ID</b>
-        </div>
-        <div className="access-lab__identity">
-          <img
-            src={activeProfile[1]}
-            alt={`Профиль «${activeProfile[0]}»`}
-            width="543"
-            height="724"
-          />
-          <div>
-            <span>{activeProfile[2]}</span>
-            <strong>{activeProfile[0]}</strong>
-          </div>
-        </div>
-        <div className="access-lab__result">
-          {capabilityLabels.map((label, index) => (
-            <span key={label}>
-              {label}
-              <b className={capabilities[index] ? "is-open" : ""}>
-                {capabilities[index] ? "Разрешено" : "Закрыто"}
-              </b>
-            </span>
-          ))}
-        </div>
-        <div className="access-lab__expires">
-          <span>СРОК ОТНОШЕНИЯ</span>
-          <b>{duration}</b>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [relationshipStep, setRelationshipStep] = useState(0);
-  const [activeAct, setActiveAct] = useState(0);
-
-  useEffect(() => {
-    document.body.classList.toggle("menu-is-open", menuOpen);
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
-    };
-    window.addEventListener("keydown", closeOnEscape);
-    return () => {
-      document.body.classList.remove("menu-is-open");
-      window.removeEventListener("keydown", closeOnEscape);
-    };
-  }, [menuOpen]);
-
-  useEffect(() => {
-    const steps = Array.from(
-      document.querySelectorAll<HTMLElement>("[data-relationship-step]"),
-    );
-    if (!steps.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleStep = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-        if (!visibleStep) return;
-        setRelationshipStep(
-          Number(
-            (visibleStep.target as HTMLElement).dataset.relationshipStep ?? 0,
-          ),
-        );
-      },
-      {
-        rootMargin: "-28% 0px -48%",
-        threshold: [0.15, 0.35, 0.65],
-      },
-    );
-
-    steps.forEach((step) => observer.observe(step));
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const actStarts = Array.from(
-      document.querySelectorAll<HTMLElement>("[data-act]"),
-    );
-    if (!actStarts.length) return;
-
-    let frame = 0;
-    const updateAct = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        const readingLine = window.scrollY + window.innerHeight * 0.24;
-        const currentAct = actStarts.reduce((latest, act) => {
-          if (act.offsetTop > readingLine) return latest;
-          return Number(act.dataset.act ?? 1) - 1;
-        }, 0);
-        setActiveAct(currentAct);
-      });
-    };
-
-    updateAct();
-    window.addEventListener("scroll", updateAct, { passive: true });
-    window.addEventListener("resize", updateAct);
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", updateAct);
-      window.removeEventListener("resize", updateAct);
-    };
-  }, []);
-
-  const closeMenu = () => setMenuOpen(false);
-
   return (
     <>
       <a className="skip-link" href="#content">
         Перейти к содержанию
       </a>
 
-      <div className="utility-bar">
-        <span className="utility-bar__desktop">PRIVATE COMMUNICATION / 2026</span>
-        <span className="utility-bar__mobile">PAGER / 2026</span>
-        <span>ИНВЕСТИЦИОННАЯ ПРЕЗЕНТАЦИЯ</span>
-      </div>
-
-      <header className="site-header">
-        <nav className="desktop-nav" aria-label="Основная навигация">
-          <a href="#model">Модель</a>
-          <a href="#mechanics">Демо</a>
-          <a href="#product">Продукт</a>
-        </nav>
-
-        <a className="wordmark" href="#top" aria-label="PAGER — к началу">
-          PAGER
-        </a>
-
-        <div className="header-actions">
-          <a href="#roadmap">Roadmap</a>
-          <a className="header-cta" href={deckHref}>
-            Получить deck <Arrow />
-          </a>
-        </div>
-
-        <button
-          className={`menu-toggle ${menuOpen ? "is-open" : ""}`}
-          type="button"
-          aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-menu"
-          onClick={() => setMenuOpen((value) => !value)}
-        >
-          <i />
-          <i />
-          <i />
-        </button>
-      </header>
-
-      <nav className="act-progress" aria-label="Прогресс презентации">
-        <div className="act-progress__current" aria-live="polite">
-          <b>{acts[activeAct][0]}</b>
-          <span>/ 10</span>
-        </div>
-        <ol>
-          {acts.map(([number, label, href], index) => (
-            <li className={index === activeAct ? "is-active" : ""} key={number}>
-              <a
-                href={href}
-                aria-current={index === activeAct ? "step" : undefined}
-                aria-label={`${number}. ${label}`}
-              >
-                <i />
-                <span>{label}</span>
-              </a>
-            </li>
-          ))}
-        </ol>
-        <small>{acts[activeAct][1]}</small>
-      </nav>
-
-      <div
-        className={`mobile-menu ${menuOpen ? "is-open" : ""}`}
-        id="mobile-menu"
-        aria-hidden={!menuOpen}
-      >
-        <a href="#model" onClick={closeMenu}>
-          Модель <span>01</span>
-        </a>
-        <a href="#mechanics" onClick={closeMenu}>
-          Демо <span>02</span>
-        </a>
-        <a href="#product" onClick={closeMenu}>
-          Продукт <span>03</span>
-        </a>
-        <a href="#business" onClick={closeMenu}>
-          Бизнес <span>04</span>
-        </a>
-        <a href="#roadmap" onClick={closeMenu}>
-          Roadmap <span>05</span>
-        </a>
-        <a href={deckHref} onClick={closeMenu}>
-          Получить pitch deck <Arrow />
-        </a>
-      </div>
+      <InvestorNavigation />
 
       <main id="content">
         <section className="hero" id="top" data-scene="01" data-act="1">
@@ -758,77 +412,7 @@ export default function Home() {
               управляемое отношение.
             </p>
           </div>
-          <div className="mechanics-story">
-            <div className="mechanics-list">
-              {mechanics.map(([number, title, copy], index) => (
-                <article
-                  key={number}
-                  className={relationshipStep === index ? "is-active" : ""}
-                  data-relationship-step={index}
-                >
-                  <span>{number}</span>
-                  <h3>{title}</h3>
-                  <p>{copy}</p>
-                  <i aria-hidden="true">→</i>
-                </article>
-              ))}
-            </div>
-
-            <aside
-              className="relationship-console"
-              aria-label="Отношение, профиль и правила общения"
-              aria-live="polite"
-              style={
-                {
-                  "--relationship-progress": relationshipStep + 1,
-                } as React.CSSProperties
-              }
-            >
-              <div className="relationship-console__top">
-                <span>ОТНОШЕНИЕ</span>
-                <b>0{relationshipStep + 1} / 05</b>
-              </div>
-              <div className="relationship-console__identity">
-                <div className="relationship-console__avatar">
-                  <img
-                    src="/ledger/profile-2.png"
-                    alt=""
-                    width="543"
-                    height="724"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div>
-                  <span>{relationshipStates[relationshipStep].label}</span>
-                  <strong>{relationshipStates[relationshipStep].title}</strong>
-                </div>
-              </div>
-              <p>{relationshipStates[relationshipStep].copy}</p>
-              <div className="relationship-console__permissions">
-                <span>
-                  Текстовые сообщения <b>Разрешено</b>
-                </span>
-                <span>
-                  Аудиозвонки <b>Закрыто</b>
-                </span>
-                <span>
-                  Срок <b>24:00:00</b>
-                </span>
-              </div>
-              <div
-                className="relationship-console__progress"
-                aria-hidden="true"
-              >
-                {relationshipStates.map((state, index) => (
-                  <i
-                    className={index <= relationshipStep ? "is-complete" : ""}
-                    key={state.label}
-                  />
-                ))}
-              </div>
-            </aside>
-          </div>
+          <RelationshipStory />
           <AccessSimulator />
         </section>
 
@@ -892,6 +476,30 @@ export default function Home() {
             label="Профиль"
             detail="Контекстная видимость"
           />
+          <div className="profiles__architecture">
+            <img
+              src="/ledger/profile-architecture.png"
+              alt="Контекстные профили внутри одного аккаунта PAGER"
+              width="1672"
+              height="941"
+              loading="lazy"
+              decoding="async"
+            />
+            <div>
+              <span>ОДИН АККАУНТ / ОДИН PAGER ID</span>
+              <h3>Вы остаетесь собой — но открываетесь по-разному.</h3>
+              <p>
+                Личное, профессиональное и временное общение существуют внутри
+                одного аккаунта.
+              </p>
+              <div className="context-list">
+                <span>Личное</span>
+                <span>Работа</span>
+                <span>Временное</span>
+                <span>Другое</span>
+              </div>
+            </div>
+          </div>
           <div className="profile-grid">
             {profiles.map(([title, image, caption], index) => (
               <article key={title}>
@@ -910,41 +518,6 @@ export default function Home() {
                 <p>{caption}</p>
               </article>
             ))}
-          </div>
-        </section>
-
-        <section className="multiprofile" data-scene="08">
-          <RelationshipThread
-            step={3}
-            label="Один аккаунт"
-            detail="Вы открываетесь по-разному"
-            light
-          />
-          <div className="multiprofile__media">
-            <img
-              src="/ledger/profile-architecture.png"
-              alt="Контекстные профили внутри одного аккаунта PAGER"
-              width="1672"
-              height="941"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          <div className="multiprofile__copy">
-            <SectionLabel number="08" light>
-              Один аккаунт
-            </SectionLabel>
-            <h2>Вы остаетесь собой — но открываетесь по-разному.</h2>
-            <p>
-              Личное, профессиональное и временное общение существуют внутри
-              одного аккаунта и одного PAGER ID.
-            </p>
-            <div className="context-list">
-              <span>Личное</span>
-              <span>Работа</span>
-              <span>Временное</span>
-              <span>Другое</span>
-            </div>
           </div>
         </section>
 
@@ -988,62 +561,26 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </section>
-
-        <section className="temporary section" data-scene="10">
-          <RelationshipThread
-            step={5}
-            label="Срок"
-            detail="Отношения с ограниченным сроком"
-          />
-          <div className="temporary__visual">
-            <span className="timer">24:00:00</span>
-            <img
-              src="/ledger/ui-temporary.png"
-              alt="Интерфейс временного доступа PAGER"
-              width="1145"
-              height="252"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          <div className="temporary__copy">
-            <SectionLabel number="10">
-              Отношения с ограниченным сроком
-            </SectionLabel>
-            <h2>Не каждое отношение должно быть постоянным</h2>
-            <p>
-              Доступ может завершиться автоматически — без блокировки, конфликта
-              или ручной очистки контактов.
-            </p>
-          </div>
-        </section>
-
-        <section
-          className="system section"
-          id="system"
-          data-scene="11"
-        >
-          <div className="section__head">
-            <SectionLabel number="11">Один принцип</SectionLabel>
-            <h2>
-              Все механики <BrandWord /> являются следствиями управляемого доступа
-            </h2>
-            <p>
-              Запрос, ID, профили, правила и срок отношений складываются в одну
-              модель, а не в набор разрозненных функций.
-            </p>
-          </div>
-          <div className="system-flow">
-            {["PAGER ID", "Запрос", "Профиль", "Правила", "Срок"].map(
-              (item, index) => (
-                <div key={item}>
-                  <span>0{index + 1}</span>
-                  <b>{item}</b>
-                  {index < 4 && <i aria-hidden="true">→</i>}
-                </div>
-              ),
-            )}
+          <div className="rules__temporary">
+            <div className="rules__temporary-visual">
+              <span className="timer">24:00:00</span>
+              <img
+                src="/ledger/ui-temporary.png"
+                alt="Интерфейс временного доступа PAGER"
+                width="1145"
+                height="252"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div className="rules__temporary-copy">
+              <span>СРОК / 05</span>
+              <h3>Не каждое отношение должно быть постоянным</h3>
+              <p>
+                Доступ может завершиться автоматически — без блокировки,
+                конфликта или ручной очистки контактов.
+              </p>
+            </div>
           </div>
         </section>
 
