@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "PAGER — Контроль над цифровым общением",
   description:
     "PAGER возвращает человеку контроль над доступностью, видимостью и правилами общения.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
