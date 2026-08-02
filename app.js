@@ -1,7 +1,6 @@
 (() => {
-  const menuButton = document.querySelector(".menu-toggle");
-  const mobileMenu = document.querySelector("#mobile-menu");
-
+  const menuButton = document.querySelector(".protocol-menu-button");
+  const mobileMenu = document.querySelector("#protocol-menu");
   const setMenuOpen = (open) => {
     if (!menuButton || !mobileMenu) return;
     menuButton.classList.toggle("is-open", open);
@@ -11,203 +10,84 @@
     mobileMenu.setAttribute("aria-hidden", String(!open));
     document.body.classList.toggle("menu-is-open", open);
   };
+  menuButton?.addEventListener("click", () => setMenuOpen(menuButton.getAttribute("aria-expanded") !== "true"));
+  mobileMenu?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setMenuOpen(false)));
+  window.addEventListener("keydown", (event) => { if (event.key === "Escape") setMenuOpen(false); });
 
-  menuButton?.addEventListener("click", () => {
-    setMenuOpen(menuButton.getAttribute("aria-expanded") !== "true");
-  });
-  mobileMenu?.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => setMenuOpen(false));
-  });
-  window.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") setMenuOpen(false);
-  });
-
-  const relationshipStates = [
-    ["PAGER ID", "Найти человека", "по PAGER ID, без раскрытия номера телефона."],
-    ["Запрос", "Отправить запрос", "общение начинается только после подтверждения."],
-    ["Профиль", "Выбрать профиль", "определить, какое имя, фотографию и описание увидит контакт."],
-    ["Правила", "Настроить правила", "выбрать доступные способы взаимодействия."],
-    ["Отношение", "Начать общение", "у отношения появляются собственные условия."],
+  const protocolStates = [
+    ["PAGER ID", "A147 0865", "Публичный идентификатор"],
+    ["ЗАПРОС", "Ожидает подтверждения", "Доступ ещё не открыт"],
+    ["ПРОФИЛЬ", "Работа", "Профессиональный контекст"],
+    ["РАЗРЕШЕНИЯ", "Текст · Файлы", "2 из 6 способов доступны"],
+    ["СРОК", "24:00:00", "Временный доступ"],
   ];
-  const relationshipSteps = [...document.querySelectorAll("[data-relationship-step]")];
-  const relationshipConsole = document.querySelector(".relationship-console");
-
-  const setRelationshipStep = (index) => {
-    const state = relationshipStates[index];
-    if (!state || !relationshipConsole) return;
-    relationshipSteps.forEach((step, stepIndex) => {
-      step.classList.toggle("is-active", stepIndex === index);
-    });
-    relationshipConsole.style.setProperty("--relationship-progress", String(index + 1));
-    const counter = relationshipConsole.querySelector(".relationship-console__top b");
-    const label = relationshipConsole.querySelector(".relationship-console__identity > div:last-child > span");
-    const title = relationshipConsole.querySelector(".relationship-console__identity strong");
-    const copy = relationshipConsole.querySelector(":scope > p");
+  const storySteps = [...document.querySelectorAll("[data-protocol-step]")];
+  const consoleBox = document.querySelector(".protocol-console");
+  const setProtocolStep = (index) => {
+    const state = protocolStates[index];
+    if (!state || !consoleBox) return;
+    storySteps.forEach((step, stepIndex) => step.classList.toggle("is-active", stepIndex === index));
+    const counter = consoleBox.querySelector(".protocol-console__top b");
+    const label = consoleBox.querySelector(".protocol-console__screen-label");
+    const value = consoleBox.querySelector(".protocol-console__screen strong");
+    const detail = consoleBox.querySelector(".protocol-console__screen p");
     if (counter) counter.textContent = `0${index + 1} / 05`;
     if (label) label.textContent = state[0];
-    if (title) title.textContent = state[1];
-    if (copy) copy.textContent = state[2];
-    relationshipConsole.querySelectorAll(".relationship-console__progress i").forEach((item, itemIndex) => {
-      item.classList.toggle("is-complete", itemIndex <= index);
-    });
+    if (value) value.textContent = state[1];
+    if (detail) detail.textContent = state[2];
+    consoleBox.querySelectorAll(".protocol-console__ticks i").forEach((tick, tickIndex) => tick.classList.toggle("is-on", tickIndex <= index));
   };
-
-  if (relationshipSteps.length && "IntersectionObserver" in window) {
+  storySteps.forEach((step, index) => step.addEventListener("click", () => setProtocolStep(index)));
+  if (storySteps.length && "IntersectionObserver" in window) {
     const observer = new IntersectionObserver((entries) => {
       const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (visible) setRelationshipStep(Number(visible.target.dataset.relationshipStep || 0));
-    }, { rootMargin: "-28% 0px -48%", threshold: [0.15, 0.35, 0.65] });
-    relationshipSteps.forEach((step) => observer.observe(step));
+      if (visible) setProtocolStep(Number(visible.target.dataset.protocolStep || 0));
+    }, { rootMargin: "-25% 0px -55%", threshold: [0.15, 0.35, 0.65] });
+    storySteps.forEach((step) => observer.observe(step));
   }
 
-  const profileData = [
-    ["Личное", "/pager-investor/ledger/profile-1.png", "Близкий круг"],
-    ["Работа", "/pager-investor/ledger/profile-2.png", "Профессиональный контекст"],
-    ["Гостевое", "/pager-investor/ledger/profile-3.png", "Временное общение"],
-    ["Другое", "/pager-investor/ledger/profile-4.png", "Отдельный круг"],
+  const profiles = [
+    ["Личное", "/pager-investor/protocol/profile-personal.png", "Близкий круг", "Евгений", "Евгений · личное описание", "Сообщения · Звонки · Файлы", "Постоянно"],
+    ["Работа", "/pager-investor/protocol/profile-work.png", "Профессиональный контекст", "Е. Мартынов", "Е. Мартынов · рабочее описание", "Сообщения · Файлы", "Постоянно"],
+    ["Гостевое", "/pager-investor/protocol/profile-guest.png", "Временный контекст", "Evgeny", "Evgeny · без личных деталей", "Сообщения", "24 часа"],
+    ["Другое", "/pager-investor/protocol/profile-alter.png", "Отдельная версия личности", "E. M.", "E. M. · отдельное описание", "По запросу", "7 дней"],
   ];
-  const profileButtons = [...document.querySelectorAll(".access-lab__profiles button")];
-  const presetButtons = [...document.querySelectorAll(".access-lab__presets button")];
-  const previewImage = document.querySelector(".access-lab__identity img");
-  const previewContext = document.querySelector(".access-lab__identity span");
-  const previewName = document.querySelector(".access-lab__identity strong");
-  const mobileProfile = document.querySelector(".access-lab__mobile-result b");
-  const mobilePermissionCount = document.querySelector(".access-lab__mobile-result i:first-of-type");
-  const mobileDuration = document.querySelector(".access-lab__mobile-result i:last-child");
-  let activeProfileIndex = Math.max(0, profileButtons.findIndex((button) => button.classList.contains("is-active")));
-
-  const clearPresets = () => {
-    presetButtons.forEach((button) => {
-      button.classList.remove("is-active");
-      button.setAttribute("aria-pressed", "false");
-    });
-  };
-
-  const updateMobileResult = () => {
-    const openCount = permissionButtons.filter((button) => button.getAttribute("aria-checked") === "true").length;
-    if (mobileProfile) mobileProfile.textContent = profileData[activeProfileIndex][0];
-    if (mobilePermissionCount) mobilePermissionCount.textContent = `${openCount} из 3 способов`;
-    if (mobileDuration && durationResult) mobileDuration.textContent = durationResult.textContent;
-  };
-
+  const profileTabs = [...document.querySelectorAll(".profile-switcher__tab")];
+  const profileImage = document.querySelector(".profile-view__image img");
+  const profileContext = document.querySelector(".profile-view__copy .protocol-kicker");
+  const profileName = document.querySelector(".profile-view__copy h3");
+  const profileRows = [...document.querySelectorAll(".profile-view__rows b")];
   const setProfile = (index) => {
-    const profile = profileData[index];
+    const profile = profiles[index];
     if (!profile) return;
-    activeProfileIndex = index;
-    profileButtons.forEach((item, itemIndex) => {
-      const active = itemIndex === index;
-      item.classList.toggle("is-active", active);
-      item.setAttribute("aria-pressed", String(active));
+    profileTabs.forEach((tab, tabIndex) => {
+      const active = tabIndex === index;
+      tab.classList.toggle("is-active", active);
+      tab.setAttribute("aria-selected", String(active));
     });
-    if (previewImage) {
-      previewImage.src = profile[1];
-      previewImage.alt = `Профиль «${profile[0]}»`;
-    }
-    if (previewContext) previewContext.textContent = profile[2];
-    if (previewName) previewName.textContent = profile[0];
+    if (profileImage) { profileImage.src = profile[1]; profileImage.alt = `${profile[0]}: ${profile[3]}`; }
+    if (profileContext) profileContext.textContent = profile[2];
+    if (profileName) profileName.textContent = profile[3];
+    if (profileRows[0]) profileRows[0].textContent = profile[4];
+    if (profileRows[1]) profileRows[1].textContent = profile[5];
+    if (profileRows[2]) profileRows[2].textContent = profile[6];
   };
+  profileTabs.forEach((tab, index) => tab.addEventListener("click", () => setProfile(index)));
 
-  profileButtons.forEach((button, index) => {
-    button.addEventListener("click", () => {
-      clearPresets();
-      setProfile(index);
-      updateMobileResult();
-    });
-  });
-
-  const permissionButtons = [...document.querySelectorAll(".access-lab__toggles button")];
-  const permissionResults = [...document.querySelectorAll(".access-lab__result b")];
-  permissionButtons.forEach((button, index) => {
-    button.addEventListener("click", () => {
-      clearPresets();
-      const next = button.getAttribute("aria-checked") !== "true";
-      button.setAttribute("aria-checked", String(next));
-      const result = permissionResults[index];
-      if (result) {
-        result.classList.toggle("is-open", next);
-        result.textContent = next ? "Разрешено" : "Закрыто";
-      }
-      updateMobileResult();
-    });
-  });
-
-  const durationButtons = [...document.querySelectorAll(".access-lab__duration button")];
-  const durationResult = document.querySelector(".access-lab__expires b");
-  durationButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      clearPresets();
-      durationButtons.forEach((item) => {
-        const active = item === button;
-        item.classList.toggle("is-active", active);
-        item.setAttribute("aria-pressed", String(active));
-      });
-      if (durationResult) durationResult.textContent = button.textContent.trim();
-      updateMobileResult();
-    });
-  });
-
-  const presets = [
-    { profile: 0, capabilities: [true, true, true], duration: "Постоянно" },
-    { profile: 1, capabilities: [true, false, false], duration: "Постоянно" },
-    { profile: 2, capabilities: [true, false, false], duration: "24 часа" },
-  ];
-
-  presetButtons.forEach((button, index) => {
-    button.addEventListener("click", () => {
-      const preset = presets[index];
-      if (!preset) return;
-      presetButtons.forEach((item, itemIndex) => {
-        const active = itemIndex === index;
-        item.classList.toggle("is-active", active);
-        item.setAttribute("aria-pressed", String(active));
-      });
-      setProfile(preset.profile);
-      permissionButtons.forEach((item, itemIndex) => {
-        const open = preset.capabilities[itemIndex];
-        item.setAttribute("aria-checked", String(open));
-        const result = permissionResults[itemIndex];
-        if (result) {
-          result.classList.toggle("is-open", open);
-          result.textContent = open ? "Разрешено" : "Закрыто";
-        }
-      });
-      durationButtons.forEach((item) => {
-        const active = item.textContent.trim() === preset.duration;
-        item.classList.toggle("is-active", active);
-        item.setAttribute("aria-pressed", String(active));
-      });
-      if (durationResult) durationResult.textContent = preset.duration;
-      updateMobileResult();
-    });
-  });
-
-  updateMobileResult();
-
-  const actStarts = [...document.querySelectorAll("[data-act]")];
-  const actItems = [...document.querySelectorAll(".act-progress li")];
-  const actCounter = document.querySelector(".act-progress__current b");
-  const actLabel = document.querySelector(".act-progress small");
-  const actLabels = [
-    "Манифест PAGER", "Почему сейчас", "Новая единица продукта", "Механика отношения", "Система отношения", "Продукт сегодня", "Гипотеза роста", "Бизнес и рынок", "Следующий шаг",
-  ];
-  let frame = 0;
-  const updateAct = () => {
-    cancelAnimationFrame(frame);
-    frame = requestAnimationFrame(() => {
-      const readingLine = window.scrollY + window.innerHeight * 0.24;
-      const activeIndex = actStarts.reduce((latest, section) => section.offsetTop > readingLine ? latest : Number(section.dataset.act || 1) - 1, 0);
-      actItems.forEach((item, index) => {
-        const active = index === activeIndex;
-        item.classList.toggle("is-active", active);
-        const link = item.querySelector("a");
-        if (active) link?.setAttribute("aria-current", "step");
-        else link?.removeAttribute("aria-current");
-      });
-      if (actCounter) actCounter.textContent = String(activeIndex + 1).padStart(2, "0");
-      if (actLabel) actLabel.textContent = actLabels[activeIndex] || actLabels[0];
+  const sections = [...document.querySelectorAll("[data-act]")];
+  const progressItems = [...document.querySelectorAll("[data-progress]")];
+  let ticking = false;
+  const updateProgress = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const line = window.scrollY + window.innerHeight * 0.28;
+      const current = sections.reduce((latest, section) => section.offsetTop > line ? latest : Number(section.dataset.act || 1) - 1, 0);
+      progressItems.forEach((item, index) => item.classList.toggle("is-active", index === current));
+      ticking = false;
     });
   };
-  updateAct();
-  window.addEventListener("scroll", updateAct, { passive: true });
-  window.addEventListener("resize", updateAct);
+  updateProgress();
+  window.addEventListener("scroll", updateProgress, { passive: true });
+  window.addEventListener("resize", updateProgress);
 })();
