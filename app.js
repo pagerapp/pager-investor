@@ -67,24 +67,51 @@
     ["Другое", "/pager-investor/ledger/profile-4.png", "Отдельный круг"],
   ];
   const profileButtons = [...document.querySelectorAll(".access-lab__profiles button")];
+  const presetButtons = [...document.querySelectorAll(".access-lab__presets button")];
   const previewImage = document.querySelector(".access-lab__identity img");
   const previewContext = document.querySelector(".access-lab__identity span");
   const previewName = document.querySelector(".access-lab__identity strong");
+  const mobileProfile = document.querySelector(".access-lab__mobile-result b");
+  const mobilePermissionCount = document.querySelector(".access-lab__mobile-result i:first-of-type");
+  const mobileDuration = document.querySelector(".access-lab__mobile-result i:last-child");
+  let activeProfileIndex = Math.max(0, profileButtons.findIndex((button) => button.classList.contains("is-active")));
+
+  const clearPresets = () => {
+    presetButtons.forEach((button) => {
+      button.classList.remove("is-active");
+      button.setAttribute("aria-pressed", "false");
+    });
+  };
+
+  const updateMobileResult = () => {
+    const openCount = permissionButtons.filter((button) => button.getAttribute("aria-checked") === "true").length;
+    if (mobileProfile) mobileProfile.textContent = profileData[activeProfileIndex][0];
+    if (mobilePermissionCount) mobilePermissionCount.textContent = `${openCount} из 3 способов`;
+    if (mobileDuration && durationResult) mobileDuration.textContent = durationResult.textContent;
+  };
+
+  const setProfile = (index) => {
+    const profile = profileData[index];
+    if (!profile) return;
+    activeProfileIndex = index;
+    profileButtons.forEach((item, itemIndex) => {
+      const active = itemIndex === index;
+      item.classList.toggle("is-active", active);
+      item.setAttribute("aria-pressed", String(active));
+    });
+    if (previewImage) {
+      previewImage.src = profile[1];
+      previewImage.alt = `Профиль «${profile[0]}»`;
+    }
+    if (previewContext) previewContext.textContent = profile[2];
+    if (previewName) previewName.textContent = profile[0];
+  };
 
   profileButtons.forEach((button, index) => {
     button.addEventListener("click", () => {
-      const profile = profileData[index];
-      profileButtons.forEach((item, itemIndex) => {
-        const active = itemIndex === index;
-        item.classList.toggle("is-active", active);
-        item.setAttribute("aria-pressed", String(active));
-      });
-      if (previewImage) {
-        previewImage.src = profile[1];
-        previewImage.alt = `Профиль «${profile[0]}»`;
-      }
-      if (previewContext) previewContext.textContent = profile[2];
-      if (previewName) previewName.textContent = profile[0];
+      clearPresets();
+      setProfile(index);
+      updateMobileResult();
     });
   });
 
@@ -92,6 +119,7 @@
   const permissionResults = [...document.querySelectorAll(".access-lab__result b")];
   permissionButtons.forEach((button, index) => {
     button.addEventListener("click", () => {
+      clearPresets();
       const next = button.getAttribute("aria-checked") !== "true";
       button.setAttribute("aria-checked", String(next));
       const result = permissionResults[index];
@@ -99,6 +127,7 @@
         result.classList.toggle("is-open", next);
         result.textContent = next ? "Разрешено" : "Закрыто";
       }
+      updateMobileResult();
     });
   });
 
@@ -106,21 +135,60 @@
   const durationResult = document.querySelector(".access-lab__expires b");
   durationButtons.forEach((button) => {
     button.addEventListener("click", () => {
+      clearPresets();
       durationButtons.forEach((item) => {
         const active = item === button;
         item.classList.toggle("is-active", active);
         item.setAttribute("aria-pressed", String(active));
       });
       if (durationResult) durationResult.textContent = button.textContent.trim();
+      updateMobileResult();
     });
   });
+
+  const presets = [
+    { profile: 0, capabilities: [true, true, true], duration: "Постоянно" },
+    { profile: 1, capabilities: [true, false, false], duration: "Постоянно" },
+    { profile: 2, capabilities: [true, false, false], duration: "24 часа" },
+  ];
+
+  presetButtons.forEach((button, index) => {
+    button.addEventListener("click", () => {
+      const preset = presets[index];
+      if (!preset) return;
+      presetButtons.forEach((item, itemIndex) => {
+        const active = itemIndex === index;
+        item.classList.toggle("is-active", active);
+        item.setAttribute("aria-pressed", String(active));
+      });
+      setProfile(preset.profile);
+      permissionButtons.forEach((item, itemIndex) => {
+        const open = preset.capabilities[itemIndex];
+        item.setAttribute("aria-checked", String(open));
+        const result = permissionResults[itemIndex];
+        if (result) {
+          result.classList.toggle("is-open", open);
+          result.textContent = open ? "Разрешено" : "Закрыто";
+        }
+      });
+      durationButtons.forEach((item) => {
+        const active = item.textContent.trim() === preset.duration;
+        item.classList.toggle("is-active", active);
+        item.setAttribute("aria-pressed", String(active));
+      });
+      if (durationResult) durationResult.textContent = preset.duration;
+      updateMobileResult();
+    });
+  });
+
+  updateMobileResult();
 
   const actStarts = [...document.querySelectorAll("[data-act]")];
   const actItems = [...document.querySelectorAll(".act-progress li")];
   const actCounter = document.querySelector(".act-progress__current b");
   const actLabel = document.querySelector(".act-progress small");
   const actLabels = [
-    "Манифест PAGER", "Эволюция цифрового общения", "Новая единица продукта", "Механика отношения", "PAGER ID", "Контекстная видимость", "Персональные правила", "Продукт сегодня", "Бизнес-модель", "Путь развития",
+    "Манифест PAGER", "Почему сейчас", "Новая единица продукта", "Механика отношения", "Система отношения", "Продукт сегодня", "Гипотеза роста", "Бизнес и рынок", "Следующий шаг",
   ];
   let frame = 0;
   const updateAct = () => {

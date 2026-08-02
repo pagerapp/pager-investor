@@ -1,14 +1,14 @@
-# PAGER — investor presentation
+# PAGER Investor Page
 
-Инвестиционная страница PAGER о новой модели приватного цифрового общения: PAGER ID, контекстные профили, управляемые правила доступа и временные отношения.
+Static GitHub Pages build of the PAGER investor presentation.
 
-## Публикация
+## Current version
 
-- GitHub Pages: https://pagerapp.github.io/pager-investor/
-- Production preview: https://pager-investor-bento-2026.megeny.chatgpt.site/
+- Version: 16
+- Story: problem → product model → mechanics → relationship system → product proof → growth hypothesis → business → next step
+- Responsive: desktop and mobile layouts
+- Interactive: relationship story, access simulator, mobile navigation, presentation progress
 
-Репозиторий содержит статическую GitHub Pages-сборку версии 12. Все пути к стилям, шрифтам и медиа настроены для публикации из подпути `/pager-investor/`.
+## Live page
 
-## Локальный просмотр
-
-Откройте корень репозитория через любой статический HTTP-сервер и используйте адрес с подпутём `/pager-investor/` либо разместите содержимое репозитория в одноимённой папке.
+https://pagerapp.github.io/pager-investor/
