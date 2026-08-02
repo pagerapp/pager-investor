@@ -5,91 +5,41 @@ async function render() {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
-
-  return worker.fetch(
-    new Request("http://localhost/", {
-      headers: { accept: "text/html" },
-    }),
-    {
-      ASSETS: {
-        fetch: async () => new Response("Not found", { status: 404 }),
-      },
-    },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
-    },
-  );
+  return worker.fetch(new Request("http://localhost/", { headers: { accept: "text/html" } }), { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } }, { waitUntil() {}, passThroughOnException() {} });
 }
 
-test("server-renders the complete PAGER investor story", async () => {
+test("renders the new investor narrative without the former presentation shell", async () => {
   const response = await render();
   assert.equal(response.status, 200);
-  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
-
   const html = await response.text();
-  const visibleText = html.replace(/<[^>]*>/g, " ");
-  assert.match(html, /PAGER — Контроль над цифровым общением/);
-  assert.match(visibleText, /Цифровое общение/i);
-  assert.match(visibleText, /PAGER\s+возвращает вам контроль/i);
-  assert.match(visibleText, /PAGER\s+проектирует\s+отношение/i);
-  assert.match(visibleText, /Один постоянный\s+PAGER\s+ID/i);
-  assert.match(visibleText, /Каждый контакт получает свои правила/);
-  assert.match(visibleText, /PAGER\s+создаёт новую модель цифрового общения/);
-  assert.match(html, /data-scene="09"/);
-  assert.match(html, /PAGER ID/);
-  assert.match(visibleText, /Доступ начинается после подтверждения/);
-  assert.match(html, /class="relationship-console"/);
-  assert.match(html, /class="act-progress"/);
-  assert.match(html, /class="access-shift"/);
-  assert.match(html, /class="relationship-system/);
-  assert.match(html, /class="relationship-system__grid"/);
-  assert.match(html, /Три слоя управляемого отношения/);
-  assert.match(html, /class="product-proof"/);
-  assert.match(html, /class="access-lab"/);
-  assert.match(html, /Интерактивная модель отношения PAGER/);
-  assert.match(html, /class="business-now-next"/);
-  assert.match(visibleText, /ТЕКУЩАЯ МОДЕЛЬ/);
-  assert.match(html, /class="beta-theses"/);
-  assert.match(visibleText, /Что должна подтвердить первая версия/);
-  assert.match(visibleText, /Это вопросы проверки, а не заявленные результаты/);
-  assert.match(html, /class="growth-loop"/);
-  assert.match(html, /class="growth-invite"/);
-  assert.match(visibleText, /Получатель видит контекст до установки/);
-  assert.match(visibleText, /Виральность начинается не с установки/);
-  assert.match(html, /class="market-model"/);
-  assert.match(visibleText, /Рынок считается через поведение продукта/);
-  assert.match(html, /profile-architecture\.png/);
-  assert.match(html, /Private beta/i);
-  assert.match(html, /Q1 2027/);
-  assert.match(html, /App Store \/ Google Play/i);
-  assert.doesNotMatch(html, /codex-preview|Building your site|SkeletonPreview/);
+  const text = html.replace(/<[^>]*>/g, " ");
+
+  assert.match(html, /class="new-hero"/);
+  assert.match(html, /class="context-demo"/);
+  assert.match(text, /Цифровое общение стирает границы приватности/);
+  assert.match(text, /PAGER возвращает вам контроль/);
+  assert.match(text, /Я остаюсь собой, но открываюсь по-разному/);
+  assert.match(text, /Один человек[\s\S]*Несколько способов[\s\S]*быть на связи/);
+  assert.match(text, /Найдите человека по PAGER ID/);
+  assert.match(text, /ГОСТЕВОЙ ДОСТУП/);
+  assert.match(text, /Уже собрано/);
+  assert.match(text, /Проверяем в private beta/);
+  assert.match(text, /Что может стать платным в PAGER/);
+  assert.match(text, /Хотите увидеть[\s\S]*PAGER изнутри/);
+  assert.match(text, /App Store \/ Google Play[\s\S]*Q1 2027/);
+  assert.match(text, /Последняя активность/);
+  assert.doesNotMatch(html, /act-progress|relationship-console|access-lab|hero__word/);
 });
 
-test("includes navigation, responsive media, and accessible controls", async () => {
+test("keeps accessible navigation and context switching controls", async () => {
   const response = await render();
   const html = await response.text();
-
-  assert.match(html, /aria-label="Открыть меню"/);
-  assert.match(html, /aria-expanded="false"/);
-  assert.match(html, /<nav[^>]+aria-label="Основная навигация"/);
-  assert.match(html, /<nav[^>]+aria-label="Прогресс презентации"/);
-  assert.match(html, /aria-current="step"/);
-  assert.match(html, /class="skip-link"/);
-  assert.match(html, /href="#model"/);
-  assert.match(html, /href="#mechanics"/);
-  assert.match(html, /href="#product"/);
-  assert.match(html, /href="#business"/);
-  assert.match(html, /id="roadmap"/);
-  assert.match(html, /id="next-step"/);
-  assert.match(html, /aria-label="Экраны продукта PAGER"/);
-  assert.match(html, /tabindex="0"/i);
+  assert.match(html, /class="skip"/);
+  assert.match(html, /aria-label="Навигация"/);
+  assert.match(html, /href="#idea"/);
+  assert.match(html, /href="#demo"/);
+  assert.match(html, /href="#today"/);
+  assert.match(html, /role="tablist"/);
+  assert.match(html, /aria-selected="true"/);
   assert.match(html, /mailto:martynov\.usa@gmail\.com/);
-  assert.match(html, /aria-label="Интерактивная модель отношения PAGER"/);
-  assert.match(html, /role="switch"/);
-  assert.match(html, /class="access-lab__mobile-result"/);
-  assert.match(html, /aria-live="polite"/);
-  assert.match(html, /\/\s*(?:<!-- -->)?\s*9/);
-  assert.match(html, /Быстрые сценарии отношения/);
-  assert.match(html, /Листайте модель/);
 });

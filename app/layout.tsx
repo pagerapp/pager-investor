@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "PAGER — Контроль над цифровым общением",
+  title: "PAGER — Новая модель приватного общения",
   description:
-    "PAGER возвращает человеку контроль над доступностью, видимостью и правилами общения.",
+    "PAGER — мессенджер, в котором для каждого контекста можно выбрать свой профиль и свои способы общения.",
   icons: {
     icon: "/favicon.svg",
   },
