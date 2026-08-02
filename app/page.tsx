@@ -29,8 +29,6 @@ const permissions = [
   ["Голосовые сообщения", "Разрешено"],
   ["Видеосообщения", "По запросу"],
   ["Аудиозвонки", "Закрыто"],
-  ["Добавление в группы", "Закрыто"],
-  ["Последняя активность", "Скрыто"],
 ];
 
 const betaHypotheses = [
@@ -332,8 +330,19 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="relationship-system__identity">
-            <div className="relationship-system__id">
+          <div className="relationship-system__scroll-hint" aria-hidden="true">
+            <span>01</span>
+            <i />
+            <span>03</span>
+            <b>Листайте модель →</b>
+          </div>
+          <div
+            className="relationship-system__grid"
+            role="region"
+            aria-label="Три слоя управляемого отношения"
+            tabIndex={0}
+          >
+            <article className="relationship-system__card relationship-system__card--id">
               <span>01 / ПУБЛИЧНАЯ ТОЧКА КОНТАКТА</span>
               <h3>Один постоянный <BrandWord /> ID</h3>
               <p>Номер телефона остаётся приватным.</p>
@@ -345,8 +354,8 @@ export default function Home() {
                 loading="lazy"
                 decoding="async"
               />
-            </div>
-            <div className="relationship-system__profiles">
+            </article>
+            <article className="relationship-system__card relationship-system__card--profile">
               <img
                 src="/ledger/profile-architecture.png"
                 alt="Контекстные профили внутри одного аккаунта PAGER"
@@ -360,54 +369,40 @@ export default function Home() {
                 <h3>Вы остаётесь собой — но открываетесь по-разному</h3>
                 <p>Личное, профессиональное и временное общение — внутри одного аккаунта.</p>
               </div>
-            </div>
-          </div>
-
-          <div className="relationship-system__control">
-            <div className="relationship-system__copy">
-              <span>03 / ПЕРСОНАЛЬНЫЕ УСЛОВИЯ</span>
-              <h3>Каждый контакт получает собственные правила общения</h3>
-              <p>
-                Изменение одного отношения не влияет на остальные. Доступ можно
-                расширить, ограничить или отозвать.
-              </p>
-            </div>
-            <div className="permission-board">
-              {permissions.map(([title, status]) => (
-                <div key={title}>
-                  <span>{title}</span>
-                  <b
-                    className={
-                      status === "Разрешено"
-                        ? "is-allowed"
-                        : status === "По запросу"
-                          ? "is-request"
-                          : ""
-                    }
-                  >
-                    {status}
-                  </b>
-                </div>
-              ))}
-            </div>
-            <div className="relationship-system__duration">
-              <div>
-                <span className="timer">24:00:00</span>
-                <img
-                  src="/ledger/ui-temporary.png"
-                  alt="Интерфейс временного доступа PAGER"
-                  width="1145"
-                  height="252"
-                  loading="lazy"
-                  decoding="async"
-                />
+            </article>
+            <article className="relationship-system__card relationship-system__card--rules">
+              <div className="relationship-system__copy">
+                <span>03 / ПЕРСОНАЛЬНЫЕ УСЛОВИЯ</span>
+                <h3>Каждый контакт получает свои правила</h3>
+                <p>
+                  Доступ можно расширить, ограничить или завершить отдельно от
+                  остальных отношений.
+                </p>
               </div>
-              <div>
-                <span>04 / СРОК</span>
-                <h3>Не каждое отношение должно быть постоянным</h3>
-                <p>Доступ может завершиться автоматически — без блокировки или конфликта.</p>
+              <div className="permission-board">
+                {permissions.map(([title, status]) => (
+                  <div key={title}>
+                    <span>{title}</span>
+                    <b
+                      className={
+                        status === "Разрешено"
+                          ? "is-allowed"
+                          : status === "По запросу"
+                            ? "is-request"
+                            : ""
+                      }
+                    >
+                      {status}
+                    </b>
+                  </div>
+                ))}
               </div>
-            </div>
+              <div className="relationship-system__time">
+                <span>СРОК ОТНОШЕНИЯ</span>
+                <b>24:00:00</b>
+                <p>Завершается автоматически.</p>
+              </div>
+            </article>
           </div>
         </section>
 
@@ -422,28 +417,20 @@ export default function Home() {
           </div>
           <div className="product-proof" aria-label="Статус продукта">
             <div>
-              <span>01</span>
-              <b>Один аккаунт</b>
+              <span>ЯДРО</span>
+              <b>ID + запрос</b>
             </div>
             <div>
-              <span>02</span>
-              <b>Постоянный PAGER ID</b>
+              <span>КОНТЕКСТ</span>
+              <b>Профили</b>
             </div>
             <div>
-              <span>03</span>
-              <b>Контекстные профили</b>
-            </div>
-            <div>
-              <span>04</span>
-              <b>Персональные правила</b>
+              <span>КОНТРОЛЬ</span>
+              <b>Правила + срок</b>
             </div>
             <div>
               <span>Q3 2026</span>
               <b>Private beta</b>
-            </div>
-            <div>
-              <span>Q1 2027</span>
-              <b>App Store / Google Play</b>
             </div>
           </div>
 
@@ -514,14 +501,47 @@ export default function Home() {
               эффект. Получатель сначала видит контекст и условия связи.
             </p>
           </div>
-          <div className="growth-loop">
-            {growthSteps.map((step) => (
-              <article key={step.number}>
-                <span>{step.number}</span>
-                <h3>{step.title}</h3>
-                <p>{step.copy}</p>
-              </article>
-            ))}
+          <div className="growth-scenario">
+            <article className="growth-invite" aria-label="Пример приглашения PAGER">
+              <div className="growth-invite__top">
+                <span>PAGER / ПРИГЛАШЕНИЕ</span>
+                <b>24 ЧАСА</b>
+              </div>
+              <div className="growth-invite__identity">
+                <img
+                  src="/ledger/profile-2.png"
+                  alt="Профиль отправителя приглашения"
+                  width="543"
+                  height="724"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div>
+                  <span>ПРОФЕССИОНАЛЬНЫЙ КОНТЕКСТ</span>
+                  <strong>Е. Мартынов</strong>
+                  <small>@PAGER ID</small>
+                </div>
+              </div>
+              <div className="growth-invite__terms">
+                <span>Сообщения <b>Разрешено</b></span>
+                <span>Звонки <b>По запросу</b></span>
+                <span>Срок <b>24 часа</b></span>
+              </div>
+              <a href="#mechanics">Посмотреть условия <span aria-hidden="true">↗</span></a>
+              <p>Получатель видит контекст до установки и подтверждения связи.</p>
+            </article>
+
+            <div className="growth-loop">
+              {growthSteps.map((step) => (
+                <article key={step.number}>
+                  <span>{step.number}</span>
+                  <div>
+                    <h3>{step.title}</h3>
+                    <p>{step.copy}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
           <div className="growth-measures">
             <div>

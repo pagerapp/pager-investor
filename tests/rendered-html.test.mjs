@@ -34,7 +34,7 @@ test("server-renders the complete PAGER investor story", async () => {
   assert.match(visibleText, /PAGER\s+возвращает вам контроль/i);
   assert.match(visibleText, /PAGER\s+проектирует\s+отношение/i);
   assert.match(visibleText, /Один постоянный\s+PAGER\s+ID/i);
-  assert.match(visibleText, /Каждый контакт получает собственные правила общения/);
+  assert.match(visibleText, /Каждый контакт получает свои правила/);
   assert.match(visibleText, /PAGER\s+создаёт новую модель цифрового общения/);
   assert.match(html, /data-scene="09"/);
   assert.match(html, /PAGER ID/);
@@ -43,6 +43,8 @@ test("server-renders the complete PAGER investor story", async () => {
   assert.match(html, /class="act-progress"/);
   assert.match(html, /class="access-shift"/);
   assert.match(html, /class="relationship-system/);
+  assert.match(html, /class="relationship-system__grid"/);
+  assert.match(html, /Три слоя управляемого отношения/);
   assert.match(html, /class="product-proof"/);
   assert.match(html, /class="access-lab"/);
   assert.match(html, /Интерактивная модель отношения PAGER/);
@@ -52,6 +54,8 @@ test("server-renders the complete PAGER investor story", async () => {
   assert.match(visibleText, /Что должна подтвердить первая версия/);
   assert.match(visibleText, /Это вопросы проверки, а не заявленные результаты/);
   assert.match(html, /class="growth-loop"/);
+  assert.match(html, /class="growth-invite"/);
+  assert.match(visibleText, /Получатель видит контекст до установки/);
   assert.match(visibleText, /Виральность начинается не с установки/);
   assert.match(html, /class="market-model"/);
   assert.match(visibleText, /Рынок считается через поведение продукта/);
@@ -84,6 +88,8 @@ test("includes navigation, responsive media, and accessible controls", async () 
   assert.match(html, /aria-label="Интерактивная модель отношения PAGER"/);
   assert.match(html, /role="switch"/);
   assert.match(html, /class="access-lab__mobile-result"/);
+  assert.match(html, /aria-live="polite"/);
   assert.match(html, /\/\s*(?:<!-- -->)?\s*9/);
   assert.match(html, /Быстрые сценарии отношения/);
+  assert.match(html, /Листайте модель/);
 });

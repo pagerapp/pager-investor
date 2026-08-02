@@ -7,7 +7,7 @@ export function AccessSimulator() {
   const [profileIndex, setProfileIndex] = useState(1);
   const [capabilities, setCapabilities] = useState([true, false, false]);
   const [duration, setDuration] = useState("24 часа");
-  const [activePreset, setActivePreset] = useState<number | null>(null);
+  const [activePreset, setActivePreset] = useState<number | null>(1);
   const activeProfile = profiles[profileIndex];
   const capabilityLabels = [
     "Текстовые сообщения",
@@ -71,7 +71,7 @@ export function AccessSimulator() {
         </div>
       </div>
 
-      <div className="access-lab__mobile-result" aria-atomic="true">
+      <div className="access-lab__mobile-result" aria-live="polite" aria-atomic="true">
         <span>Получатель видит</span>
         <b>{activeProfile[0]}</b>
         <i>{capabilities.filter(Boolean).length} из 3 способов</i>
@@ -139,7 +139,7 @@ export function AccessSimulator() {
         </fieldset>
       </div>
 
-      <div className="access-lab__preview" aria-atomic="true">
+      <div className="access-lab__preview" aria-live="polite" aria-atomic="true">
         <div className="access-lab__preview-top">
           <span>ПОЛУЧАТЕЛЬ ВИДИТ</span>
           <b>@PAGER ID</b>
