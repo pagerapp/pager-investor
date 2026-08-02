@@ -7,15 +7,14 @@ export const profiles = [
 
 export const acts = [
   ["01", "Манифест PAGER", "#top"],
-  ["02", "Эволюция цифрового общения", "#evolution"],
+  ["02", "Почему сейчас", "#why-now"],
   ["03", "Новая единица продукта", "#model"],
   ["04", "Механика отношения", "#mechanics"],
-  ["05", "PAGER ID", "#identity"],
-  ["06", "Контекстная видимость", "#profiles"],
-  ["07", "Персональные правила", "#rules"],
-  ["08", "Продукт сегодня", "#product"],
-  ["09", "Бизнес-модель", "#business"],
-  ["10", "Путь развития", "#roadmap"],
+  ["05", "Система отношения", "#relationship"],
+  ["06", "Продукт сегодня", "#product"],
+  ["07", "Гипотеза роста", "#growth"],
+  ["08", "Бизнес и рынок", "#business"],
+  ["09", "Следующий шаг", "#next-step"],
 ] as const;
 
 export const deckHref = `mailto:martynov.usa@gmail.com?subject=${encodeURIComponent(

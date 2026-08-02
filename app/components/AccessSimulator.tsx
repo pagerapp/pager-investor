@@ -7,14 +7,36 @@ export function AccessSimulator() {
   const [profileIndex, setProfileIndex] = useState(1);
   const [capabilities, setCapabilities] = useState([true, false, false]);
   const [duration, setDuration] = useState("24 часа");
+  const [activePreset, setActivePreset] = useState<number | null>(null);
   const activeProfile = profiles[profileIndex];
   const capabilityLabels = [
     "Текстовые сообщения",
     "Аудиозвонки",
     "Добавление в группы",
   ];
+  const presets = [
+    {
+      label: "Личное",
+      profileIndex: 0,
+      capabilities: [true, true, true],
+      duration: "Постоянно",
+    },
+    {
+      label: "Работа",
+      profileIndex: 1,
+      capabilities: [true, false, false],
+      duration: "Постоянно",
+    },
+    {
+      label: "Временное · 24ч",
+      profileIndex: 2,
+      capabilities: [true, false, false],
+      duration: "24 часа",
+    },
+  ];
 
   const toggleCapability = (index: number) => {
+    setActivePreset(null);
     setCapabilities((current) =>
       current.map((item, itemIndex) => (itemIndex === index ? !item : item)),
     );
@@ -25,6 +47,28 @@ export function AccessSimulator() {
       <div className="access-lab__heading">
         <span>LIVE / МОДЕЛЬ ОТНОШЕНИЯ</span>
         <p>Измените профиль, правила и срок — получатель увидит только разрешённое.</p>
+      </div>
+
+      <div className="access-lab__presets" aria-label="Быстрые сценарии отношения">
+        <span>БЫСТРЫЙ СЦЕНАРИЙ</span>
+        <div>
+          {presets.map((preset, index) => (
+            <button
+              type="button"
+              className={activePreset === index ? "is-active" : ""}
+              aria-pressed={activePreset === index}
+              onClick={() => {
+                setActivePreset(index);
+                setProfileIndex(preset.profileIndex);
+                setCapabilities(preset.capabilities);
+                setDuration(preset.duration);
+              }}
+              key={preset.label}
+            >
+              {preset.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="access-lab__mobile-result" aria-atomic="true">
@@ -43,7 +87,10 @@ export function AccessSimulator() {
                 type="button"
                 className={index === profileIndex ? "is-active" : ""}
                 aria-pressed={index === profileIndex}
-                onClick={() => setProfileIndex(index)}
+                onClick={() => {
+                  setActivePreset(null);
+                  setProfileIndex(index);
+                }}
                 key={title}
               >
                 <img src={image} alt="" width="543" height="724" />
@@ -79,7 +126,10 @@ export function AccessSimulator() {
                 type="button"
                 className={duration === item ? "is-active" : ""}
                 aria-pressed={duration === item}
-                onClick={() => setDuration(item)}
+                onClick={() => {
+                  setActivePreset(null);
+                  setDuration(item);
+                }}
                 key={item}
               >
                 {item}

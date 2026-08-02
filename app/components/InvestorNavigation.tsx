@@ -97,7 +97,7 @@ export function InvestorNavigation() {
         </a>
 
         <div className="header-actions">
-          <a href="#roadmap">Roadmap</a>
+          <a href="#growth">Рост</a>
           <a className="header-cta" href={deckHref}>
             Получить deck <span aria-hidden="true">↗</span>
           </a>
@@ -121,7 +121,7 @@ export function InvestorNavigation() {
       <nav className="act-progress" aria-label="Прогресс презентации">
         <div className="act-progress__current">
           <b>{acts[activeAct][0]}</b>
-          <span>/ 10</span>
+          <span>/ {acts.length}</span>
         </div>
         <ol>
           {acts.map(([number, label, href], index) => (
@@ -155,10 +155,10 @@ export function InvestorNavigation() {
           Продукт <span>03</span>
         </a>
         <a href="#business" onClick={closeMenu}>
-          Бизнес <span>04</span>
+          Бизнес и рынок <span>08</span>
         </a>
-        <a href="#roadmap" onClick={closeMenu}>
-          Roadmap <span>05</span>
+        <a href="#growth" onClick={closeMenu}>
+          Гипотеза роста <span>07</span>
         </a>
         <a href={deckHref} onClick={closeMenu}>
           Получить pitch deck <span aria-hidden="true">↗</span>

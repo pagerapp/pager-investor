@@ -1,26 +1,26 @@
 import { AccessSimulator } from "./components/AccessSimulator";
 import { InvestorNavigation } from "./components/InvestorNavigation";
 import { RelationshipStory } from "./components/RelationshipStory";
-import { deckHref, profiles } from "./site-data";
+import { deckHref } from "./site-data";
 
 const generations = [
   {
     number: "01",
     label: "Первое поколение",
     question: "Как отправить сообщение?",
-    answer: "Главная задача: передать информацию на расстоянии.",
+    answer: "Передать информацию на расстоянии.",
   },
   {
     number: "02",
     label: "Второе поколение",
-    question: "Как сделать общение быстрее и удобнее?",
-    answer: "Главная задача: сделать взаимодействие мгновенным.",
+    question: "Как сделать общение мгновенным?",
+    answer: "Ускорить связь и убрать дистанцию.",
   },
   {
     number: "03",
-    label: "Третье поколение",
-    question: "Как определить правила этого общения?",
-    answer: "Главная задача: вернуть человеку контроль над доступностью.",
+    label: "Следующее поколение",
+    question: "Как определить правила общения?",
+    answer: "Вернуть человеку контроль над доступностью.",
   },
 ];
 
@@ -29,46 +29,57 @@ const permissions = [
   ["Голосовые сообщения", "Разрешено"],
   ["Видеосообщения", "По запросу"],
   ["Аудиозвонки", "Закрыто"],
-  ["Видеозвонки", "Закрыто"],
   ["Добавление в группы", "Закрыто"],
-  ["Пересылка сообщений", "Разрешено"],
   ["Последняя активность", "Скрыто"],
-];
-
-const roadmap = [
-  [
-    "Этап 1",
-    "продукт управления доступностью",
-    "Кто и как может связаться с человеком.",
-  ],
-  [
-    "Этап 2",
-    "стандарт безопасного контекстного общения",
-    "Отношения, профили и правила как единая модель.",
-  ],
-  [
-    "Этап 3",
-    "персональный слой цифрового доступа",
-    "Единые правила взаимодействия для людей и цифровых сервисов.",
-  ],
 ];
 
 const betaHypotheses = [
   {
     number: "01",
     title: "PAGER ID вместо номера",
-    copy: "Проверить, готовы ли люди начинать новое общение без раскрытия номера телефона.",
+    copy: "Готовы ли люди начинать новое общение без раскрытия номера телефона?",
   },
   {
     number: "02",
     title: "Профиль выбирается для отношения",
-    copy: "Проверить, помогает ли контекстная версия личности точнее задавать границы общения.",
+    copy: "Помогает ли контекстная версия личности точнее задавать границы?",
   },
   {
     number: "03",
     title: "Правила становятся ценностью",
-    copy: "Проверить, воспринимают ли пользователи управление способами и сроком связи как отдельную ценность.",
+    copy: "Воспринимают ли пользователи способы и срок связи как отдельную ценность?",
   },
+];
+
+const growthSteps = [
+  {
+    number: "01",
+    title: "Приглашение",
+    copy: "Пользователь делится PAGER ID или контролируемой ссылкой на контакт.",
+  },
+  {
+    number: "02",
+    title: "Понятные условия",
+    copy: "Получатель видит, кто приглашает, какой профиль открыт и какие способы связи предложены.",
+  },
+  {
+    number: "03",
+    title: "Новое отношение",
+    copy: "После подтверждения связь продолжается внутри PAGER по согласованным правилам.",
+  },
+];
+
+const growthMetrics = [
+  "Приглашение → открытие",
+  "Открытие → подтверждение",
+  "Подтверждение → активное отношение",
+  "Повторное приглашение",
+];
+
+const roadmap = [
+  ["Сейчас", "Private beta", "Проверка ядра: ID, профиль, правила и срок."],
+  ["Следующий этап", "Публичный запуск", "Масштабирование сценария управляемого контакта."],
+  ["Дальше", "Слой цифрового доступа", "Единая модель правил для людей и сервисов."],
 ];
 
 function SectionLabel({
@@ -96,48 +107,6 @@ function BrandWord() {
   return <span className="brand-word">PAGER</span>;
 }
 
-function RelationshipThread({
-  step,
-  label,
-  detail,
-  light = false,
-}: {
-  step: number;
-  label: string;
-  detail: string;
-  light?: boolean;
-}) {
-  return (
-    <div
-      className={`relationship-thread ${light ? "relationship-thread--light" : ""}`}
-      aria-label={`Отношение: шаг ${step} из 5 — ${label}`}
-    >
-      <span className="relationship-thread__index">
-        ОТНОШЕНИЕ · 0{step}/05
-      </span>
-      <span className="relationship-thread__avatar" aria-hidden="true">
-        <img
-          src="/ledger/profile-2.png"
-          alt=""
-          width="543"
-          height="724"
-          loading="lazy"
-          decoding="async"
-        />
-      </span>
-      <span className="relationship-thread__copy">
-        <b>{label}</b>
-        <small>{detail}</small>
-      </span>
-      <span className="relationship-thread__progress" aria-hidden="true">
-        {[1, 2, 3, 4, 5].map((item) => (
-          <i className={item <= step ? "is-complete" : ""} key={item} />
-        ))}
-      </span>
-    </div>
-  );
-}
-
 export default function Home() {
   return (
     <>
@@ -157,13 +126,7 @@ export default function Home() {
             <div className="hero__problem">
               <SectionLabel number="01">Манифест PAGER</SectionLabel>
               <p className="hero__eyebrow">Новая модель приватного общения</p>
-              <h1>
-                Цифровое общение
-                <br />
-                стерло границы
-                <br />
-                приватности
-              </h1>
+              <h1>Цифровое общение стерло границы приватности</h1>
             </div>
 
             <div className="hero__solution">
@@ -208,79 +171,46 @@ export default function Home() {
               <b>Q1 2027</b>
             </div>
           </div>
-        </section>
 
-        <section className="principles" aria-label="Ключевая модель PAGER">
-          <article>
-            <img
-              src="/ledger/screen-logo.jpg"
-              alt=""
-              width="477"
-              height="1043"
-              loading="lazy"
-              decoding="async"
-            />
-            <div>
+          <div className="principles hero__principles" aria-label="Ключевая модель PAGER">
+            <article>
               <span>01</span>
-              <h2>
-                <BrandWord /> ID
-              </h2>
-              <p>Публичная точка контакта вместо раскрытия номера.</p>
-            </div>
-          </article>
-          <article>
-            <img
-              src="/ledger/screen-access.jpg"
-              alt=""
-              width="477"
-              height="1043"
-              loading="lazy"
-              decoding="async"
-            />
-            <div>
+              <h3>PAGER ID</h3>
+              <p>Контакт без раскрытия номера.</p>
+            </article>
+            <article>
               <span>02</span>
-              <h2>Запрос</h2>
-              <p>Контакт не становится доступом автоматически.</p>
-            </div>
-          </article>
-          <article>
-            <img
-              src="/ledger/screen-profile.jpg"
-              alt=""
-              width="477"
-              height="1043"
-              loading="lazy"
-              decoding="async"
-            />
-            <div>
+              <h3>Запрос</h3>
+              <p>Доступ начинается после подтверждения.</p>
+            </article>
+            <article>
               <span>03</span>
-              <h2>Профиль</h2>
-              <p>Каждое отношение получает нужную версию личности.</p>
-            </div>
-          </article>
-          <article className="principles__text">
-            <div>
+              <h3>Профиль</h3>
+              <p>Контекст определяет видимую версию личности.</p>
+            </article>
+            <article>
               <span>04</span>
-              <h2>Правила</h2>
-              <p>Способы и срок общения определяет владелец контакта.</p>
-            </div>
-          </article>
+              <h3>Правила + срок</h3>
+              <p>Способы общения и длительность задаёт владелец.</p>
+            </article>
+          </div>
         </section>
 
         <section
-          className="evolution section"
-          id="evolution"
+          className="why-now section"
+          id="why-now"
           data-scene="02"
           data-act="2"
         >
           <div className="section__head">
-            <SectionLabel number="02">Эволюция цифрового общения</SectionLabel>
-            <h2>Каждое поколение решало новую проблему коммуникации</h2>
+            <SectionLabel number="02">Почему сейчас</SectionLabel>
+            <h2>Мессенджеры ускорили связь, но не дали управлять доступом</h2>
             <p>
-              PAGER предлагает следующий шаг — дать человеку возможность
-              определять правила собственного общения.
+              Следующий шаг коммуникации — не ещё один чат, а возможность
+              определять правила каждого нового отношения.
             </p>
           </div>
+
           <div className="generation-grid">
             {generations.map((generation) => (
               <article key={generation.number}>
@@ -291,85 +221,59 @@ export default function Home() {
               </article>
             ))}
           </div>
-        </section>
 
-        <section className="problem-banner" data-scene="03">
-          <div className="problem-banner__copy">
-            <SectionLabel number="03" light>
-              Контакт сегодня
-            </SectionLabel>
-            <h2>Получить контакт — почти всегда значит получить доступ</h2>
-            <p>
-              Сообщения, звонки, добавление в группы и другие способы
-              взаимодействия открываются слишком рано — еще до того, как
-              человек определил границы общения.
-            </p>
-          </div>
-          <div className="problem-banner__visual">
-            <img
-              src="/ledger/product-hand.png"
-              alt="PAGER на смартфоне"
-              width="1672"
-              height="941"
-              loading="lazy"
-              decoding="async"
-            />
-            <span className="problem-note problem-note--one">
-              Входящий звонок
-            </span>
-            <span className="problem-note problem-note--two">Добавлен в чат</span>
-            <span className="problem-note problem-note--three">
-              Новое сообщение
-            </span>
-          </div>
-          <div
-            className="access-shift"
-            aria-label="Переход от автоматического доступа к управляемому отношению"
-          >
-            <article className="access-shift__before">
-              <span>СЕЙЧАС</span>
-              <h3>Контакт</h3>
-              <p>Автоматический доступ</p>
-              <div>
-                <b>Сообщения</b>
-                <b>Звонки</b>
-                <b>Группы</b>
-              </div>
-            </article>
-            <div className="access-shift__bridge" aria-hidden="true">
-              <span>PAGER</span>
-              <i />
-              <b>→</b>
+          <div className="problem-card">
+            <div className="problem-card__copy">
+              <span>КОНТАКТ СЕГОДНЯ</span>
+              <h3>Получить контакт — почти всегда значит получить доступ</h3>
+              <p>
+                Сообщения, звонки и добавление в группы открываются раньше, чем
+                человек определил границы общения.
+              </p>
             </div>
-            <article className="access-shift__after">
-              <span>СЛЕДУЮЩИЙ ШАГ</span>
-              <h3>Отношение</h3>
-              <p>Доступ после подтверждения</p>
-              <div>
-                <b>Профиль</b>
-                <b>Правила</b>
-                <b>Срок</b>
+            <div className="problem-card__visual">
+              <img
+                src="/ledger/product-hand.png"
+                alt="Интерфейс PAGER на смартфоне"
+                width="1672"
+                height="941"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div
+              className="access-shift"
+              aria-label="Переход от автоматического доступа к управляемому отношению"
+            >
+              <article className="access-shift__before">
+                <span>СЕЙЧАС</span>
+                <h4>Контакт</h4>
+                <p>Автоматический доступ</p>
+              </article>
+              <div className="access-shift__bridge" aria-hidden="true">
+                <span>PAGER</span>
+                <i />
+                <b>→</b>
               </div>
-            </article>
+              <article className="access-shift__after">
+                <span>СЛЕДУЮЩИЙ ШАГ</span>
+                <h4>Отношение</h4>
+                <p>Профиль · правила · срок</p>
+              </article>
+            </div>
           </div>
         </section>
 
-        <section
-          className="model section"
-          id="model"
-          data-scene="04"
-          data-act="3"
-        >
+        <section className="model section" id="model" data-scene="03" data-act="3">
           <div className="model__headline">
-            <SectionLabel number="04">Новая единица продукта</SectionLabel>
+            <SectionLabel number="03">Новая единица продукта</SectionLabel>
             <h2>
-              <BrandWord /> проектирует не чат.
-              <br />
-              <BrandWord /> проектирует <em>отношение.</em>
+              <BrandWord /> проектирует не чат. <BrandWord /> проектирует{" "}
+              <em>отношение.</em>
             </h2>
             <p>
-              Для каждого отношения владелец выбирает, какой профиль показать и
-              какие правила общения разрешить.
+              Для каждого отношения владелец выбирает, кто получает доступ,
+              какую версию личности видит и как может общаться.
             </p>
           </div>
           <div className="relation-equation" aria-label="Модель отношения PAGER">
@@ -388,7 +292,7 @@ export default function Home() {
             <article>
               <span>03</span>
               <h3>Правила</h3>
-              <p>Как можно общаться</p>
+              <p>Как и сколько можно общаться</p>
             </article>
           </div>
         </section>
@@ -396,20 +300,17 @@ export default function Home() {
         <section
           className="mechanics section section--black"
           id="mechanics"
-          data-scene="05"
+          data-scene="04"
           data-act="4"
         >
           <div className="section__head section__head--light">
-            <SectionLabel number="05" light>
+            <SectionLabel number="04" light>
               Механика
             </SectionLabel>
-            <h2>
-              Каждое новое общение начинается одинаково. Дальше — по вашим
-              правилам.
-            </h2>
+            <h2>Пять шагов превращают новый контакт в управляемое отношение</h2>
             <p>
-              Пять последовательных шагов превращают новый контакт в
-              управляемое отношение.
+              Сначала подтверждение. Затем профиль, способы связи и срок — без
+              автоматического доступа ко всему сразу.
             </p>
           </div>
           <RelationshipStory />
@@ -417,214 +318,106 @@ export default function Home() {
         </section>
 
         <section
-          className="id-showcase section"
-          id="identity"
-          data-scene="06"
+          className="relationship-system section"
+          id="relationship"
+          data-scene="05"
           data-act="5"
         >
-          <RelationshipThread
-            step={1}
-            label="PAGER ID"
-            detail="Публичная точка контакта"
-          />
-          <div className="id-showcase__copy">
-            <SectionLabel number="06">Публичная точка контакта</SectionLabel>
-            <h2>
-              Один аккаунт. Один постоянный <BrandWord /> ID.
-            </h2>
-            <p>
-              Номер телефона остается приватным. Для начала общения достаточно
-              публичного PAGER ID и подтвержденного запроса.
-            </p>
-          </div>
-          <div className="id-showcase__visual">
-            <img
-              src="/ledger/ui-id.png"
-              alt="Интерфейс постоянного PAGER ID"
-              width="1145"
-              height="252"
-              loading="lazy"
-              decoding="async"
-            />
-            <div className="id-sequence" aria-hidden="true">
-              <span>НАЙТИ</span>
-              <i>→</i>
-              <span>ЗАПРОСИТЬ</span>
-              <i>→</i>
-              <b>ПОДТВЕРДИТЬ</b>
-            </div>
-          </div>
-        </section>
-
-        <section
-          className="profiles section"
-          id="profiles"
-          data-scene="07"
-          data-act="6"
-        >
           <div className="section__head">
-            <SectionLabel number="07">Контекстная видимость</SectionLabel>
-            <h2>Один человек. Разные представления.</h2>
+            <SectionLabel number="05">Система отношения</SectionLabel>
+            <h2>Один ID. Разные контексты. Свои правила для каждого.</h2>
             <p>
-              Каждый контакт видит только то представление, которое подходит
-              этому контексту. У каждого профиля — свое имя, фотография и
-              описание.
+              Один аккаунт остаётся основой. Видимая личность, доступные способы
+              связи и срок меняются для конкретного отношения.
             </p>
           </div>
-          <RelationshipThread
-            step={2}
-            label="Профиль"
-            detail="Контекстная видимость"
-          />
-          <div className="profiles__architecture">
-            <img
-              src="/ledger/profile-architecture.png"
-              alt="Контекстные профили внутри одного аккаунта PAGER"
-              width="1672"
-              height="941"
-              loading="lazy"
-              decoding="async"
-            />
-            <div>
-              <span>ОДИН АККАУНТ / ОДИН PAGER ID</span>
-              <h3>Вы остаетесь собой — но открываетесь по-разному.</h3>
-              <p>
-                Личное, профессиональное и временное общение существуют внутри
-                одного аккаунта.
-              </p>
-              <div className="context-list">
-                <span>Личное</span>
-                <span>Работа</span>
-                <span>Временное</span>
-                <span>Другое</span>
-              </div>
-            </div>
-          </div>
-          <div className="profile-grid">
-            {profiles.map(([title, image, caption], index) => (
-              <article key={title}>
-                <div className="profile-grid__image">
-                  <img
-                    src={image}
-                    alt={`Профиль «${title}»`}
-                    width="543"
-                    height="724"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <span>0{index + 1}</span>
-                </div>
-                <h3>{title}</h3>
-                <p>{caption}</p>
-              </article>
-            ))}
-          </div>
-        </section>
 
-        <section
-          className="rules section section--black"
-          id="rules"
-          data-scene="09"
-          data-act="7"
-        >
-          <RelationshipThread
-            step={4}
-            label="Правила"
-            detail="Персональные условия"
-            light
-          />
-          <div className="rules__copy">
-            <SectionLabel number="09" light>
-              Персональные условия
-            </SectionLabel>
-            <h2>Каждый контакт получает собственные правила общения</h2>
-            <p>
-              Изменение одного отношения не влияет на остальные. Доступ можно
-              расширить, ограничить или отозвать в любой момент.
-            </p>
-          </div>
-          <div className="permission-board">
-            {permissions.map(([title, status]) => (
-              <div key={title}>
-                <span>{title}</span>
-                <b
-                  className={
-                    status === "Разрешено"
-                      ? "is-allowed"
-                      : status === "По запросу"
-                        ? "is-request"
-                        : ""
-                  }
-                >
-                  {status}
-                </b>
-              </div>
-            ))}
-          </div>
-          <div className="rules__temporary">
-            <div className="rules__temporary-visual">
-              <span className="timer">24:00:00</span>
+          <div className="relationship-system__identity">
+            <div className="relationship-system__id">
+              <span>01 / ПУБЛИЧНАЯ ТОЧКА КОНТАКТА</span>
+              <h3>Один постоянный <BrandWord /> ID</h3>
+              <p>Номер телефона остаётся приватным.</p>
               <img
-                src="/ledger/ui-temporary.png"
-                alt="Интерфейс временного доступа PAGER"
+                src="/ledger/ui-id.png"
+                alt="Интерфейс постоянного PAGER ID"
                 width="1145"
                 height="252"
                 loading="lazy"
                 decoding="async"
               />
             </div>
-            <div className="rules__temporary-copy">
-              <span>СРОК / 05</span>
-              <h3>Не каждое отношение должно быть постоянным</h3>
+            <div className="relationship-system__profiles">
+              <img
+                src="/ledger/profile-architecture.png"
+                alt="Контекстные профили внутри одного аккаунта PAGER"
+                width="1672"
+                height="941"
+                loading="lazy"
+                decoding="async"
+              />
+              <div>
+                <span>02 / КОНТЕКСТНАЯ ВИДИМОСТЬ</span>
+                <h3>Вы остаётесь собой — но открываетесь по-разному</h3>
+                <p>Личное, профессиональное и временное общение — внутри одного аккаунта.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="relationship-system__control">
+            <div className="relationship-system__copy">
+              <span>03 / ПЕРСОНАЛЬНЫЕ УСЛОВИЯ</span>
+              <h3>Каждый контакт получает собственные правила общения</h3>
               <p>
-                Доступ может завершиться автоматически — без блокировки,
-                конфликта или ручной очистки контактов.
+                Изменение одного отношения не влияет на остальные. Доступ можно
+                расширить, ограничить или отозвать.
               </p>
+            </div>
+            <div className="permission-board">
+              {permissions.map(([title, status]) => (
+                <div key={title}>
+                  <span>{title}</span>
+                  <b
+                    className={
+                      status === "Разрешено"
+                        ? "is-allowed"
+                        : status === "По запросу"
+                          ? "is-request"
+                          : ""
+                    }
+                  >
+                    {status}
+                  </b>
+                </div>
+              ))}
+            </div>
+            <div className="relationship-system__duration">
+              <div>
+                <span className="timer">24:00:00</span>
+                <img
+                  src="/ledger/ui-temporary.png"
+                  alt="Интерфейс временного доступа PAGER"
+                  width="1145"
+                  height="252"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div>
+                <span>04 / СРОК</span>
+                <h3>Не каждое отношение должно быть постоянным</h3>
+                <p>Доступ может завершиться автоматически — без блокировки или конфликта.</p>
+              </div>
             </div>
           </div>
         </section>
 
-        <section className="potential" data-scene="12">
-          <div className="potential__image">
-            <img
-              src="/ledger/profile-system.png"
-              alt="Система отношений, профилей и правил PAGER"
-              width="1672"
-              height="941"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          <div className="potential__copy">
-            <SectionLabel number="12" light>
-              Больше, чем интерфейс
-            </SectionLabel>
-            <h2>
-              Отдельную функцию можно скопировать. Накопленную модель отношений
-              — значительно сложнее.
-            </h2>
-            <p>
-              Со временем PAGER формирует персональную структуру контекстов,
-              разрешений, сроков и истории взаимодействия.
-            </p>
-          </div>
-        </section>
-
-        <section
-          className="product section"
-          id="product"
-          data-scene="13"
-          data-act="8"
-        >
+        <section className="product section" id="product" data-scene="06" data-act="6">
           <div className="section__head">
-            <SectionLabel number="13">Продукт сегодня</SectionLabel>
-            <h2>
-              Первая версия <BrandWord /> проверяет новую модель на реальном
-              общении
-            </h2>
+            <SectionLabel number="06">Продукт сегодня</SectionLabel>
+            <h2>Первая версия проверяет модель на реальном общении</h2>
             <p>
               Один аккаунт, постоянный ID, контекстные профили и персональные
-              правила уже объединены в целостный пользовательский сценарий.
+              правила объединены в один пользовательский сценарий.
             </p>
           </div>
           <div className="product-proof" aria-label="Статус продукта">
@@ -653,28 +446,17 @@ export default function Home() {
               <b>App Store / Google Play</b>
             </div>
           </div>
+
           <div className="screen-scroll-hint" aria-hidden="true">
             <span>01</span>
             <i />
             <span>03</span>
             <b>Листайте экраны →</b>
           </div>
-          <div
-            className="screen-grid"
-            role="region"
-            aria-label="Экраны продукта PAGER"
-            tabIndex={0}
-          >
+          <div className="screen-grid" role="region" aria-label="Экраны продукта PAGER" tabIndex={0}>
             <article>
               <span>01 / Вход</span>
-              <img
-                src="/ledger/screen-logo.jpg"
-                alt="Стартовый экран PAGER"
-                width="477"
-                height="1043"
-                loading="lazy"
-                decoding="async"
-              />
+              <img src="/ledger/screen-logo.jpg" alt="Стартовый экран PAGER" width="477" height="1043" loading="lazy" decoding="async" />
               <div className="screen-grid__proof">
                 <small>Продуктовый контур</small>
                 <b>Единая точка входа в приватное общение</b>
@@ -682,14 +464,7 @@ export default function Home() {
             </article>
             <article>
               <span>02 / Профиль</span>
-              <img
-                src="/ledger/screen-profile.jpg"
-                alt="Экран профиля PAGER"
-                width="477"
-                height="1043"
-                loading="lazy"
-                decoding="async"
-              />
+              <img src="/ledger/screen-profile.jpg" alt="Экран профиля PAGER" width="477" height="1043" loading="lazy" decoding="async" />
               <div className="screen-grid__proof">
                 <small>Контекстная личность</small>
                 <b>Профиль и PAGER ID находятся в одном сценарии</b>
@@ -697,28 +472,19 @@ export default function Home() {
             </article>
             <article>
               <span>03 / Доступ</span>
-              <img
-                src="/ledger/screen-access.jpg"
-                alt="Экран доступа PAGER"
-                width="477"
-                height="1043"
-                loading="lazy"
-                decoding="async"
-              />
+              <img src="/ledger/screen-access.jpg" alt="Экран доступа PAGER" width="477" height="1043" loading="lazy" decoding="async" />
               <div className="screen-grid__proof">
                 <small>Управляемое отношение</small>
                 <b>Способы связи открываются выборочно</b>
               </div>
             </article>
           </div>
+
           <div className="beta-theses" aria-label="Гипотезы private beta">
             <div className="beta-theses__intro">
               <span>PRIVATE BETA / Q3 2026</span>
               <h3>Что должна подтвердить первая версия</h3>
-              <p>
-                Это вопросы проверки, а не заявленные результаты. Метрики будут
-                зафиксированы после запуска private beta.
-              </p>
+              <p>Это вопросы проверки, а не заявленные результаты.</p>
             </div>
             <div className="beta-theses__list">
               {betaHypotheses.map((hypothesis) => (
@@ -733,133 +499,134 @@ export default function Home() {
         </section>
 
         <section
-          className="business section section--black"
-          id="business"
-          data-scene="14"
-          data-act="9"
+          className="growth section section--black"
+          id="growth"
+          data-scene="07"
+          data-act="7"
         >
-          <div className="business__headline">
-            <SectionLabel number="14" light>
-              Бизнес-модель
+          <div className="section__head section__head--light">
+            <SectionLabel number="07" light>
+              Гипотеза роста
             </SectionLabel>
-            <h2>
-              <BrandWord />
-              <br />
-              монетизирует
-              <br />
-              расширенное управление
-              <br />
-              цифровыми отношениями
-            </h2>
+            <h2>Каждое новое отношение может приводить в PAGER следующего участника</h2>
+            <p>
+              Это проверяемый сценарий распространения, а не заявленный сетевой
+              эффект. Получатель сначала видит контекст и условия связи.
+            </p>
           </div>
-          <div className="business__model">
-            <article>
-              <span>FREE</span>
-              <h3>Базовое общение</h3>
-              <p>Создает сеть и привычку использовать PAGER ID.</p>
-              <small>PAGER ID · запросы · базовые способы связи</small>
-            </article>
-            <div aria-hidden="true">→</div>
-            <article>
-              <span>PAID</span>
-              <h3>Расширенное управление</h3>
-              <p>
-                Контекстами, правилами и сроками создает платную ценность.
-              </p>
-              <small>Контексты · персональные правила · временный доступ</small>
-            </article>
-          </div>
-          <p className="business__note">
-            Базовое общение создает сеть. Расширенное управление цифровыми
-            отношениями создает платную ценность.
-          </p>
-          <div className="investor-status" aria-label="Подтвержденный статус проекта">
-            <article>
-              <span>СТАДИЯ</span>
-              <b>Работающий пользовательский сценарий</b>
-            </article>
-            <article>
-              <span>PRIVATE BETA</span>
-              <b>Q3 2026</b>
-            </article>
-            <article>
-              <span>APP STORE / GOOGLE PLAY</span>
-              <b>Q1 2027</b>
-            </article>
-            <article>
-              <span>ИНВЕСТИЦИОННЫЕ МАТЕРИАЛЫ</span>
-              <a href={deckHref}>Pitch deck + product demo <Arrow /></a>
-            </article>
-          </div>
-        </section>
-
-        <section
-          className="roadmap section"
-          id="roadmap"
-          data-scene="15"
-          data-act="10"
-        >
-          <div className="section__head">
-            <SectionLabel number="15">Путь развития</SectionLabel>
-            <h2>От продукта для общения — к персональному слою доступа</h2>
-            <p>Каждый этап расширяет одну и ту же модель отношений.</p>
-          </div>
-          <div className="roadmap-status" aria-label="Подтвержденные даты запуска">
-            <span>
-              <b>Q3 2026</b>
-              Private beta
-            </span>
-            <i aria-hidden="true">→</i>
-            <span>
-              <b>Q1 2027</b>
-              App Store / Google Play
-            </span>
-          </div>
-          <div className="roadmap-list">
-            {roadmap.map(([stage, title, copy], index) => (
-              <article key={stage}>
-                <span>0{index + 1}</span>
-                <small>{stage}</small>
-                <h3>{title}</h3>
-                <p>{copy}</p>
+          <div className="growth-loop">
+            {growthSteps.map((step) => (
+              <article key={step.number}>
+                <span>{step.number}</span>
+                <h3>{step.title}</h3>
+                <p>{step.copy}</p>
               </article>
             ))}
           </div>
+          <div className="growth-measures">
+            <div>
+              <span>PRIVATE BETA / ЧТО ИЗМЕРЯЕМ</span>
+              <h3>Виральность начинается не с установки, а с принятого отношения</h3>
+            </div>
+            <ol>
+              {growthMetrics.map((metric, index) => (
+                <li key={metric}>
+                  <span>0{index + 1}</span>
+                  <b>{metric}</b>
+                </li>
+              ))}
+            </ol>
+          </div>
         </section>
 
-        <section className="final" id="next-step" data-scene="16">
+        <section className="business section" id="business" data-scene="08" data-act="8">
+          <div className="section__head">
+            <SectionLabel number="08">Бизнес и рынок</SectionLabel>
+            <h2>Базовая связь создаёт сеть. Управление отношениями создаёт платную ценность.</h2>
+            <p>
+              Текущая модель отделена от будущих направлений. Размер рынка будет
+              рассчитан снизу вверх после проверки поведения private beta.
+            </p>
+          </div>
+
+          <div className="business-now-next">
+            <article>
+              <span>ТЕКУЩАЯ МОДЕЛЬ</span>
+              <h3>Free → Premium control</h3>
+              <p>Базовый PAGER ID и запросы формируют сеть.</p>
+              <p>Контексты, расширенные правила и автоматизация сроков формируют подписку.</p>
+            </article>
+            <article>
+              <span>БУДУЩАЯ ОПЦИОНАЛЬНОСТЬ</span>
+              <h3>Business access layer</h3>
+              <p>Безопасный канал для связи бизнеса с клиентом без доступа к личному номеру.</p>
+              <small>Направление развития, не текущий продукт и не подтверждённая выручка.</small>
+            </article>
+          </div>
+
+          <div className="market-model" aria-label="Bottom-up модель рынка">
+            <div className="market-model__intro">
+              <span>BOTTOM-UP / БЕЗ АБСТРАКТНОГО TAM</span>
+              <h3>Рынок считается через поведение продукта</h3>
+              <p>Числа будут зафиксированы после private beta.</p>
+            </div>
+            <div className="market-formula" aria-label="Формула оценки рынка">
+              <span>Целевые пользователи</span>
+              <i>×</i>
+              <span>Активация отношений</span>
+              <i>×</i>
+              <span>Платящая доля</span>
+              <i>×</i>
+              <span>ARPU</span>
+            </div>
+            <div className="market-assumptions">
+              <article>
+                <span>СТАРТОВЫЙ СЕГМЕНТ / ГИПОТЕЗА</span>
+                <b>Люди с несколькими контекстами общения и высокой ценой нежелательного доступа.</b>
+              </article>
+              <article>
+                <span>ПЛАТНАЯ ЦЕННОСТЬ / ГИПОТЕЗА</span>
+                <b>Автоматизация профилей, правил и временного доступа.</b>
+              </article>
+            </div>
+          </div>
+
+          <div className="business-roadmap" id="roadmap">
+            <div>
+              <span>ПУТЬ РАЗВИТИЯ</span>
+              <h3>От продукта для общения — к персональному слою доступа</h3>
+            </div>
+            <div className="roadmap-list">
+              {roadmap.map(([stage, title, copy], index) => (
+                <article key={stage}>
+                  <span>0{index + 1}</span>
+                  <small>{stage}</small>
+                  <h4>{title}</h4>
+                  <p>{copy}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="final" id="next-step" data-scene="09" data-act="9">
           <div className="final__system" aria-hidden="true">
             <div className="final__core"><span>PAGER</span><b>КОНТРОЛЬ</b></div>
-            <div className="final__node final__node--one">
-              <span>ЛИЧНОЕ</span><b>Сообщения · Звонки</b>
-            </div>
-            <div className="final__node final__node--two">
-              <span>РАБОТА</span><b>Текст · Файлы</b>
-            </div>
-            <div className="final__node final__node--three">
-              <span>ВРЕМЕННОЕ</span><b>24:00:00</b>
-            </div>
+            <div className="final__node final__node--one"><span>ЛИЧНОЕ</span><b>Сообщения · Звонки</b></div>
+            <div className="final__node final__node--two"><span>РАБОТА</span><b>Текст · Файлы</b></div>
+            <div className="final__node final__node--three"><span>ВРЕМЕННОЕ</span><b>24:00:00</b></div>
             <i className="final__line final__line--one" />
             <i className="final__line final__line--two" />
             <i className="final__line final__line--three" />
           </div>
           <div className="final__content">
-            <SectionLabel number="16" light>
+            <SectionLabel number="09" light>
               Следующий шаг
             </SectionLabel>
-            <h2>
-              <BrandWord /> создает новую модель цифрового общения
-            </h2>
-            <p>
-              Дать людям возможность самостоятельно определять правила
-              доступности, видимости и коммуникации.
-            </p>
-            <strong>
-              Контакт больше не означает автоматический доступ.
-            </strong>
-            <span className="final__status">
-              Private beta · Q3 2026 · product demo по запросу
-            </span>
+            <h2><BrandWord /> создаёт новую модель цифрового общения</h2>
+            <p>Дать людям возможность самостоятельно определять правила доступности, видимости и коммуникации.</p>
+            <strong>Контакт больше не означает автоматический доступ.</strong>
+            <span className="final__status">Private beta · Q3 2026 · product demo по запросу</span>
             <a className="button button--white" href={deckHref}>
               Запросить deck и product demo <Arrow />
             </a>
