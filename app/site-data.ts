@@ -1,1 +1,0 @@
-export const deckHref = `mailto:martynov.usa@gmail.com?subject=${encodeURIComponent("PAGER — запрос презентации и дополнительных материалов")}&body=${encodeURIComponent("Имя:\nФонд или компания:\nРабочий email:\nЧто интересно: pitch deck / product demo / data room / partnership\n")}`;

@@ -1,79 +1,195 @@
-/* eslint-disable @next/next/no-img-element */
+import { ProductDemo } from "./components/ProductDemo";
 
-import { ContextDemo } from "./components/ContextDemo";
-import { deckHref } from "./site-data";
+const contactHref = "mailto:martynov.usa@gmail.com?subject=PAGER%20%E2%80%94%20%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%20%D0%BF%D1%80%D0%B5%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D0%B8";
 
-const generations = [
-  ["01", "Передать сообщение", "SMS и почта сделали связь возможной."],
+const stages = [
+  ["01", "Передать сообщение", "Почта и SMS сделали связь возможной."],
   ["02", "Общаться мгновенно", "Мессенджеры убрали расстояние и ожидание."],
-  ["03", "Выбирать формат общения", "PAGER добавляет профиль, разрешения и срок доступа."],
-] as const;
+  ["03", "Выбирать, как именно общаться", "PAGER добавляет контекст, согласие и понятные правила."],
+];
 
-const productStages = [
-  ["Уже собрано", "01", ["Регистрация", "PAGER ID", "Поиск по ID", "1:1-диалоги", "Flutter-клиент", "Supabase backend"]],
-  ["Проверяем в private beta", "02", ["Контекстные профили", "Управление способами общения", "Гостевой профиль", "Временный доступ", "Понятность правил"]],
-  ["Следующий этап", "03", ["Аудио- и видеозвонки", "Расширенные профили", "Дополнительные настройки приватности", "Бизнес-сценарии", "API"]],
-] as const;
+const productToday = [
+  ["Уже собрано", ["Регистрация", "PAGER ID", "Поиск по ID", "1:1-диалоги", "Flutter-клиент", "Supabase backend"]],
+  ["Проверяем в private beta", ["Контекстные профили", "Управление способами общения", "Гостевой профиль", "Временный доступ", "Понятность правил"]],
+  ["Следующий этап", ["Аудио- и видеозвонки", "Расширенные профили", "Дополнительные настройки приватности", "Бизнес-сценарии", "API"]],
+];
 
 const offers = [
   ["Premium PAGER ID", "Короткий, запоминающийся идентификатор для личного или профессионального использования."],
   ["Расширенные профили", "Больше контекстов, вариантов представления и настроек для разных типов общения."],
   ["Возможности приложения", "Дополнительные способы коммуникации, автоматизация правил и более детальный контроль приватности."],
-  ["B2B / API", "Безопасная связь бизнеса с клиентами без раскрытия личных номеров сотрудников."],
-] as const;
-
-function Mark({ number, children, dark = false }: { number: string; children: React.ReactNode; dark?: boolean }) {
-  return <div className={`mark ${dark ? "mark--dark" : ""}`}><i>{number}</i><span>{children}</span></div>;
-}
+  ["B2B / API", "Инструменты для бизнеса, которому нужна безопасная связь с клиентами без раскрытия личных номеров сотрудников."],
+];
 
 export default function Home() {
   return (
     <>
-      <a className="skip" href="#main">Перейти к содержанию</a>
-      <header className="nav">
-        <a className="nav__brand" href="#top" aria-label="PAGER — к началу">PAGER</a>
-        <nav aria-label="Навигация"><a href="#idea">Идея</a><a href="#demo">Демо</a><a href="#today">Продукт</a></nav>
-        <a className="nav__contact" href={deckHref}>Запросить материалы <span>↗</span></a>
+      <a className="skip-link" href="#main">Перейти к содержанию</a>
+      <header className="topbar">
+        <a className="wordmark" href="#top" aria-label="PAGER — к началу">PAGER</a>
+        <nav aria-label="Навигация по странице">
+          <a href="#difference">Продукт</a>
+          <a href="#demo">Демо</a>
+          <a href="#today">Статус</a>
+        </nav>
+        <a className="topbar__cta" href={contactHref}>Запросить материалы <span aria-hidden="true">↗</span></a>
       </header>
 
       <main id="main">
-        <section className="new-hero" id="top">
-          <div className="new-hero__copy">
-            <p className="new-hero__eyebrow">Новая модель приватного общения</p>
-            <h1>Цифровое общение стирает границы приватности.<strong>PAGER возвращает вам контроль.</strong></h1>
-            <p className="new-hero__thesis">Я остаюсь собой, но открываюсь по-разному.</p>
-            <p className="new-hero__explain">PAGER — мессенджер, в котором для каждого контекста можно выбрать свой профиль и свои способы общения.</p>
-            <div className="new-hero__actions"><a className="primary" href={deckHref}>Запросить презентацию <span>↗</span></a><a className="secondary" href="#how">Посмотреть, как это работает <span>↓</span></a></div>
-            <div className="new-hero__dates"><span>Private beta <b>Q3 2026</b></span><span>App Store / Google Play <b>Q1 2027</b></span></div>
+        <section className="hero" id="top">
+          <div className="hero__copy">
+            <p className="kicker">Новая модель приватного общения</p>
+            <h1>Цифровое общение стирает границы приватности <em>PAGER возвращает вам контроль.</em></h1>
+            <p className="hero__thesis">Я остаюсь собой, но открываюсь по-разному.</p>
+            <p className="hero__explain">PAGER — мессенджер, в котором для каждого контекста можно выбрать свой профиль и свои способы общения.</p>
           </div>
-          <div className="new-hero__image"><img src="/ledger/hero-light.jpg" alt="PAGER связывает личное, рабочее и гостевое общение через управляемые каналы" width="2048" height="1152" fetchPriority="high" /><div className="new-hero__signals" aria-hidden="true"><span>Личное</span><span>Работа</span><span>Гостевое / 24 ч</span></div></div>
+
+          <div className="hero__visual" aria-label="Интерфейс PAGER: профиль общения, правила доступа и чат">
+            <picture>
+              <source media="(max-width: 700px)" srcSet="/pager-assets/hero-mobile.png" />
+              <img src="/pager-assets/hero-desktop.png" alt="Интерфейс PAGER с профилями общения, правилами доступа и чатом" width="1672" height="941" fetchPriority="high" />
+            </picture>
+            <div className="hero__steps" aria-label="Основная механика PAGER">
+              <span><b>01</b> PAGER ID</span>
+              <span><b>02</b> Запрос</span>
+              <span><b>03</b> Доступ</span>
+            </div>
+          </div>
+
+          <div className="hero__bottom">
+            <div className="hero__actions">
+              <a className="button button--dark" href={contactHref}>Запросить презентацию <span aria-hidden="true">↗</span></a>
+              <a className="text-link" href="#how">Посмотреть, как это работает <span aria-hidden="true">↓</span></a>
+            </div>
+            <div className="launches" aria-label="Сроки запуска">
+              <span>Private beta <b>Q3 2026</b></span>
+              <span>App Store / Google Play <b>Q1 2027</b></span>
+            </div>
+          </div>
         </section>
 
-        <section className="reason" id="why">
-          <div className="reason__head"><Mark number="01">Почему сейчас</Mark><h2>Мы научились быстро связываться.<br />Но не научились выбирать границы.</h2><p>Мессенджеры сделали общение мгновенным. Вместе с этим доступ к человеку часто стал автоматическим: сообщение, звонок, добавление в группу и видимость активности появляются раньше, чем мы успеваем выбрать формат общения.</p></div>
-          <div className="reason__generations">{generations.map(([number, title, copy]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{copy}</p></article>)}</div>
+        <section className="problem section" id="difference">
+          <div className="section-label"><span>01</span> Почему сейчас</div>
+          <div className="problem__lead">
+            <h2>Мы научились быстро связываться.<br />Но не научились выбирать границы.</h2>
+            <p>Мессенджеры сделали общение мгновенным. Вместе с этим доступ к человеку часто стал автоматическим: сообщение, звонок, добавление в группу и видимость активности появляются раньше, чем мы успеваем выбрать формат общения.</p>
+          </div>
+          <div className="generation-grid">
+            {stages.map(([number, title, copy], index) => (
+              <article className={`generation generation--${index + 1}`} key={number}>
+                <span className="generation__number">{number}</span>
+                <div className="generation__visual" aria-hidden="true">
+                  {index === 0 && <><i>SMS</i><i>→</i></>}
+                  {index === 1 && <><i>chat</i><i>•••</i></>}
+                  {index === 2 && <><i>@id</i><i>✓</i><i>24h</i></>}
+                </div>
+                <h3>{title}</h3>
+                <p>{copy}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
-        <section className="identity" id="idea">
-          <div className="identity__manifest"><Mark number="02" dark>Что такое PAGER</Mark><h2>Один человек.<br /><em>Несколько способов</em><br />быть на связи.</h2><p>PAGER — мессенджер, где профиль и способы общения зависят от контекста.</p></div>
-          <div className="identity__proof"><p>Это не разные аккаунты. Не фальшивые личности.</p><strong>Один человек выбирает, что увидит конкретный контакт.</strong><div className="identity__frames"><article><img src="/ledger/profile-1.png" alt="" width="543" height="724" /><span>Личное</span></article><article><img src="/ledger/profile-2.png" alt="" width="543" height="724" /><span>Работа</span></article><article><img src="/ledger/profile-3.png" alt="" width="543" height="724" /><span>Гостевое</span></article></div></div>
+        <section className="identity">
+          <div className="identity__statement">
+            <div className="section-label section-label--light"><span>02</span> Что такое PAGER</div>
+            <h2>Один человек.<br /><em>Несколько способов</em><br />быть на связи.</h2>
+            <p>PAGER — мессенджер, где профиль и способы общения зависят от контекста.</p>
+          </div>
+          <div className="identity__visual">
+            <picture>
+              <source media="(max-width: 700px)" srcSet="/pager-assets/contexts-mobile.png" />
+              <img src="/pager-assets/contexts-desktop.png" alt="Примеры личного, рабочего и гостевого контекста в PAGER" width="1672" height="941" loading="lazy" />
+            </picture>
+            <div className="identity__note">Это не разные аккаунты и не фальшивые личности.<br /><strong>Меняется только то, что видит конкретный контакт.</strong></div>
+          </div>
         </section>
 
-        <section className="how" id="how">
-          <div className="how__intro"><Mark number="03">Как это работает</Mark><h2>Не новый аккаунт.<br />Новый способ начать общение.</h2></div>
-          <ol className="how__sequence"><li><span>01</span><div><h3>Найти</h3><p>Найдите человека по PAGER ID — без раскрытия номера телефона.</p></div></li><li><span>02</span><div><h3>Выбрать профиль</h3><p>Решите, какое представление увидит этот контакт: личное, рабочее или гостевое.</p></div></li><li><span>03</span><div><h3>Настроить общение</h3><p>Разрешите только те способы связи, которые подходят этому контексту.</p></div></li></ol>
-          <aside className="how__temporary"><span>ГОСТЕВОЙ ДОСТУП</span><b>24:00:00</b><p>По умолчанию доступ действует 24 часа. Затем его можно продлить или сделать постоянным.</p></aside>
+        <section className="how section" id="how">
+          <div className="how__header">
+            <div className="section-label"><span>03</span> Как это работает</div>
+            <h2>Контакт начинается не с номера телефона.<br /><em>А с выбранного контекста.</em></h2>
+          </div>
+          <ol className="how__steps">
+            <li><span>01</span><div><h3>Найти</h3><p>Найдите человека по PAGER ID — без раскрытия номера телефона.</p></div></li>
+            <li><span>02</span><div><h3>Выбрать профиль</h3><p>Решите, какое представление увидит этот контакт: личное, рабочее или гостевое.</p></div></li>
+            <li><span>03</span><div><h3>Настроить общение</h3><p>Разрешите только те способы связи, которые подходят этому контексту.</p></div></li>
+          </ol>
+          <aside className="guest-card">
+            <span>Гостевой профиль</span>
+            <strong>24:00:00</strong>
+            <p>По умолчанию доступ действует 24 часа. Затем его можно продлить или сделать постоянным.</p>
+          </aside>
         </section>
 
-        <section className="demo" id="demo"><div className="demo__intro"><Mark number="04" dark>Контекст в действии</Mark><h2>Один PAGER ID.<br />Разные правила<br /><em>для разных людей.</em></h2></div><ContextDemo /></section>
+        <section className="demo-section" id="demo">
+          <div className="demo-section__intro">
+            <div className="section-label section-label--light"><span>04</span> Демо механики</div>
+            <h2>Один PAGER ID.<br />Разные правила<br /><em>для разных людей.</em></h2>
+            <p>Переключите контекст, чтобы увидеть, что именно получает собеседник.</p>
+          </div>
+          <ProductDemo />
+        </section>
 
-        <section className="today" id="today"><div className="today__head"><Mark number="05">Продукт сегодня</Mark><h2>Собираем продукт и проверяем, нужна ли людям новая форма границ.</h2></div><div className="today__columns">{productStages.map(([title, number, items]) => <article key={title}><span>{number}</span><h3>{title}</h3><ul>{items.map((item) => <li key={item}>{item}</li>)}</ul></article>)}</div><div className="today__hypotheses"><p>Три гипотезы private beta</p><ol><li>Люди готовы начинать общение без раскрытия номера телефона.</li><li>Контекстный профиль помогает проще объяснить границы общения.</li><li>Пользователь воспринимает правила и срок доступа как самостоятельную ценность.</li></ol></div></section>
+        <section className="today section" id="today">
+          <div className="today__intro">
+            <div className="section-label"><span>05</span> Продукт сегодня</div>
+            <h2>Не обещаем всё.<br /><em>Показываем, что строим.</em></h2>
+          </div>
+          <div className="today__grid">
+            {productToday.map(([title, items], index) => (
+              <article className={index === 1 ? "today__featured" : ""} key={title}>
+                <span>0{index + 1}</span><h3>{title}</h3>
+                <ul>{(items as string[]).map((item) => <li key={item}>{item}</li>)}</ul>
+              </article>
+            ))}
+          </div>
+          <div className="hypotheses">
+            <p>Гипотезы, которые проверяем</p>
+            <ol>
+              <li>Люди готовы начинать общение без раскрытия номера телефона.</li>
+              <li>Контекстный профиль помогает проще объяснить границы общения.</li>
+              <li>Пользователь воспринимает правила и срок доступа как самостоятельную ценность.</li>
+            </ol>
+          </div>
+        </section>
 
-        <section className="growth" id="growth"><div className="growth__head"><Mark number="06" dark>Рост</Mark><h2>Каждое новое общение может приводить в PAGER следующего участника.</h2><p>Это гипотеза, которую мы проверяем через реальные приглашения.</p></div><div className="growth__path"><article><span>01</span><p>Пользователь находит контакт и отправляет запрос.</p></article><article><span>02</span><p>Получатель видит, кто обращается и в каком контексте.</p></article><article><span>03</span><p>Для ответа он знакомится с PAGER и создаёт собственный профиль.</p></article><article><span>04</span><p>Следующее общение происходит с заранее понятными правилами.</p></article></div><small>Тестируемый cold-start сценарий, не заявление о доказанной вирусности.</small></section>
+        <section className="growth">
+          <div className="growth__intro">
+            <div className="section-label section-label--light"><span>06</span> Рост</div>
+            <h2>Каждое новое общение может привести в PAGER следующего участника.</h2>
+            <p>Это гипотеза, которую мы проверяем через реальные приглашения.</p>
+          </div>
+          <div className="growth__path">
+            {[
+              "Пользователь находит контакт и отправляет запрос.",
+              "Получатель видит, кто обращается и в каком контексте.",
+              "Чтобы ответить, он знакомится с PAGER и создаёт свой профиль.",
+              "Следующее общение уже начинается с понятных правил.",
+            ].map((item, index) => <article key={item}><span>0{index + 1}</span><p>{item}</p></article>)}
+          </div>
+        </section>
 
-        <section className="business" id="business"><div className="business__head"><Mark number="07">Потенциальная бизнес-модель</Mark><h2>Что может стать платным в PAGER</h2><p>Направления развития, а не обещания выручки, цен или размера рынка.</p></div><div className="business__offers">{offers.map(([title, copy], index) => <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></section>
+        <section className="business section">
+          <div className="business__intro">
+            <div className="section-label"><span>07</span> Потенциал модели</div>
+            <h2>Что может стать платным<br />в PAGER</h2>
+          </div>
+          <div className="offer-grid">
+            {offers.map(([title, copy], index) => <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{copy}</p><small>Направление развития</small></article>)}
+          </div>
+        </section>
 
-        <section className="close" id="contact"><div><Mark number="08" dark>Следующий шаг</Mark><h2>Хотите увидеть<br />PAGER изнутри?</h2><p>Мы показываем текущий продукт, план private beta и следующие этапы развития мессенджера.</p><a className="primary primary--light" href={deckHref}>Запросить презентацию и дополнительные материалы <span>↗</span></a></div><footer><span>PAGER © 2026</span><span>PRIVATE COMMUNICATION</span><a href="#top">Наверх ↑</a></footer></section>
+        <section className="closing" id="contact">
+          <div className="closing__grid" aria-hidden="true"><span /><span /><span /><span /></div>
+          <div className="closing__content">
+            <div className="section-label section-label--light"><span>08</span> Следующий шаг</div>
+            <h2>Хотите увидеть<br />PAGER изнутри?</h2>
+            <p>Мы показываем текущий продукт, план private beta и следующие этапы развития мессенджера.</p>
+            <a className="button button--light" href={contactHref}>Запросить презентацию и материалы <span aria-hidden="true">↗</span></a>
+          </div>
+          <footer><span>PAGER © 2026</span><span>Private communication</span><a href="#top">Наверх ↑</a></footer>
+        </section>
       </main>
     </>
   );
