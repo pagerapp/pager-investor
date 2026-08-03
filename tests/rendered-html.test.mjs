@@ -31,8 +31,12 @@ test("renders the product-first investor narrative", async () => {
   assert.match(text, /Правила видны до начала разговора/);
   assert.match(html, /src="\/ledger\/screen-access\.jpg"/);
   assert.match(text, /Проверяем, может ли одно приглашение привести/);
-  assert.match(text, /Сценарий[\s\S]*профиль[\s\S]*правила[\s\S]*срок/);
+  assert.match(text, /Сначала запрос[\s\S]*формат общения/);
+  assert.match(text, /Отправить запрос/);
+  assert.match(text, /Получатель решает/);
+  assert.match(text, /Только разрешённое/);
   assert.match(text, /Передать сообщение[\s\S]*Общаться мгновенно[\s\S]*Выбирать, как именно общаться/);
+  assert.match(html, /src="\/ledger\/screen-profile\.jpg"/);
   assert.doesNotMatch(html, /act-progress|relationship-console|access-lab|hero__word|new-hero|context-demo/);
 });
 
