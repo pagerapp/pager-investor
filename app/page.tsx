@@ -31,6 +31,7 @@ export default function Home() {
           <a href="#difference">Продукт</a>
           <a href="#demo">Демо</a>
           <a href="#today">Статус</a>
+          <a href="#business">Бизнес</a>
         </nav>
         <a className="topbar__cta" href={contactHref}>Запросить материалы <span aria-hidden="true">↗</span></a>
       </header>
@@ -41,18 +42,15 @@ export default function Home() {
             <p className="kicker">Новая модель приватного общения</p>
             <h1>Цифровое общение стирает границы приватности <em>PAGER возвращает вам контроль.</em></h1>
             <p className="hero__thesis">Я остаюсь собой, но открываюсь по-разному.</p>
-            <p className="hero__explain">PAGER — мессенджер, в котором для каждого контекста можно выбрать свой профиль и свои способы общения.</p>
           </div>
 
-          <div className="hero__visual" aria-label="Интерфейс PAGER: профиль общения, правила доступа и чат">
+            <div className="hero__visual" aria-label="Интерфейс PAGER: профиль общения, правила доступа и чат">
             <picture>
               <source media="(max-width: 700px)" srcSet="/pager-assets/hero-mobile.png" />
               <img src="/pager-assets/hero-desktop.png" alt="Интерфейс PAGER с профилями общения, правилами доступа и чатом" width="1672" height="941" fetchPriority="high" />
             </picture>
             <div className="hero__steps" aria-label="Основная механика PAGER">
-              <span><b>01</b> PAGER ID</span>
-              <span><b>02</b> Запрос</span>
-              <span><b>03</b> Доступ</span>
+              <span><b>Сценарий</b> профиль · правила · срок</span>
             </div>
           </div>
 
@@ -144,6 +142,17 @@ export default function Home() {
               </article>
             ))}
           </div>
+          <div className="today__proof">
+            <div className="today__proof-copy">
+              <div className="section-label"><span>↗</span> Product proof</div>
+              <h3>Правила видны до начала разговора.</h3>
+              <p>Профиль, способы связи и срок доступа собраны в одном понятном экране. Это и есть продуктовая гипотеза PAGER — сначала выбрать формат общения, затем начать диалог.</p>
+            </div>
+            <figure className="today__proof-media">
+              <img src="/ledger/screen-access.jpg" alt="Экран PAGER с выбором профиля, разрешений и срока доступа" width="477" height="1043" loading="lazy" />
+              <figcaption>Пример экрана профиля общения и разрешений</figcaption>
+            </figure>
+          </div>
           <div className="hypotheses">
             <p>Гипотезы, которые проверяем</p>
             <ol>
@@ -157,8 +166,8 @@ export default function Home() {
         <section className="growth">
           <div className="growth__intro">
             <div className="section-label section-label--light"><span>06</span> Рост</div>
-            <h2>Каждое новое общение может привести в PAGER следующего участника.</h2>
-            <p>Это гипотеза, которую мы проверяем через реальные приглашения.</p>
+            <h2>Проверяем, может ли одно приглашение привести в PAGER следующего участника.</h2>
+            <p>Не называем это вирусностью заранее — смотрим, как сценарий работает на реальных запросах.</p>
           </div>
           <div className="growth__path">
             {[

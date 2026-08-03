@@ -33,12 +33,12 @@ export function ProductDemo() {
     <section className={`product-demo product-demo--${context.accent}`} aria-label="Интерактивная демонстрация контекстов PAGER">
       <div className="product-demo__tabs" role="tablist" aria-label="Контекст общения">
         {(Object.keys(contexts) as ContextKey[]).map((key, index) => (
-          <button key={key} type="button" role="tab" aria-selected={active === key} onClick={() => setActive(key)}>
+          <button key={key} type="button" role="tab" id={`profile-tab-${key}`} aria-controls="profile-panel" aria-selected={active === key} tabIndex={active === key ? 0 : -1} onClick={() => setActive(key)}>
             <span>0{index + 1}</span>{contexts[key].label}
           </button>
         ))}
       </div>
-      <div className="product-demo__body" role="tabpanel">
+      <div className="product-demo__body" id="profile-panel" role="tabpanel" aria-labelledby={`profile-tab-${active}`}>
         <div className="product-demo__profile">
           <span className="product-demo__caption">Что видит контакт</span>
           <div className="profile-dot" aria-hidden="true">{context.name.slice(0, 1)}</div>
@@ -47,7 +47,7 @@ export function ProductDemo() {
           <dl><div><dt>Контекст</dt><dd>{context.label}</dd></div><div><dt>Срок доступа</dt><dd>{context.term}</dd></div></dl>
         </div>
         <div className="product-demo__rules">
-          <div className="product-demo__rules-head"><div><span>Правила общения</span><h3>Вы выбрали доступ</h3></div><p>Состояния ниже — демонстрация механики, а не обещание готовности всех функций.</p></div>
+          <div className="product-demo__rules-head"><div><span>Правила общения</span><h3>Вот что увидит контакт</h3></div><p>Состояния ниже показывают логику продукта. Готовность функций отмечена отдельно.</p></div>
           <div className="rule-list">
             {context.rules.map(([label, state]) => <div key={label}><span>{label}</span><b className={stateClass(state)}>{state}</b></div>)}
           </div>

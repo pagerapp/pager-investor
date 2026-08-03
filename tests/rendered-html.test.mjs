@@ -28,7 +28,10 @@ test("renders the product-first investor narrative", async () => {
   assert.match(text, /Хотите увидеть[\s\S]*PAGER изнутри/);
   assert.match(text, /App Store \/ Google Play[\s\S]*Q1 2027/);
   assert.match(text, /Последняя активность/);
-  assert.match(text, /PAGER ID[\s\S]*Запрос[\s\S]*Доступ/);
+  assert.match(text, /Правила видны до начала разговора/);
+  assert.match(html, /src="\/ledger\/screen-access\.jpg"/);
+  assert.match(text, /Проверяем, может ли одно приглашение привести/);
+  assert.match(text, /Сценарий[\s\S]*профиль[\s\S]*правила[\s\S]*срок/);
   assert.match(text, /Передать сообщение[\s\S]*Общаться мгновенно[\s\S]*Выбирать, как именно общаться/);
   assert.doesNotMatch(html, /act-progress|relationship-console|access-lab|hero__word|new-hero|context-demo/);
 });
@@ -43,5 +46,7 @@ test("keeps accessible navigation and context switching controls", async () => {
   assert.match(html, /href="#today"/);
   assert.match(html, /role="tablist"/);
   assert.match(html, /aria-selected="true"/);
+  assert.match(html, /aria-controls="profile-panel"/);
+  assert.match(html, /role="tabpanel"/);
   assert.match(html, /mailto:martynov\.usa@gmail\.com/);
 });
