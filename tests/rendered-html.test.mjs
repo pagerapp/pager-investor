@@ -19,6 +19,8 @@ test("renders the product-first investor narrative", async () => {
   assert.match(text, /Цифровое общение стирает границы приватности/);
   assert.match(text, /PAGER возвращает вам контроль/);
   assert.match(text, /Я остаюсь собой, но открываюсь по-разному/);
+  assert.match(text, /PAGER — мессенджер, в котором для каждого контекста можно выбрать свой профиль и свои способы общения/);
+  assert.match(text, /PAGER ID[\s\S]*Профиль[\s\S]*Правила/);
   assert.match(text, /Один аккаунт[\s\S]*До четырёх[\s\S]*профилей/);
   assert.match(text, /Найдите контакт по PAGER ID/);
   assert.match(text, /Гостевой профиль/);
@@ -38,6 +40,7 @@ test("renders the product-first investor narrative", async () => {
   assert.match(text, /EMAIL[\s\S]*SMS[\s\S]*МЕССЕНДЖЕРЫ[\s\S]*PAGER/);
   assert.match(text, /Передать сообщение[\s\S]*Связаться напрямую[\s\S]*Общаться мгновенно[\s\S]*Выбирать границы/);
   assert.match(html, /src="\/ledger\/screen-profile\.jpg"/);
+  assert.doesNotMatch(html, /hero-ticker__track|tickerMarquee/);
   assert.match(html, /id="business"/);
   assert.doesNotMatch(html, /act-progress|relationship-console|access-lab|hero__word|new-hero|context-demo/);
 });

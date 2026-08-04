@@ -61,6 +61,7 @@ export default function Home() {
               <h1>Цифровое общение стирает границы приватности <em>PAGER возвращает вам контроль.</em></h1>
               <div className="hero__thesis-block">
                 <p className="hero__thesis">Я остаюсь собой, но открываюсь по-разному.</p>
+                <p className="hero__explain">PAGER — мессенджер, в котором для каждого контекста можно выбрать свой профиль и свои способы общения.</p>
               </div>
             </div>
 
@@ -70,15 +71,19 @@ export default function Home() {
                 <img className="hero__screen-layer" src="/ledger/hero-screen-request.jpg" alt="Экран PAGER с профилем общения, правилами и сроком доступа" width="477" height="1043" fetchPriority="high" />
                 <img className="hero__hand-layer" src="/ledger/hero-phone-hand.png" alt="Рука держит телефон с экраном PAGER" width="1122" height="1303" fetchPriority="high" />
               </figure>
+              <div className="hero__mechanics" aria-label="Основная механика PAGER">
+                <span><b>01</b>PAGER ID</span>
+                <span><b>02</b>Профиль</span>
+                <span><b>03</b>Правила</span>
+              </div>
             </div>
 
             <aside className="hero__aside">
-              <span className="hero__aside-label">Что дальше</span>
+              <span className="hero__aside-label">План запуска</span>
               <div className="hero__timeline">
                 <div className="hero__milestone"><span>Private beta</span><strong>Q3 2026</strong></div>
                 <div className="hero__milestone"><span>App Store / Google Play</span><strong>Q1 2027</strong></div>
               </div>
-              <span className="hero__aside-label hero__aside-label--bottom">Мессенджер с выбранными границами общения.</span>
             </aside>
 
             <div className="hero__bottom">
@@ -92,12 +97,7 @@ export default function Home() {
         </section>
 
         <div className="hero-ticker" aria-label="Ключевая идея PAGER">
-          <div className="hero-ticker__viewport">
-            <div className="hero-ticker__track">
-              <span>Выбирайте, что открыть</span><b>·</b><span>решайте, как общаться</span><b>·</b><span>закрывайте доступ, когда хотите</span><b>·</b><span>PAGER</span>
-              <span aria-hidden="true">Выбирайте, что открыть</span><b aria-hidden="true">·</b><span aria-hidden="true">решайте, как общаться</span><b aria-hidden="true">·</b><span aria-hidden="true">закрывайте доступ, когда хотите</span><b aria-hidden="true">·</b><span aria-hidden="true">PAGER</span>
-            </div>
-          </div>
+          <p><span>Выбирайте, что открыть</span><b>·</b><span>решайте, как общаться</span><b>·</b><span>закрывайте доступ, когда хотите</span><b>·</b><span>PAGER</span></p>
         </div>
 
         <section className="problem section" id="difference">
